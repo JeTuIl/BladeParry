@@ -9,7 +9,10 @@ public class CharacterAttaqueSequence : MonoBehaviour
     [SerializeField] private float movementDistance = 50f;
     [SerializeField] private float testWindUpDuration = 0.3f;
     [SerializeField] private float testWindDownDuration = 0.2f;
+    [SerializeField] private Vector3 fxSpawnPosition;
     [SerializeField] private UnityEvent<Direction> onAttaqueEnd;
+    [SerializeField] public UnityEvent<Direction> onParryWindowOpen;
+    [SerializeField] public UnityEvent<Direction> onParryWindowClose;
 
     private Coroutine _attaqueCoroutine;
 
@@ -76,8 +79,11 @@ public class CharacterAttaqueSequence : MonoBehaviour
         }
         rectTransform.anchoredPosition = windUpEndPosition;
 
-        // Step 2: Wind-down
+        // Step 2: Wind-down (parry window)
         characterSpriteDirection.SetDirection(attaqueDirection);
+        if (FxManager.Instance != null)
+            FxManager.Instance.SpawnAtPosition(0, fxSpawnPosition, attaqueDirection);
+        onParryWindowOpen?.Invoke(attaqueDirection);
         elapsed = 0f;
         while (elapsed < windDownDuration)
         {
@@ -89,6 +95,7 @@ public class CharacterAttaqueSequence : MonoBehaviour
         rectTransform.anchoredPosition = startPosition;
 
         // Step 3: Attaque end
+        onParryWindowClose?.Invoke(attaqueDirection);
         characterSpriteDirection.SetDirection(Direction.Neutral);
         rectTransform.anchoredPosition = startPosition;
         onAttaqueEnd?.Invoke(attaqueDirection);

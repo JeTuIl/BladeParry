@@ -28,6 +28,8 @@ public class CharacterSpriteDirection : MonoBehaviour
     [SerializeField] private float scaleLeft = 1f;
     [SerializeField] private float scaleRight = 1f;
     [SerializeField] private float scaleDown = 1f;
+    [SerializeField] private float scaleHurt = 1f;
+    [SerializeField] private float scaleDownState = 1f;
 
     [SerializeField] private Direction _currentDirection;
     [SerializeField] private Image _image;
@@ -75,12 +77,12 @@ public class CharacterSpriteDirection : MonoBehaviour
         if (isDown)
         {
             sprite = spriteDownState;
-            scale = scaleNeutral;
+            scale = scaleDownState;
         }
         else if (isHurt)
         {
             sprite = spriteHurt;
-            scale = scaleNeutral;
+            scale = scaleHurt;
         }
         else
         {
