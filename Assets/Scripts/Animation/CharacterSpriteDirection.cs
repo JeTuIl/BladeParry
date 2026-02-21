@@ -1,43 +1,99 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Cardinal and neutral directions used for attacks, parries, and sprite facing.
+/// </summary>
 public enum Direction
 {
+    /// <summary>No direction; idle or default state.</summary>
     Neutral,
+
+    /// <summary>Upward direction.</summary>
     Up,
+
+    /// <summary>Left direction.</summary>
     Left,
+
+    /// <summary>Right direction.</summary>
     Right,
+
+    /// <summary>Downward direction.</summary>
     Down
 }
 
+/// <summary>
+/// Updates an Image's sprite and scale based on a direction, hurt state, or down state.
+/// Used for character (e.g. enemy) facing and state visualization.
+/// </summary>
 public class CharacterSpriteDirection : MonoBehaviour
 {
+    /// <summary>Sprite shown when direction is neutral.</summary>
     [SerializeField] private Sprite spriteNeutral;
+
+    /// <summary>Sprite shown when facing up.</summary>
     [SerializeField] private Sprite spriteUp;
+
+    /// <summary>Sprite shown when facing left.</summary>
     [SerializeField] private Sprite spriteLeft;
+
+    /// <summary>Sprite shown when facing right.</summary>
     [SerializeField] private Sprite spriteRight;
+
+    /// <summary>Sprite shown when facing down.</summary>
     [SerializeField] private Sprite spriteDown;
+
+    /// <summary>Sprite shown when the character is hurt.</summary>
     [SerializeField] private Sprite spriteHurt;
+
+    /// <summary>Sprite shown when the character is down/defeated.</summary>
     [SerializeField] private Sprite spriteDownState;
 
+    /// <summary>When true, the hurt sprite is shown instead of the direction sprite.</summary>
     public bool isHurt;
+
+    /// <summary>When true, the down/defeated sprite is shown.</summary>
     public bool isDown;
 
+    /// <summary>Scale applied when direction is neutral.</summary>
     [SerializeField] private float scaleNeutral = 1f;
+
+    /// <summary>Scale applied when facing up.</summary>
     [SerializeField] private float scaleUp = 1f;
+
+    /// <summary>Scale applied when facing left.</summary>
     [SerializeField] private float scaleLeft = 1f;
+
+    /// <summary>Scale applied when facing right.</summary>
     [SerializeField] private float scaleRight = 1f;
+
+    /// <summary>Scale applied when facing down.</summary>
     [SerializeField] private float scaleDown = 1f;
+
+    /// <summary>Scale applied when hurt.</summary>
     [SerializeField] private float scaleHurt = 1f;
+
+    /// <summary>Scale applied when down/defeated.</summary>
     [SerializeField] private float scaleDownState = 1f;
 
+    /// <summary>Current facing direction used to select sprite and scale.</summary>
     [SerializeField] private Direction _currentDirection;
+
+    /// <summary>Image component that displays the sprite.</summary>
     [SerializeField] private Image _image;
 
+    /// <summary>Last direction applied to avoid redundant updates.</summary>
     private Direction _lastAppliedDirection;
+
+    /// <summary>Last hurt state applied.</summary>
     private bool _lastAppliedHurt;
+
+    /// <summary>Last down state applied.</summary>
     private bool _lastAppliedDown;
 
+    /// <summary>
+    /// Initializes the displayed sprite and caches the current state.
+    /// </summary>
     private void Start()
     {
         ApplySprite();
@@ -46,6 +102,9 @@ public class CharacterSpriteDirection : MonoBehaviour
         _lastAppliedDown = isDown;
     }
 
+    /// <summary>
+    /// Reapplies sprite and scale when direction, hurt, or down state changes.
+    /// </summary>
     private void Update()
     {
         if (_currentDirection != _lastAppliedDirection || isHurt != _lastAppliedHurt || isDown != _lastAppliedDown)
@@ -57,6 +116,10 @@ public class CharacterSpriteDirection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the current facing direction and updates the displayed sprite immediately.
+    /// </summary>
+    /// <param name="direction">The direction to face.</param>
     public void SetDirection(Direction direction)
     {
         _currentDirection = direction;
@@ -64,8 +127,14 @@ public class CharacterSpriteDirection : MonoBehaviour
         ApplySprite();
     }
 
+    /// <summary>
+    /// Gets the current facing direction.
+    /// </summary>
     public Direction CurrentDirection => _currentDirection;
 
+    /// <summary>
+    /// Applies the appropriate sprite and scale to the image based on down, hurt, or direction state.
+    /// </summary>
     private void ApplySprite()
     {
         if (_image == null)

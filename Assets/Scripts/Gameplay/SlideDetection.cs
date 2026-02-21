@@ -5,15 +5,29 @@ using UnityEngine.InputSystem.Controls;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using TMPro;
 
+/// <summary>
+/// Detects swipe input from touch or mouse and invokes an event with the resolved cardinal direction (Up, Down, Left, Right).
+/// </summary>
 public class SlideDetection : MonoBehaviour
 {
+    /// <summary>Optional label to display the last detected direction (debug/UI).</summary>
     [SerializeField] private TMP_Text directionLabel;
+
+    /// <summary>Minimum distance in pixels for a gesture to count as a swipe.</summary>
     [SerializeField] private float minSwipeDistance = 20f;
+
+    /// <summary>Invoked when a valid swipe is detected; payload is the cardinal direction.</summary>
     [SerializeField] public UnityEvent<Direction> onSwipeDetected;
 
+    /// <summary>Screen position where the touch or mouse press started.</summary>
     private Vector2 _touchStartPosition;
+
+    /// <summary>True when a touch/mouse press has been recorded and we are waiting for release.</summary>
     private bool _touchTracked;
 
+    /// <summary>
+    /// Each frame, processes touch input if available, otherwise mouse input.
+    /// </summary>
     void Update()
     {
         if (Touchscreen.current != null)
@@ -22,6 +36,9 @@ public class SlideDetection : MonoBehaviour
             ProcessMouse();
     }
 
+    /// <summary>
+    /// Handles touch input: records position on Began, commits swipe on Ended if distance is sufficient.
+    /// </summary>
     private void ProcessTouch()
     {
         TouchControl primaryTouch = Touchscreen.current.primaryTouch;
@@ -44,6 +61,9 @@ public class SlideDetection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles mouse input: records position on left press, commits swipe on left release if distance is sufficient.
+    /// </summary>
     private void ProcessMouse()
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -58,6 +78,10 @@ public class SlideDetection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// If the distance from start to end meets the minimum, resolves direction and invokes onSwipeDetected.
+    /// </summary>
+    /// <param name="endPosition">Screen position where the touch/mouse was released.</param>
     private void TryCommitSwipe(Vector2 endPosition)
     {
         Vector2 delta = endPosition - _touchStartPosition;
@@ -72,6 +96,11 @@ public class SlideDetection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Maps a 2D delta to one of four cardinal directions based on angle (90° sectors).
+    /// </summary>
+    /// <param name="delta">Movement vector from start to end.</param>
+    /// <returns>The cardinal direction (Right, Up, Left, or Down).</returns>
     private static Direction GetDirectionFromDelta(Vector2 delta)
     {
         // Atan2(y, x): Right=0°, Up=90°, Left=±180°, Down=-90°
