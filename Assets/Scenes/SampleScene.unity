@@ -425,6 +425,117 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197640194}
   m_CullTransparentMesh: 1
+--- !u!1 &227769038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 227769040}
+  - component: {fileID: 227769039}
+  m_Layer: 0
+  m_Name: ScreenshackManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &227769039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227769038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2905ab33399374a8898270ddf88aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenshackManager
+  targetRectTransform: {fileID: 702530546}
+  shakeDistanceLow: 40
+  shakeDistanceMedium: 80
+  shakeDistanceHigh: 200
+  shakeDurationLow: 0.5
+  shakeDurationMedium: 1
+  shakeDurationHigh: 1.5
+--- !u!4 &227769040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227769038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.42157, y: 1.13958, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &231276307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231276309}
+  - component: {fileID: 231276308}
+  m_Layer: 0
+  m_Name: PlayerAnimationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &231276308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231276307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959bee5c839ae9445969fd23099bfefe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpriteManager
+  _image: {fileID: 1476378253}
+  Direction: 0
+  spriteNeutral: {fileID: 7896879507418422366, guid: bfb6794a8ac45df4cb06c40bdcde637a, type: 3}
+  spriteUp: {fileID: -1823528606274303932, guid: ddf3aeeb47d53714891f429e1f4efb17, type: 3}
+  spriteLeft: {fileID: -9064020888558258055, guid: 147ffc6e8e6d7d143aaa6272d814f772, type: 3}
+  spriteRight: {fileID: 1572294537600053802, guid: 36fb91e3524bbfb4c95da32edd8dcbb3, type: 3}
+  spriteDown: {fileID: 2762869300973893336, guid: 5fed9d4c06820a74fbe4cd801a28a403, type: 3}
+  spriteHurt: {fileID: -6410082007035369781, guid: cc9f436fc82479f4096331ccba77a9e7, type: 3}
+  spriteDead: {fileID: -4339928078722919852, guid: d91b057a452c9344ba145410b829a956, type: 3}
+  windUpDuration: 0.3
+  windDownDuration: 0.2
+  hurtDuration: 0.5
+  attackFxSpawnPosition: {x: -2, y: -0.5, z: 0}
+  isHurt: 0
+  isDead: 0
+  slideDetection: {fileID: 1013647271}
+--- !u!4 &231276309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231276307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7163, y: 2.94945, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &231341469
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +692,9 @@ MonoBehaviour:
   slideDetection: {fileID: 1013647271}
   playerLifebarManager: {fileID: 197640196}
   enemyLifebarManager: {fileID: 1885899324}
+  playerSpriteWinker: {fileID: 1476378255}
+  playerSpriteManager: {fileID: 231276308}
+  enemySpriteWinker: {fileID: 840222773}
   enemySpriteDirection: {fileID: 1516926047}
   parryFxPosition: {x: -0.03, y: -0.23, z: 0}
   missedParryFxPosition: {x: -1.91, y: -0.68, z: 0}
@@ -1121,6 +1235,7 @@ GameObject:
   - component: {fileID: 840222770}
   - component: {fileID: 840222772}
   - component: {fileID: 840222771}
+  - component: {fileID: 840222773}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -1185,6 +1300,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840222769}
   m_CullTransparentMesh: 1
+--- !u!114 &840222773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840222769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178aac47685c441498e7479069207984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteWinker
+  image: {fileID: 840222771}
+  onPhaseDuration: 0.1
+  offPhaseDuration: 0.1
+  totalDuration: 1
 --- !u!1 &883260689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,6 +1428,7 @@ MonoBehaviour:
   - {fileID: 3233594225377033193, guid: 63475334bad129142aac67dcbac2764a, type: 3}
   - {fileID: 4729234299835729233, guid: c49c0fb2a5a80ec40bf23feaa268efa7, type: 3}
   - {fileID: 7594147683835015852, guid: 629366d7bd7974e4fbbd01bd42697b58, type: 3}
+  - {fileID: 4601240073441695431, guid: ad30a81945a8c4e40b823992c22e21c1, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   scale: {x: 1, y: 1, z: 1}
 --- !u!4 &936453861
@@ -1555,6 +1687,7 @@ GameObject:
   - component: {fileID: 1476378252}
   - component: {fileID: 1476378254}
   - component: {fileID: 1476378253}
+  - component: {fileID: 1476378255}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -1619,6 +1752,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476378251}
   m_CullTransparentMesh: 1
+--- !u!114 &1476378255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476378251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178aac47685c441498e7479069207984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteWinker
+  image: {fileID: 1476378253}
+  onPhaseDuration: 0.1
+  offPhaseDuration: 0.1
+  totalDuration: 1
 --- !u!1 &1516926046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2257,6 +2406,8 @@ SceneRoots:
   - {fileID: 1161882012}
   - {fileID: 1013647272}
   - {fileID: 1516926048}
+  - {fileID: 231276309}
   - {fileID: 936453861}
   - {fileID: 1845716671}
+  - {fileID: 227769040}
   - {fileID: 271055211}

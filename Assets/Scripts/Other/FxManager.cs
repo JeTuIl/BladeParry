@@ -40,6 +40,24 @@ public class FxManager : MonoBehaviour
         return instance;
     }
 
+    public GameObject SpawnAtPosition(int index, Vector3 position, Quaternion rotation, Vector3 scale)
+    {
+        if (!IsValidIndex(index))
+            return null;
+
+        GameObject prefab = prefabs[index];
+        if (prefab == null)
+        {
+            Debug.LogWarning($"[FxManager] Prefab at index {index} is null.");
+            return null;
+        }
+
+        GameObject instance = Instantiate(prefab, position + positionOffset, rotation);
+        instance.transform.localScale = scale;
+        Destroy(instance, InstanceLifetime);
+        return instance;
+    }
+
     public GameObject SpawnAtTransform(int index, GameObject target, Direction direction = Direction.Left)
     {
         if (target == null)

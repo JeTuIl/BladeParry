@@ -17,6 +17,9 @@ public class GameplayLoopController : MonoBehaviour
     [SerializeField] private SlideDetection slideDetection;
     [SerializeField] private LifebarManager playerLifebarManager;
     [SerializeField] private LifebarManager enemyLifebarManager;
+    [SerializeField] private SpriteWinker playerSpriteWinker;
+    [SerializeField] private PlayerSpriteManager playerSpriteManager;
+    [SerializeField] private SpriteWinker enemySpriteWinker;
     [SerializeField] private CharacterSpriteDirection enemySpriteDirection;
     [SerializeField] private Vector3 parryFxPosition;
     [SerializeField] private Vector3 missedParryFxPosition;
@@ -142,8 +145,14 @@ public class GameplayLoopController : MonoBehaviour
         {
             _playerCurrentLife--;
             UpdateLifebars();
+            if (playerSpriteWinker != null)
+                playerSpriteWinker.TriggerWink();
+            if (playerSpriteManager != null)
+                playerSpriteManager.TriggerHurt();
             if (FxManager.Instance != null)
                 FxManager.Instance.SpawnAtPosition(2, missedParryFxPosition);
+            if (ScreenshackManager.Instance != null)
+                ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.High);
         }
 
         _parryWindowActive = false;
@@ -162,6 +171,8 @@ public class GameplayLoopController : MonoBehaviour
             _parryWindowActive = false;
             if (FxManager.Instance != null)
                 FxManager.Instance.SpawnAtPosition(1, parryFxPosition);
+            if (ScreenshackManager.Instance != null)
+                ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Low);
         }
     }
 
@@ -214,8 +225,12 @@ public class GameplayLoopController : MonoBehaviour
                 _enemyCurrentLife--;
                 UpdateLifebars();
                 UpdateMusicPitch();
+                if (enemySpriteWinker != null)
+                    enemySpriteWinker.TriggerWink();
                 if (FxManager.Instance != null)
                     FxManager.Instance.SpawnAtPosition(3, allParriedFxPosition);
+                if (ScreenshackManager.Instance != null)
+                    ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Medium);
                 if (enemySpriteDirection != null)
                     enemySpriteDirection.isHurt = true;
             }
@@ -232,7 +247,11 @@ public class GameplayLoopController : MonoBehaviour
             OnGameEnd(GameEndResult.PlayerWins);
         }
         else
+        {
+            if (playerSpriteManager != null)
+                playerSpriteManager.isDead = true;
             OnGameEnd(GameEndResult.EnemyWins);
+        }
 
         _mainLoopCoroutine = null;
     }

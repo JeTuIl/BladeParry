@@ -67,6 +67,8 @@ public class CharacterAttaqueSequence : MonoBehaviour
         Vector2 oppositeVector = GetDirectionVector(GetOppositeDirection(attaqueDirection));
         Vector2 windUpEndPosition = startPosition + oppositeVector * movementDistance;
 
+        onParryWindowOpen?.Invoke(attaqueDirection);
+
         // Step 1: Wind-up
         characterSpriteDirection.SetDirection(GetOppositeDirection(attaqueDirection));
         float elapsed = 0f;
@@ -83,7 +85,6 @@ public class CharacterAttaqueSequence : MonoBehaviour
         characterSpriteDirection.SetDirection(attaqueDirection);
         if (FxManager.Instance != null)
             FxManager.Instance.SpawnAtPosition(0, fxSpawnPosition, attaqueDirection);
-        onParryWindowOpen?.Invoke(attaqueDirection);
         elapsed = 0f;
         while (elapsed < windDownDuration)
         {
