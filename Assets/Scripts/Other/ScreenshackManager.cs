@@ -25,6 +25,7 @@ public class ScreenshackManager : MonoBehaviour
     [SerializeField] private float shakeDurationHigh = 0.35f;
 
     private Coroutine _activeShakeCoroutine;
+    private Vector2 _originalTargetPosition;
 
     void Awake()
     {
@@ -34,6 +35,8 @@ public class ScreenshackManager : MonoBehaviour
             return;
         }
         Instance = this;
+        if (targetRectTransform != null)
+            _originalTargetPosition = targetRectTransform.anchoredPosition;
     }
 
     public void TriggerScreenShake(ScreenShakeStrength strength)
@@ -48,7 +51,7 @@ public class ScreenshackManager : MonoBehaviour
             StopCoroutine(_activeShakeCoroutine);
 
         GetStrengthParams(strength, out float distance, out float duration);
-        Vector2 original = targetRectTransform.anchoredPosition;
+        Vector2 original = _originalTargetPosition;
 
         Vector2 dir = Random.insideUnitCircle.normalized;
         if (dir.sqrMagnitude < 0.01f)

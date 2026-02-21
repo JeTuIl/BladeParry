@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public enum GameEndResult
 {
@@ -25,8 +26,16 @@ public class GameplayLoopController : MonoBehaviour
     [SerializeField] private Vector3 missedParryFxPosition;
     [SerializeField] private Vector3 allParriedFxPosition;
     [SerializeField] private MusicPitchManager musicPitchManager;
+    [SerializeField] private MusciSwitchManager musicSwitchManager;
+    [SerializeField] private AudioClip musicOnPlayerWins;
+    [SerializeField] private AudioClip musicOnEnemyWins;
+    [SerializeField] private float gameEndMusicTransitionDuration = 2f;
     [SerializeField] private float fullLifeMusicSpeed = 1f;
     [SerializeField] private float emptyLifeMusicSpeed = 1f;
+    [SerializeField] private TMP_Text countdownText;
+    [SerializeField] private float countdownStepDuration = 1f;
+    [SerializeField] private Vector3 countdownScaleStart = new Vector3(1.5f, 1.5f, 1f);
+    [SerializeField] private Vector3 countdownScaleEnd = Vector3.one;
 
     private int _playerCurrentLife;
     private int _enemyCurrentLife;
@@ -39,6 +48,8 @@ public class GameplayLoopController : MonoBehaviour
     private UnityAction<Direction> _onParryWindowCloseHandler;
     private UnityAction<Direction> _onSwipeDetectedHandler;
     private Coroutine _mainLoopCoroutine;
+
+    public event System.Action<GameEndResult> GameEnded;
 
     private void Start()
     {
@@ -181,8 +192,55 @@ public class GameplayLoopController : MonoBehaviour
         _comboComplete = true;
     }
 
+    private IEnumerator PreparationPhaseCoroutine()
+    {
+        if (countdownText == null)
+        {
+            Debug.LogWarning("GameplayLoopController: Countdown Text is not assigned. Skipping preparation phase.", this);
+            yield break;
+        }
+
+        RectTransform countdownRect = countdownText.rectTransform;
+        countdownText.gameObject.SetActive(true);
+
+        for (int i = 5; i >= 1; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return AnimateCountdownStep(countdownRect, countdownText);
+        }
+
+        countdownText.text = "Fight!";
+        yield return AnimateCountdownStep(countdownRect, countdownText);
+
+        countdownText.gameObject.SetActive(false);
+    }
+
+    private IEnumerator AnimateCountdownStep(RectTransform rect, TMP_Text text)
+    {
+        float elapsed = 0f;
+        Color color = text.color;
+
+        text.color = new Color(color.r, color.g, color.b, 0f);
+        rect.localScale = countdownScaleStart;
+
+        while (elapsed < countdownStepDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / countdownStepDuration);
+            color.a = Mathf.Lerp(0f, 1f, t);
+            text.color = color;
+            rect.localScale = Vector3.Lerp(countdownScaleStart, countdownScaleEnd, t);
+            yield return null;
+        }
+
+        text.color = new Color(color.r, color.g, color.b, 1f);
+        rect.localScale = countdownScaleEnd;
+    }
+
     private IEnumerator MainLoopCoroutine()
     {
+        yield return StartCoroutine(PreparationPhaseCoroutine());
+
         while (_playerCurrentLife > 0 && _enemyCurrentLife > 0)
         {
             if (enemySpriteDirection != null)
@@ -258,9 +316,18 @@ public class GameplayLoopController : MonoBehaviour
 
     private void OnGameEnd(GameEndResult result)
     {
+        if (musicSwitchManager != null)
+        {
+            AudioClip clip = result == GameEndResult.PlayerWins ? musicOnPlayerWins : musicOnEnemyWins;
+            if (clip != null)
+                musicSwitchManager.SwitchMusic(clip, gameEndMusicTransitionDuration, false);
+        }
+
         if (result == GameEndResult.PlayerWins)
             Debug.Log("Player wins");
         else
             Debug.Log("Enemy wins");
+
+        GameEnded?.Invoke(result);
     }
 }
