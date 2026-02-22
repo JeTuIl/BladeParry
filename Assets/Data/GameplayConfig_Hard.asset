@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0e3b7482f7c5d4eb85eea97b144f21, type: 3}
+  m_Name: GameplayConfig_Hard
+  m_EditorClassIdentifier: Assembly-CSharp::GameplayConfig
+  playerStartLife: 10
+  enemyStartLife: 10
+  fullLifeComboNumberOfAttaques: 6
+  fullLifeDurationBetweenAttaque: 0.5
+  fullLifeWindUpDuration: 1
+  fullLifeWindDownDuration: 0.5
+  emptyLifeComboNumberOfAttaques: 12
+  emptyLifeDurationBetweenAttaque: 0
+  emptyLifeWindUpDuration: 0.3
+  emptyLifeWindDownDuration: 0.3
+  pauseBetweenComboDuration: 3

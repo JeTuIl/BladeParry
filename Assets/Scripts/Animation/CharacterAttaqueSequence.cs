@@ -44,6 +44,9 @@ public class CharacterAttaqueSequence : MonoBehaviour
     /// <summary>Invoked when wind-down starts (player can now perfect parry).</summary>
     [SerializeField] public UnityEvent onWindDownStart;
 
+    /// <summary>FxManager prefab index for the effect spawned at start of wind-down. Set from EnemyDefinition at fight start; default 0.</summary>
+    private int _windDownFxIndex = 0;
+
     /// <summary>Active attack coroutine; null when no attack is running.</summary>
     private Coroutine _attaqueCoroutine;
 
@@ -143,7 +146,7 @@ public class CharacterAttaqueSequence : MonoBehaviour
         // Step 2: Wind-down (parry window)
         characterSpriteDirection.SetDirection(attaqueDirection);
         if (FxManager.Instance != null)
-            FxManager.Instance.SpawnAtPosition(0, fxSpawnPosition, attaqueDirection);
+            FxManager.Instance.SpawnAtPosition(_windDownFxIndex, fxSpawnPosition, attaqueDirection);
         elapsed = 0f;
         while (elapsed < windDownDuration)
         {
@@ -162,6 +165,9 @@ public class CharacterAttaqueSequence : MonoBehaviour
         onAttaqueEnd?.Invoke(attaqueDirection);
         _attaqueCoroutine = null;
     }
+
+    /// <summary>Sets the FxManager prefab index used for the effect at start of wind-down (e.g. from EnemyDefinition).</summary>
+    public void SetWindDownFxIndex(int index) => _windDownFxIndex = index;
 
     /// <summary>
     /// Context menu: starts a test attack in a random cardinal direction using test wind-up/wind-down durations.

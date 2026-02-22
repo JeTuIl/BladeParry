@@ -133,6 +133,32 @@ public class CharacterSpriteDirection : MonoBehaviour
     public Direction CurrentDirection => _currentDirection;
 
     /// <summary>
+    /// Applies a sprite set (e.g. from EnemyDefinition) to this component. Updates all direction/state sprites and scales, then refreshes the displayed sprite.
+    /// </summary>
+    /// <param name="set">The sprite set to apply; null is ignored.</param>
+    public void ApplySpriteConfig(CharacterSpriteSet set)
+    {
+        if (set == null)
+            return;
+
+        spriteNeutral = set.SpriteNeutral;
+        spriteUp = set.SpriteUp;
+        spriteLeft = set.SpriteLeft;
+        spriteRight = set.SpriteRight;
+        spriteDown = set.SpriteDown;
+        spriteHurt = set.SpriteHurt;
+        spriteDownState = set.SpriteDownState;
+        scaleNeutral = set.ScaleNeutral;
+        scaleUp = set.ScaleUp;
+        scaleLeft = set.ScaleLeft;
+        scaleRight = set.ScaleRight;
+        scaleDown = set.ScaleDown;
+        scaleHurt = set.ScaleHurt;
+        scaleDownState = set.ScaleDownState;
+        ApplySprite();
+    }
+
+    /// <summary>
     /// Applies the appropriate sprite and scale to the image based on down, hurt, or direction state.
     /// </summary>
     private void ApplySprite()

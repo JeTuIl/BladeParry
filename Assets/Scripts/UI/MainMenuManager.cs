@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ReGolithSystems.UI;
@@ -12,6 +13,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private UiFader blackFader;
     [SerializeField] private UiFader mainUi;
     [SerializeField] private UiFader tutoUi;
+    [SerializeField] private UiFader difficultyUi;
+    [SerializeField] private List<FightConfig> fightConfigs = new List<FightConfig>();
     [SerializeField] private string sceneToLoad;
     [SerializeField] private AudioSource musicAudioSource;
 
@@ -45,6 +48,55 @@ public class MainMenuManager : MonoBehaviour
     public void GoBackFromTuto()
     {
         StartCoroutine(GoBackFromTutoCoroutine());
+    }
+
+    /// <summary>
+    /// Fades out the main UI then fades in the difficulty selection UI.
+    /// </summary>
+    public void GoToDifficulty()
+    {
+        StartCoroutine(GoToDifficultyCoroutine());
+    }
+
+    /// <summary>
+    /// Fades out the difficulty UI then fades in the main UI.
+    /// </summary>
+    public void GoBackFromDifficultyToMain()
+    {
+        StartCoroutine(GoBackFromDifficultyToMainCoroutine());
+    }
+
+    /// <summary>
+    /// Fades out the difficulty UI then fades in the tutorial UI.
+    /// </summary>
+    public void GoBackFromDifficultyToTuto()
+    {
+        StartCoroutine(GoBackFromDifficultyToTutoCoroutine());
+    }
+
+    /// <summary>
+    /// Sets the fight config for the next fight via FightConfigProvider using the FightConfig at the given index in the fightConfigs list.
+    /// </summary>
+    /// <param name="index">Index into the fightConfigs list. Ignored if out of range.</param>
+    public void SetFightConfigByIndex(int index)
+    {
+        if (FightConfigProvider.Instance == null)
+        {
+            Debug.LogWarning("MainMenuManager: FightConfigProvider.Instance is null. Cannot set fight config.", this);
+            return;
+        }
+        if (fightConfigs == null || index < 0 || index >= fightConfigs.Count)
+        {
+            Debug.LogWarning($"MainMenuManager: Invalid fight config index {index} (list count: {fightConfigs?.Count ?? 0}).", this);
+            return;
+        }
+        FightConfig config = fightConfigs[index];
+        if (config == null)
+        {
+            Debug.LogWarning($"MainMenuManager: FightConfig at index {index} is null.", this);
+            return;
+        }
+        FightConfigProvider.Instance.SetFightConfig(config);
     }
 
     private IEnumerator QuitGameCoroutine()
@@ -128,5 +180,41 @@ public class MainMenuManager : MonoBehaviour
 
         if (mainUi != null)
             mainUi.FadeIn();
+    }
+
+    private IEnumerator GoToDifficultyCoroutine()
+    {
+        if (mainUi != null)
+        {
+            mainUi.FadeOut();
+            yield return new WaitUntil(() => mainUi == null || !mainUi.IsFading);
+        }
+
+        if (difficultyUi != null)
+            difficultyUi.FadeIn();
+    }
+
+    private IEnumerator GoBackFromDifficultyToMainCoroutine()
+    {
+        if (difficultyUi != null)
+        {
+            difficultyUi.FadeOut();
+            yield return new WaitUntil(() => difficultyUi == null || !difficultyUi.IsFading);
+        }
+
+        if (mainUi != null)
+            mainUi.FadeIn();
+    }
+
+    private IEnumerator GoBackFromDifficultyToTutoCoroutine()
+    {
+        if (difficultyUi != null)
+        {
+            difficultyUi.FadeOut();
+            yield return new WaitUntil(() => difficultyUi == null || !difficultyUi.IsFading);
+        }
+
+        if (tutoUi != null)
+            tutoUi.FadeIn();
     }
 }

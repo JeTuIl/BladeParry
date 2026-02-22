@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68864ba047bffcc45afbdd222e0ed11c, type: 3}
+  m_Name: EnemyDefinition_Gladiator
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
+  displayName: Enemy
+  optionalPrefab: {fileID: 1760928958552806250, guid: f93c302922edf9e47b16883cbac05722, type: 3}
+  spriteSet:
+    spriteNeutral: {fileID: 5830694933855508796, guid: cff05deade770624bb1b07d3bff57cf6, type: 3}
+    spriteUp: {fileID: -2148106915890324896, guid: 6e9217c9ff2669b44a841e8f84492ce8, type: 3}
+    spriteLeft: {fileID: 969957224807990138, guid: 3e38dd8b7f9d50348a193abc14b0de85, type: 3}
+    spriteRight: {fileID: 834434376833082253, guid: 4120b2349e82a994b84b9502cd38cee1, type: 3}
+    spriteDown: {fileID: 7965317455885867585, guid: b0796580a6f8a3e4e95e701baff43fe2, type: 3}
+    spriteHurt: {fileID: -5079921499159400638, guid: 693290f4f0fcc2a4f9dc439fb4b9a418, type: 3}
+    spriteDownState: {fileID: 6734866910406587672, guid: e99f6abd3e3c81242afd78abe0099931, type: 3}
+    scaleNeutral: 1.2
+    scaleUp: 1.56
+    scaleLeft: 1.32
+    scaleRight: 1.32
+    scaleDown: 1.2
+    scaleHurt: 1.32
+    scaleDownState: 1.2

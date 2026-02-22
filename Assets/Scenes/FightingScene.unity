@@ -824,7 +824,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 10
-  m_fontSizeMax: 36
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -992,8 +992,8 @@ MonoBehaviour:
   allParriedFxPosition: {x: 0, y: 0, z: 0}
   musicPitchManager: {fileID: 1845716672}
   musicSwitchManager: {fileID: 1845716673}
-  musicOnPlayerWins: {fileID: 8300000, guid: fdea7d801f91bc14ba6c4d8e54901cad, type: 3}
-  musicOnEnemyWins: {fileID: 8300000, guid: 93dba9673dfb2094cb4778445e82866e, type: 3}
+  musicOnPlayerWins: {fileID: 8300000, guid: 60f0a3815e7dc5749aa81c0cc587696f, type: 3}
+  musicOnEnemyWins: {fileID: 8300000, guid: 36f50b8568ee8c041a5d0dcb377bc6a5, type: 3}
   gameEndMusicTransitionDuration: 2
   fullLifeMusicSpeed: 0.8
   emptyLifeMusicSpeed: 1.5
@@ -2131,6 +2131,8 @@ MonoBehaviour:
   - {fileID: 7594147683835015852, guid: 629366d7bd7974e4fbbd01bd42697b58, type: 3}
   - {fileID: 4601240073441695431, guid: ad30a81945a8c4e40b823992c22e21c1, type: 3}
   - {fileID: 158124502140612491, guid: e2ca285f36e6f944d8ed5aa20ad107be, type: 3}
+  - {fileID: 1423630890732734506, guid: aed8bfd4d375fae44840cee1d2d1346e, type: 3}
+  - {fileID: 6908018978844498584, guid: af2506b0a9c0eab489446251f3a779e3, type: 3}
   positionOffset: {x: 0, y: 0, z: 0}
   scale: {x: 1, y: 1, z: 1}
 --- !u!4 &936453861

@@ -149,6 +149,9 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Resolved config used for the run (from provider, fightConfig, or config).</summary>
     private GameplayConfig _effectiveConfig;
 
+    /// <summary>Cached enemy definition for the current fight (from resolved FightConfig).</summary>
+    private EnemyDefinition _enemyDefinition;
+
     /// <summary>Set when the current combo has finished all attacks.</summary>
     private bool _comboComplete;
 
@@ -196,6 +199,14 @@ public class GameplayLoopController : MonoBehaviour
         _enemyCurrentLife = _effectiveConfig.EnemyStartLife;
         UpdateLifebars();
         UpdateMusicPitch();
+
+        FightConfig resolvedFightConfig = FightConfigProvider.CurrentFightConfig != null ? FightConfigProvider.CurrentFightConfig : fightConfig;
+        _enemyDefinition = resolvedFightConfig?.OptionalEnemyDefinition;
+        if (_enemyDefinition?.SpriteSet != null && enemySpriteDirection != null)
+            enemySpriteDirection.ApplySpriteConfig(_enemyDefinition.SpriteSet);
+        if (characterAttaqueSequence != null)
+            characterAttaqueSequence.SetWindDownFxIndex(_enemyDefinition != null ? _enemyDefinition.WindDownFxIndex : 0);
+
         _mainLoopCoroutine = StartCoroutine(MainLoopCoroutine());
     }
 
@@ -572,7 +583,7 @@ public class GameplayLoopController : MonoBehaviour
                 if (enemySquashStretch != null)
                     enemySquashStretch.PlayHit();
                 if (FxManager.Instance != null)
-                    FxManager.Instance.SpawnAtPosition(3, allParriedFxPosition);
+                    FxManager.Instance.SpawnAtPosition(_enemyDefinition != null ? _enemyDefinition.AllParriedComboFxIndex : 3, allParriedFxPosition);
                 if (ScreenshackManager.Instance != null)
                     ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Medium);
                 if (enemySpriteDirection != null)
