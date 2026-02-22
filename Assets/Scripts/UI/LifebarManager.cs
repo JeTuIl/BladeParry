@@ -31,13 +31,8 @@ public class LifebarManager : MonoBehaviour
 
     [Header("Color by Health")]
     [SerializeField] private bool useColorByHealth = true;
-    [SerializeField] private Color colorHigh = new Color(0.2f, 0.9f, 0.2f);   // green
-    [SerializeField] private Color colorMid = new Color(0.95f, 0.9f, 0.2f);    // yellow
-    [SerializeField] private Color colorLow = new Color(0.95f, 0.2f, 0.2f);   // red
-    [Tooltip("Life ratio below which color moves from mid to low (e.g. 0.25 = 25%%).")]
-    [SerializeField] [Range(0f, 1f)] private float thresholdLow = 0.25f;
-    [Tooltip("Life ratio below which color moves from high to mid (e.g. 0.5 = 50%%).")]
-    [SerializeField] [Range(0f, 1f)] private float thresholdMid = 0.5f;
+    [Tooltip("Linear gradient: 0 = empty (e.g. red), 1 = full (e.g. green). Thresholds and stops are configured in the gradient.")]
+    [SerializeField] private Gradient healthGradient;
 
     [Header("Damage Feedback")]
     [SerializeField] private bool useDamageFeedback = true;
@@ -154,20 +149,23 @@ public class LifebarManager : MonoBehaviour
             SetBarWidth(redBarImage.rectTransform, _currentRedBarWidth);
         }
 
-        if (useColorByHealth)
+        if (useColorByHealth && healthGradient != null)
         {
             float ratio = clampedLife / (float)maxLifeValue;
-            lifeBarImage.color = EvaluateColorByHealth(ratio);
+            lifeBarImage.color = healthGradient.Evaluate(ratio);
         }
     }
 
-    private Color EvaluateColorByHealth(float lifeRatio)
+    private void Reset()
     {
-        if (lifeRatio > thresholdMid)
-            return Color.Lerp(colorMid, colorHigh, (lifeRatio - thresholdMid) / (1f - thresholdMid));
-        if (lifeRatio > thresholdLow)
-            return Color.Lerp(colorLow, colorMid, (lifeRatio - thresholdLow) / (thresholdMid - thresholdLow));
-        return Color.Lerp(colorLow, colorMid, lifeRatio / thresholdLow);
+        if (healthGradient == null)
+        {
+            healthGradient = new Gradient();
+            healthGradient.SetKeys(
+                new[] { new GradientColorKey(new Color(0.95f, 0.2f, 0.2f), 0f), new GradientColorKey(new Color(0.95f, 0.9f, 0.2f), 0.5f), new GradientColorKey(new Color(0.2f, 0.9f, 0.2f), 1f) },
+                new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) }
+            );
+        }
     }
 
     private void RefreshNumeric()
