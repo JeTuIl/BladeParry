@@ -26,6 +26,12 @@ public class CharacterAttaqueSequence : MonoBehaviour
     /// <summary>Position where attack FX are spawned.</summary>
     [SerializeField] private Vector3 fxSpawnPosition;
 
+    /// <summary>Easing curve for wind-up (time 0-1). If null, linear is used.</summary>
+    [SerializeField] private AnimationCurve windUpCurve;
+
+    /// <summary>Easing curve for wind-down (time 0-1). Ease-out makes the strike snap at the end. If null, linear is used.</summary>
+    [SerializeField] private AnimationCurve windDownCurve;
+
     /// <summary>Invoked when the attack sequence has fully completed.</summary>
     [SerializeField] private UnityEvent<Direction> onAttaqueEnd;
 
@@ -123,7 +129,8 @@ public class CharacterAttaqueSequence : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / windUpDuration);
-            rectTransform.anchoredPosition = Vector2.Lerp(startPosition, windUpEndPosition, t);
+            float eased = windUpCurve != null ? windUpCurve.Evaluate(t) : t;
+            rectTransform.anchoredPosition = Vector2.Lerp(startPosition, windUpEndPosition, eased);
             yield return null;
         }
         rectTransform.anchoredPosition = windUpEndPosition;
@@ -137,7 +144,8 @@ public class CharacterAttaqueSequence : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / windDownDuration);
-            rectTransform.anchoredPosition = Vector2.Lerp(windUpEndPosition, startPosition, t);
+            float eased = windDownCurve != null ? windDownCurve.Evaluate(t) : t;
+            rectTransform.anchoredPosition = Vector2.Lerp(windUpEndPosition, startPosition, eased);
             yield return null;
         }
         rectTransform.anchoredPosition = startPosition;

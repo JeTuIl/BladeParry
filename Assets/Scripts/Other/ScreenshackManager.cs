@@ -68,10 +68,13 @@ public class ScreenshackManager : MonoBehaviour
             _originalTargetPosition = targetRectTransform.anchoredPosition;
     }
 
+    /// <summary>Seed for Perlin noise (keeps shake reproducible per trigger).</summary>
+    private static float _perlinSeed;
+
     /// <summary>
-    /// Triggers a screen shake at the given strength: offsets the target then smoothly returns it.
+    /// Triggers a screen shake at the given strength using multi-frame Perlin noise.
     /// </summary>
-    /// <param name="strength">Strength level determining shake distance and return duration.</param>
+    /// <param name="strength">Strength level determining shake distance and duration.</param>
     public void TriggerScreenShake(ScreenShakeStrength strength)
     {
         if (targetRectTransform == null)
@@ -84,15 +87,8 @@ public class ScreenshackManager : MonoBehaviour
             StopCoroutine(_activeShakeCoroutine);
 
         GetStrengthParams(strength, out float distance, out float duration);
-        Vector2 original = _originalTargetPosition;
-
-        Vector2 dir = Random.insideUnitCircle.normalized;
-        if (dir.sqrMagnitude < 0.01f)
-            dir = Vector2.up;
-
-        targetRectTransform.anchoredPosition = original + dir * distance;
-
-        _activeShakeCoroutine = StartCoroutine(ShakeReturnRoutine(original, duration));
+        _perlinSeed = UnityEngine.Random.Range(0f, 1000f);
+        _activeShakeCoroutine = StartCoroutine(PerlinShakeRoutine(distance, duration));
     }
 
     /// <summary>
@@ -100,7 +96,7 @@ public class ScreenshackManager : MonoBehaviour
     /// </summary>
     /// <param name="strength">The shake strength.</param>
     /// <param name="distance">Output: offset distance in units.</param>
-    /// <param name="duration">Output: return duration in seconds.</param>
+    /// <param name="duration">Output: duration in seconds.</param>
     private void GetStrengthParams(ScreenShakeStrength strength, out float distance, out float duration)
     {
         switch (strength)
@@ -125,26 +121,32 @@ public class ScreenshackManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Smoothly lerps the target RectTransform from its current position back to the original over the given duration.
+    /// Multi-frame Perlin shake: applies noise-based offset that decays over duration.
     /// </summary>
-    /// <param name="originalPosition">Position to return to.</param>
-    /// <param name="duration">Duration of the return in seconds.</param>
+    /// <param name="distance">Max offset distance in units.</param>
+    /// <param name="duration">Shake duration in seconds.</param>
     /// <returns>Enumerator for the coroutine.</returns>
-    private IEnumerator ShakeReturnRoutine(Vector2 originalPosition, float duration)
+    private IEnumerator PerlinShakeRoutine(float distance, float duration)
     {
-        Vector2 startPosition = targetRectTransform.anchoredPosition;
         float elapsed = 0f;
+        Vector2 original = _originalTargetPosition;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
-            float smoothT = Mathf.SmoothStep(0f, 1f, t);
-            targetRectTransform.anchoredPosition = Vector2.Lerp(startPosition, originalPosition, smoothT);
+            float decay = 1f - (t * t);
+            float time = _perlinSeed + elapsed * 25f;
+            float nx = (Mathf.PerlinNoise(time, _perlinSeed) - 0.5f) * 2f;
+            float ny = (Mathf.PerlinNoise(_perlinSeed + 100f, time) - 0.5f) * 2f;
+            Vector2 offset = new Vector2(nx, ny).normalized * distance * decay;
+            if (offset.sqrMagnitude < 0.01f)
+                offset = Vector2.zero;
+            targetRectTransform.anchoredPosition = original + offset;
             yield return null;
         }
 
-        targetRectTransform.anchoredPosition = originalPosition;
+        targetRectTransform.anchoredPosition = original;
         _activeShakeCoroutine = null;
     }
 }

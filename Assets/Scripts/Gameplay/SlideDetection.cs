@@ -19,6 +19,12 @@ public class SlideDetection : MonoBehaviour
     /// <summary>Invoked when a valid swipe is detected; payload is the cardinal direction.</summary>
     [SerializeField] public UnityEvent<Direction> onSwipeDetected;
 
+    /// <summary>Invoked each frame while dragging: (startPosition, currentPosition) in screen space.</summary>
+    public event System.Action<Vector2, Vector2> onDragUpdate;
+
+    /// <summary>Invoked when the drag ends (release or cancel).</summary>
+    public event System.Action onDragEnd;
+
     /// <summary>Screen position where the touch or mouse press started.</summary>
     private Vector2 _touchStartPosition;
 
@@ -51,12 +57,26 @@ public class SlideDetection : MonoBehaviour
                 _touchTracked = true;
                 break;
 
+            case TouchPhase.Moved:
+                if (_touchTracked)
+                    onDragUpdate?.Invoke(_touchStartPosition, primaryTouch.position.ReadValue());
+                break;
+
             case TouchPhase.Ended:
                 if (!_touchTracked)
                     break;
-
+                onDragUpdate?.Invoke(_touchStartPosition, primaryTouch.position.ReadValue());
                 TryCommitSwipe(primaryTouch.position.ReadValue());
                 _touchTracked = false;
+                onDragEnd?.Invoke();
+                break;
+
+            case TouchPhase.Canceled:
+                if (_touchTracked)
+                {
+                    _touchTracked = false;
+                    onDragEnd?.Invoke();
+                }
                 break;
         }
     }
@@ -71,10 +91,17 @@ public class SlideDetection : MonoBehaviour
             _touchStartPosition = Mouse.current.position.ReadValue();
             _touchTracked = true;
         }
+        else if (Mouse.current.leftButton.isPressed && _touchTracked)
+        {
+            onDragUpdate?.Invoke(_touchStartPosition, Mouse.current.position.ReadValue());
+        }
         else if (Mouse.current.leftButton.wasReleasedThisFrame && _touchTracked)
         {
-            TryCommitSwipe(Mouse.current.position.ReadValue());
+            Vector2 endPos = Mouse.current.position.ReadValue();
+            onDragUpdate?.Invoke(_touchStartPosition, endPos);
+            TryCommitSwipe(endPos);
             _touchTracked = false;
+            onDragEnd?.Invoke();
         }
     }
 

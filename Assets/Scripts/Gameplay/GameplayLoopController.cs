@@ -94,6 +94,25 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Scale of the countdown text at the end of each step.</summary>
     [SerializeField] private Vector3 countdownScaleEnd = Vector3.one;
 
+    [Header("Hit stop")]
+    [SerializeField] private float hitStopTimeScale = 0.92f;
+    [SerializeField] private float hitStopDuration = 0.05f;
+
+    /// <summary>Squash and stretch for the player (parry success / hit).</summary>
+    [SerializeField] private SquashStretchAnimator playerSquashStretch;
+
+    /// <summary>Squash and stretch for the enemy (combo success / hurt).</summary>
+    [SerializeField] private SquashStretchAnimator enemySquashStretch;
+
+    /// <summary>Floating text for parry / miss / combo feedback.</summary>
+    [SerializeField] private FloatingFeedbackText floatingFeedback;
+
+    /// <summary>When true, haptic feedback is triggered on parry / miss / combo (handheld only).</summary>
+    [SerializeField] private bool enableHaptics = true;
+
+    /// <summary>Drives vignette from low life and missed parry. Notify via NotifyPlayerDamaged.</summary>
+    [SerializeField] private GameplayPostProcessDriver gameplayPostProcessDriver;
+
     /// <summary>Player's current life; decremented on missed parry.</summary>
     private int _playerCurrentLife;
 
@@ -272,10 +291,18 @@ public class GameplayLoopController : MonoBehaviour
                 playerSpriteWinker.TriggerWink();
             if (playerSpriteManager != null)
                 playerSpriteManager.TriggerHurt();
+            if (playerSquashStretch != null)
+                playerSquashStretch.PlayHit();
+            if (gameplayPostProcessDriver != null)
+                gameplayPostProcessDriver.NotifyPlayerDamaged();
             if (FxManager.Instance != null)
                 FxManager.Instance.SpawnAtPosition(2, missedParryFxPosition);
             if (ScreenshackManager.Instance != null)
                 ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.High);
+            if (floatingFeedback != null)
+                floatingFeedback.ShowMiss(missedParryFxPosition);
+            if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+                Handheld.Vibrate();
         }
 
         _parryWindowActive = false;
@@ -296,11 +323,28 @@ public class GameplayLoopController : MonoBehaviour
         {
             _parriedInCombo[_parriedInCombo.Count - 1] = true;
             _parryWindowActive = false;
+            StartCoroutine(HitStopCoroutine());
+            if (playerSquashStretch != null)
+                playerSquashStretch.PlayParrySuccess();
             if (FxManager.Instance != null)
                 FxManager.Instance.SpawnAtPosition(1, parryFxPosition);
             if (ScreenshackManager.Instance != null)
                 ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Low);
+            if (floatingFeedback != null)
+                floatingFeedback.ShowParry(parryFxPosition);
+            if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+                Handheld.Vibrate();
         }
+    }
+
+    /// <summary>
+    /// Brief time scale dip for parry hit stop.
+    /// </summary>
+    private IEnumerator HitStopCoroutine()
+    {
+        Time.timeScale = hitStopTimeScale;
+        yield return new WaitForSecondsRealtime(hitStopDuration);
+        Time.timeScale = 1f;
     }
 
     /// <summary>
@@ -420,12 +464,18 @@ public class GameplayLoopController : MonoBehaviour
                 UpdateMusicPitch();
                 if (enemySpriteWinker != null)
                     enemySpriteWinker.TriggerWink();
+                if (enemySquashStretch != null)
+                    enemySquashStretch.PlayHit();
                 if (FxManager.Instance != null)
                     FxManager.Instance.SpawnAtPosition(3, allParriedFxPosition);
                 if (ScreenshackManager.Instance != null)
                     ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Medium);
                 if (enemySpriteDirection != null)
                     enemySpriteDirection.isHurt = true;
+                if (floatingFeedback != null)
+                    floatingFeedback.ShowCombo(allParriedFxPosition);
+                if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+                    Handheld.Vibrate();
             }
 
             float pauseDuration = config.PauseBetweenComboDuration;
