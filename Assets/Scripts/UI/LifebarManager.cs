@@ -1,17 +1,22 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
-/// Displays a life bar (green/fill) and a trailing red bar that lerps toward the current value for a damage feedback effect.
+/// Displays a life bar (main fill) and a trailing red bar that lerps toward the current value—always shown when redBarImage is assigned.
+/// Optional: color-by-health gradient, damage flash/pulse, eased motion, and numeric HP display.
 /// </summary>
 public class LifebarManager : MonoBehaviour
 {
+    [Header("Core References")]
     /// <summary>Image used as the main (current) life bar fill.</summary>
     [SerializeField] private Image lifeBarImage;
 
-    /// <summary>Image used as the trailing red/damage bar.</summary>
+    /// <summary>Trailing red bar: lerps toward current value to show recent damage. Always used when assigned.</summary>
     [SerializeField] private Image redBarImage;
 
+    [Header("Core Settings")]
     /// <summary>Maximum life value (denominator for fill ratio).</summary>
     [SerializeField] private int maxLifeValue = 100;
 
@@ -21,29 +26,106 @@ public class LifebarManager : MonoBehaviour
     /// <summary>Width in units when the bar is at full fill.</summary>
     [SerializeField] private float barSpriteMaxWidth = 200f;
 
-    /// <summary>Lerp speed for the red bar moving toward the current value.</summary>
+    /// <summary>Lerp speed for the red bar moving toward the current value (used when eased motion is off).</summary>
     [SerializeField] private float redBarLerpSpeed = 5f;
 
+    [Header("Color by Health")]
+    [SerializeField] private bool useColorByHealth = true;
+    [SerializeField] private Color colorHigh = new Color(0.2f, 0.9f, 0.2f);   // green
+    [SerializeField] private Color colorMid = new Color(0.95f, 0.9f, 0.2f);    // yellow
+    [SerializeField] private Color colorLow = new Color(0.95f, 0.2f, 0.2f);   // red
+    [Tooltip("Life ratio below which color moves from mid to low (e.g. 0.25 = 25%%).")]
+    [SerializeField] [Range(0f, 1f)] private float thresholdLow = 0.25f;
+    [Tooltip("Life ratio below which color moves from high to mid (e.g. 0.5 = 50%%).")]
+    [SerializeField] [Range(0f, 1f)] private float thresholdMid = 0.5f;
+
+    [Header("Damage Feedback")]
+    [SerializeField] private bool useDamageFeedback = true;
+    [SerializeField] private float damageFeedbackDuration = 0.2f;
+    [Tooltip("Curve for scale pulse: 0 = start (pulse), 1 = end (normal). Y: 0 = scaled up, 1 = scale 1.")]
+    [SerializeField] private AnimationCurve damageFeedbackCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    [SerializeField] private float damagePulseScaleMax = 1.08f;
+
+    [Header("Eased Motion")]
+    [SerializeField] private bool useEasedMotion = true;
+    [Tooltip("Higher = faster catch-up. Used for both fill and trailing bar when eased motion is on.")]
+    [SerializeField] private float easeSpeed = 8f;
+
+    [Header("Numeric Display")]
+    [SerializeField] private bool showNumeric = false;
+    [SerializeField] private TMP_Text numericText;
+    [Tooltip("Format: {0} = current, {1} = max. E.g. \"{0} / {1}\" or \"{0}\" only.")]
+    [SerializeField] private string numericFormat = "{0} / {1}";
+
     /// <summary>Maximum life (used as denominator for fill).</summary>
-    public int MaxLifeValue { get => maxLifeValue; set => maxLifeValue = value; }
+    public int MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); } }
 
     /// <summary>Current life (used for fill; red bar lerps toward this).</summary>
-    public int CurrentLifeValue { get => currentLifeValue; set => currentLifeValue = value; }
+    public int CurrentLifeValue { get => currentLifeValue; set { currentLifeValue = value; RefreshNumeric(); } }
+
+    /// <summary>Current width of the fill bar (smoothed when eased motion is on).</summary>
+    private float _currentFillWidth;
 
     /// <summary>Current width of the red bar (lerped each frame).</summary>
     private float _currentRedBarWidth;
 
-    /// <summary>
-    /// Initializes the red bar width from the RectTransform if assigned.
-    /// </summary>
-    void Start()
+    private Coroutine _damageFeedbackCoroutine;
+
+    void OnDestroy()
     {
-        if (redBarImage != null)
-            _currentRedBarWidth = redBarImage.rectTransform.sizeDelta.x;
+        if (_damageFeedbackCoroutine != null)
+            StopCoroutine(_damageFeedbackCoroutine);
     }
 
     /// <summary>
-    /// Updates the life bar width from current life and lerps the red bar toward that width.
+    /// Initializes bar widths from current life and red bar RectTransform.
+    /// </summary>
+    void Start()
+    {
+        if (maxLifeValue > 0)
+        {
+            float targetWidth = (Mathf.Clamp(currentLifeValue, 0, maxLifeValue) / (float)maxLifeValue) * barSpriteMaxWidth;
+            _currentFillWidth = targetWidth;
+        }
+        if (redBarImage != null)
+            _currentRedBarWidth = redBarImage.rectTransform.sizeDelta.x;
+        RefreshNumeric();
+    }
+
+    /// <summary>
+    /// Call when this entity took damage; triggers a one-shot damage feedback (flash/pulse) if enabled.
+    /// </summary>
+    public void NotifyDamage()
+    {
+        if (!useDamageFeedback || lifeBarImage == null)
+            return;
+        if (_damageFeedbackCoroutine != null)
+            StopCoroutine(_damageFeedbackCoroutine);
+        _damageFeedbackCoroutine = StartCoroutine(DamageFeedbackCoroutine());
+    }
+
+    private IEnumerator DamageFeedbackCoroutine()
+    {
+        RectTransform pulseTarget = lifeBarImage.rectTransform;
+        Vector3 baseScale = pulseTarget.localScale;
+        float elapsed = 0f;
+
+        while (elapsed < damageFeedbackDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / damageFeedbackDuration);
+            float curveValue = damageFeedbackCurve.Evaluate(t);
+            float scale = Mathf.Lerp(damagePulseScaleMax, 1f, curveValue);
+            pulseTarget.localScale = new Vector3(baseScale.x * scale, baseScale.y * scale, baseScale.z);
+            yield return null;
+        }
+
+        pulseTarget.localScale = baseScale;
+        _damageFeedbackCoroutine = null;
+    }
+
+    /// <summary>
+    /// Updates the life bar width from current life, applies color-by-health, and lerps the red bar toward that width.
     /// </summary>
     void Update()
     {
@@ -56,17 +138,55 @@ public class LifebarManager : MonoBehaviour
         int clampedLife = Mathf.Clamp(currentLifeValue, 0, maxLifeValue);
         float targetWidth = (clampedLife / (float)maxLifeValue) * barSpriteMaxWidth;
 
-        SetBarWidth(lifeBarImage.rectTransform, targetWidth);
+        if (useEasedMotion)
+        {
+            float smooth = 1f - Mathf.Exp(-easeSpeed * Time.deltaTime);
+            _currentFillWidth = Mathf.Lerp(_currentFillWidth, targetWidth, smooth);
+            SetBarWidth(lifeBarImage.rectTransform, _currentFillWidth);
 
-        _currentRedBarWidth = Mathf.Lerp(_currentRedBarWidth, targetWidth, redBarLerpSpeed * Time.deltaTime);
-        SetBarWidth(redBarImage.rectTransform, _currentRedBarWidth);
+            _currentRedBarWidth = Mathf.Lerp(_currentRedBarWidth, targetWidth, smooth);
+            SetBarWidth(redBarImage.rectTransform, _currentRedBarWidth);
+        }
+        else
+        {
+            SetBarWidth(lifeBarImage.rectTransform, targetWidth);
+            _currentRedBarWidth = Mathf.Lerp(_currentRedBarWidth, targetWidth, redBarLerpSpeed * Time.deltaTime);
+            SetBarWidth(redBarImage.rectTransform, _currentRedBarWidth);
+        }
+
+        if (useColorByHealth)
+        {
+            float ratio = clampedLife / (float)maxLifeValue;
+            lifeBarImage.color = EvaluateColorByHealth(ratio);
+        }
+    }
+
+    private Color EvaluateColorByHealth(float lifeRatio)
+    {
+        if (lifeRatio > thresholdMid)
+            return Color.Lerp(colorMid, colorHigh, (lifeRatio - thresholdMid) / (1f - thresholdMid));
+        if (lifeRatio > thresholdLow)
+            return Color.Lerp(colorLow, colorMid, (lifeRatio - thresholdLow) / (thresholdMid - thresholdLow));
+        return Color.Lerp(colorLow, colorMid, lifeRatio / thresholdLow);
+    }
+
+    private void RefreshNumeric()
+    {
+        if (!showNumeric || numericText == null)
+            return;
+        try
+        {
+            numericText.text = string.Format(numericFormat, currentLifeValue, maxLifeValue);
+        }
+        catch (System.Exception)
+        {
+            numericText.text = $"{currentLifeValue} / {maxLifeValue}";
+        }
     }
 
     /// <summary>
     /// Sets the width of the given RectTransform's sizeDelta (x only).
     /// </summary>
-    /// <param name="rectTransform">The RectTransform to update.</param>
-    /// <param name="width">Desired width.</param>
     private static void SetBarWidth(RectTransform rectTransform, float width)
     {
         Vector2 size = rectTransform.sizeDelta;

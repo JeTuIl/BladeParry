@@ -265,6 +265,8 @@ public class GameplayLoopController : MonoBehaviour
         if (_parriedInCombo.Count > 0 && !_parriedInCombo[_parriedInCombo.Count - 1])
         {
             _playerCurrentLife--;
+            if (playerLifebarManager != null)
+                playerLifebarManager.NotifyDamage();
             UpdateLifebars();
             if (playerSpriteWinker != null)
                 playerSpriteWinker.TriggerWink();
@@ -412,6 +414,8 @@ public class GameplayLoopController : MonoBehaviour
             if (allParried)
             {
                 _enemyCurrentLife--;
+                if (enemyLifebarManager != null)
+                    enemyLifebarManager.NotifyDamage();
                 UpdateLifebars();
                 UpdateMusicPitch();
                 if (enemySpriteWinker != null)
