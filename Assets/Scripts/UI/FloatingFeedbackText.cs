@@ -39,6 +39,14 @@ public class FloatingFeedbackText : MonoBehaviour
     }
 
     /// <summary>
+    /// Shows "Perfect !" at the given world position (perfect parry during wind-down).
+    /// </summary>
+    public void ShowPerfectParry(Vector3 worldPosition)
+    {
+        ShowAt("Perfect !", worldPosition);
+    }
+
+    /// <summary>
     /// Shows "MISS" at the given world position.
     /// </summary>
     public void ShowMiss(Vector3 worldPosition)

@@ -41,6 +41,9 @@ public class CharacterAttaqueSequence : MonoBehaviour
     /// <summary>Invoked when the parry window closes (end of wind-down).</summary>
     [SerializeField] public UnityEvent<Direction> onParryWindowClose;
 
+    /// <summary>Invoked when wind-down starts (player can now perfect parry).</summary>
+    [SerializeField] public UnityEvent onWindDownStart;
+
     /// <summary>Active attack coroutine; null when no attack is running.</summary>
     private Coroutine _attaqueCoroutine;
 
@@ -134,6 +137,8 @@ public class CharacterAttaqueSequence : MonoBehaviour
             yield return null;
         }
         rectTransform.anchoredPosition = windUpEndPosition;
+
+        onWindDownStart?.Invoke();
 
         // Step 2: Wind-down (parry window)
         characterSpriteDirection.SetDirection(attaqueDirection);

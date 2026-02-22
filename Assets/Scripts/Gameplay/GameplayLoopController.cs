@@ -107,6 +107,12 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Floating text for parry / miss / combo feedback.</summary>
     [SerializeField] private FloatingFeedbackText floatingFeedback;
 
+    /// <summary>FX prefab index in FxManager for perfect parry (e.g. 5). Normal parry uses index 1.</summary>
+    [SerializeField] private int perfectParryFxIndex = 5;
+
+    /// <summary>Displays current perfect parries in a row (count, gradient, tremble).</summary>
+    [SerializeField] private PerfectParryComboDisplay perfectParryComboDisplay;
+
     /// <summary>When true, haptic feedback is triggered on parry / miss / combo (handheld only).</summary>
     [SerializeField] private bool enableHaptics = true;
 
@@ -125,6 +131,12 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Direction of the current enemy attack (expected parry is opposite).</summary>
     private Direction _currentAttaqueDirection;
 
+    /// <summary>True while the parry window is in the wind-down phase (perfect parry possible).</summary>
+    private bool _isInWindDown;
+
+    /// <summary>Number of perfect parries in a row; reset on normal parry or miss.</summary>
+    private int _perfectParriesInARow;
+
     /// <summary>Per-attack parry success in the current combo; one entry per attack.</summary>
     private readonly List<bool> _parriedInCombo = new List<bool>();
 
@@ -139,6 +151,9 @@ public class GameplayLoopController : MonoBehaviour
 
     /// <summary>Cached handler for parry window close.</summary>
     private UnityAction<Direction> _onParryWindowCloseHandler;
+
+    /// <summary>Cached handler for wind-down start.</summary>
+    private UnityAction _onWindDownStartHandler;
 
     /// <summary>Cached handler for swipe detected.</summary>
     private UnityAction<Direction> _onSwipeDetectedHandler;
@@ -233,11 +248,13 @@ public class GameplayLoopController : MonoBehaviour
         _onComboCompleteHandler = OnComboComplete;
         _onParryWindowOpenHandler = OnParryWindowOpen;
         _onParryWindowCloseHandler = OnParryWindowClose;
+        _onWindDownStartHandler = OnWindDownStart;
         _onSwipeDetectedHandler = OnSwipeDetected;
 
         characterComboSequence.onComboComplete.AddListener(_onComboCompleteHandler);
         characterAttaqueSequence.onParryWindowOpen.AddListener(_onParryWindowOpenHandler);
         characterAttaqueSequence.onParryWindowClose.AddListener(_onParryWindowCloseHandler);
+        characterAttaqueSequence.onWindDownStart.AddListener(_onWindDownStartHandler);
         slideDetection.onSwipeDetected.AddListener(_onSwipeDetectedHandler);
     }
 
@@ -254,6 +271,8 @@ public class GameplayLoopController : MonoBehaviour
                 characterAttaqueSequence.onParryWindowOpen.RemoveListener(_onParryWindowOpenHandler);
             if (_onParryWindowCloseHandler != null)
                 characterAttaqueSequence.onParryWindowClose.RemoveListener(_onParryWindowCloseHandler);
+            if (_onWindDownStartHandler != null)
+                characterAttaqueSequence.onWindDownStart.RemoveListener(_onWindDownStartHandler);
         }
         if (slideDetection != null && _onSwipeDetectedHandler != null)
             slideDetection.onSwipeDetected.RemoveListener(_onSwipeDetectedHandler);
@@ -261,6 +280,7 @@ public class GameplayLoopController : MonoBehaviour
         _onComboCompleteHandler = null;
         _onParryWindowOpenHandler = null;
         _onParryWindowCloseHandler = null;
+        _onWindDownStartHandler = null;
         _onSwipeDetectedHandler = null;
     }
 
@@ -271,8 +291,15 @@ public class GameplayLoopController : MonoBehaviour
     private void OnParryWindowOpen(Direction attaqueDirection)
     {
         _parryWindowActive = true;
+        _isInWindDown = false;
         _currentAttaqueDirection = attaqueDirection;
         _parriedInCombo.Add(false);
+    }
+
+    /// <summary>Called when wind-down starts; parry during this phase is a perfect parry.</summary>
+    private void OnWindDownStart()
+    {
+        _isInWindDown = true;
     }
 
     /// <summary>
@@ -303,9 +330,12 @@ public class GameplayLoopController : MonoBehaviour
                 floatingFeedback.ShowMiss(missedParryFxPosition);
             if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
+            _perfectParriesInARow = 0;
+            UpdatePerfectParryComboDisplay();
         }
 
         _parryWindowActive = false;
+        _isInWindDown = false;
         _currentAttaqueDirection = Direction.Neutral;
     }
 
@@ -323,18 +353,42 @@ public class GameplayLoopController : MonoBehaviour
         {
             _parriedInCombo[_parriedInCombo.Count - 1] = true;
             _parryWindowActive = false;
+            bool isPerfectParry = _isInWindDown;
+
             StartCoroutine(HitStopCoroutine());
             if (playerSquashStretch != null)
                 playerSquashStretch.PlayParrySuccess();
             if (FxManager.Instance != null)
-                FxManager.Instance.SpawnAtPosition(1, parryFxPosition);
+                FxManager.Instance.SpawnAtPosition(isPerfectParry ? perfectParryFxIndex : 1, parryFxPosition);
             if (ScreenshackManager.Instance != null)
                 ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.Low);
             if (floatingFeedback != null)
-                floatingFeedback.ShowParry(parryFxPosition);
+            {
+                if (isPerfectParry)
+                    floatingFeedback.ShowPerfectParry(parryFxPosition);
+                else
+                    floatingFeedback.ShowParry(parryFxPosition);
+            }
+            if (isPerfectParry)
+            {
+                _perfectParriesInARow++;
+                UpdatePerfectParryComboDisplay();
+            }
+            else
+            {
+                _perfectParriesInARow = 0;
+                UpdatePerfectParryComboDisplay();
+            }
             if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
         }
+    }
+
+    /// <summary>Pushes current perfect parry count to the combo display.</summary>
+    private void UpdatePerfectParryComboDisplay()
+    {
+        if (perfectParryComboDisplay != null)
+            perfectParryComboDisplay.SetPerfectParryCount(_perfectParriesInARow);
     }
 
     /// <summary>
@@ -435,6 +489,7 @@ public class GameplayLoopController : MonoBehaviour
 
             _parriedInCombo.Clear();
             _parryWindowActive = false;
+            _isInWindDown = false;
             _currentAttaqueDirection = Direction.Neutral;
             _comboComplete = false;
 
