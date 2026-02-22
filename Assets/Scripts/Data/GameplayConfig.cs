@@ -75,4 +75,36 @@ public class GameplayConfig : ScriptableObject
 
     /// <summary>Gets the pause duration between combos in seconds.</summary>
     public float PauseBetweenComboDuration => pauseBetweenComboDuration;
+
+    // --- Runtime API (for runtime-created configs, e.g. roguelite) ---
+
+    public void SetPlayerStartLife(int value) => playerStartLife = value;
+    public void SetEnemyStartLife(int value) => enemyStartLife = value;
+    public void SetFullLifeComboNumberOfAttaques(int value) => fullLifeComboNumberOfAttaques = value;
+    public void SetFullLifeDurationBetweenAttaque(float value) => fullLifeDurationBetweenAttaque = value;
+    public void SetFullLifeWindUpDuration(float value) => fullLifeWindUpDuration = value;
+    public void SetFullLifeWindDownDuration(float value) => fullLifeWindDownDuration = value;
+    public void SetEmptyLifeComboNumberOfAttaques(int value) => emptyLifeComboNumberOfAttaques = value;
+    public void SetEmptyLifeDurationBetweenAttaque(float value) => emptyLifeDurationBetweenAttaque = value;
+    public void SetEmptyLifeWindUpDuration(float value) => emptyLifeWindUpDuration = value;
+    public void SetEmptyLifeWindDownDuration(float value) => emptyLifeWindDownDuration = value;
+    public void SetPauseBetweenComboDuration(float value) => pauseBetweenComboDuration = value;
+
+    /// <summary>Creates a runtime copy with the same values. Call setters to customize.</summary>
+    public GameplayConfig CloneForRuntime()
+    {
+        var copy = CreateInstance<GameplayConfig>();
+        copy.playerStartLife = playerStartLife;
+        copy.enemyStartLife = enemyStartLife;
+        copy.fullLifeComboNumberOfAttaques = fullLifeComboNumberOfAttaques;
+        copy.fullLifeDurationBetweenAttaque = fullLifeDurationBetweenAttaque;
+        copy.fullLifeWindUpDuration = fullLifeWindUpDuration;
+        copy.fullLifeWindDownDuration = fullLifeWindDownDuration;
+        copy.emptyLifeComboNumberOfAttaques = emptyLifeComboNumberOfAttaques;
+        copy.emptyLifeDurationBetweenAttaque = emptyLifeDurationBetweenAttaque;
+        copy.emptyLifeWindUpDuration = emptyLifeWindUpDuration;
+        copy.emptyLifeWindDownDuration = emptyLifeWindDownDuration;
+        copy.pauseBetweenComboDuration = pauseBetweenComboDuration;
+        return copy;
+    }
 }

@@ -3,7 +3,8 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 /// <summary>
-/// Drives post-processing (vignette) from gameplay: low-life intensity and a brief pulse on missed parry.
+/// Drives post-processing (vignette, chromatic aberration) from gameplay: low-life intensity, a brief pulse on missed parry,
+/// and chromatic aberration that lerps between max-life and zero-life values.
 /// </summary>
 public class GameplayPostProcessDriver : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class GameplayPostProcessDriver : MonoBehaviour
     [SerializeField] private float vignettePulseOnMiss = 0.5f;
     [Tooltip("How fast vignette recovers toward target (low-life or 0).")]
     [SerializeField] private float vignetteRecoverySpeed = 3f;
+
+    [Header("Chromatic Aberration (by life)")]
+    [Tooltip("Chromatic aberration intensity when player is at full life.")]
+    [SerializeField] [Range(0f, 1f)] private float chromaticAberrationAtMaxLife = 0f;
+    [Tooltip("Chromatic aberration intensity when player is at zero life.")]
+    [SerializeField] [Range(0f, 1f)] private float chromaticAberrationAtZeroLife = 0.5f;
 
     /// <summary>Optional: source of player current/max life for low-life vignette. If null, only miss pulse is used.</summary>
     [SerializeField] private LifebarManager playerLifebarManager;
@@ -62,5 +69,16 @@ public class GameplayPostProcessDriver : MonoBehaviour
 
         vignette.active = true;
         vignette.intensity.Override(_currentVignetteIntensity);
+
+        // Chromatic aberration: lerp between max-life and zero-life intensity by current life ratio
+        if (volume.profile.TryGet<ChromaticAberration>(out ChromaticAberration chromaticAberration))
+        {
+            float lifeRatio = 1f;
+            if (playerLifebarManager != null && playerLifebarManager.MaxLifeValue > 0)
+                lifeRatio = (float)playerLifebarManager.CurrentLifeValue / playerLifebarManager.MaxLifeValue;
+            float caIntensity = Mathf.Lerp(chromaticAberrationAtZeroLife, chromaticAberrationAtMaxLife, lifeRatio);
+            chromaticAberration.active = true;
+            chromaticAberration.intensity.Override(caIntensity);
+        }
     }
 }

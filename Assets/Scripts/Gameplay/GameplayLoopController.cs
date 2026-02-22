@@ -22,8 +22,11 @@ public enum GameEndResult
 /// </summary>
 public class GameplayLoopController : MonoBehaviour
 {
-    /// <summary>Gameplay configuration (life, combo counts, timings, pause).</summary>
+    /// <summary>Gameplay configuration (life, combo counts, timings, pause). Fallback when no FightConfig and no provider override.</summary>
     [SerializeField] private GameplayConfig config;
+
+    /// <summary>Optional single fight config; if set, its GameplayConfig is used (overridden by FightConfigProvider at runtime).</summary>
+    [SerializeField] private FightConfig fightConfig;
 
     /// <summary>Drives the sequence of enemy attacks in a combo.</summary>
     [SerializeField] private CharacterComboSequence characterComboSequence;
@@ -140,6 +143,12 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Per-attack parry success in the current combo; one entry per attack.</summary>
     private readonly List<bool> _parriedInCombo = new List<bool>();
 
+    /// <summary>Per-attack perfect parry in the current combo; one entry per attack (only true if parried and perfect).</summary>
+    private readonly List<bool> _perfectParryInCombo = new List<bool>();
+
+    /// <summary>Resolved config used for the run (from provider, fightConfig, or config).</summary>
+    private GameplayConfig _effectiveConfig;
+
     /// <summary>Set when the current combo has finished all attacks.</summary>
     private bool _comboComplete;
 
@@ -169,9 +178,12 @@ public class GameplayLoopController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (config == null)
+        _effectiveConfig = FightConfigProvider.GetConfigForFight(
+            fightConfig != null ? fightConfig.GetGameplayConfig() : config);
+
+        if (_effectiveConfig == null)
         {
-            Debug.LogError("GameplayLoopController: GameplayConfig is not assigned.", this);
+            Debug.LogError("GameplayLoopController: No GameplayConfig (assign config or fightConfig, or set FightConfigProvider).", this);
             return;
         }
         if (characterComboSequence == null || characterAttaqueSequence == null || slideDetection == null)
@@ -180,8 +192,8 @@ public class GameplayLoopController : MonoBehaviour
             return;
         }
 
-        _playerCurrentLife = config.PlayerStartLife;
-        _enemyCurrentLife = config.EnemyStartLife;
+        _playerCurrentLife = _effectiveConfig.PlayerStartLife;
+        _enemyCurrentLife = _effectiveConfig.EnemyStartLife;
         UpdateLifebars();
         UpdateMusicPitch();
         _mainLoopCoroutine = StartCoroutine(MainLoopCoroutine());
@@ -194,12 +206,12 @@ public class GameplayLoopController : MonoBehaviour
     {
         if (playerLifebarManager != null)
         {
-            playerLifebarManager.MaxLifeValue = config.PlayerStartLife;
+            playerLifebarManager.MaxLifeValue = _effectiveConfig.PlayerStartLife;
             playerLifebarManager.CurrentLifeValue = _playerCurrentLife;
         }
         if (enemyLifebarManager != null)
         {
-            enemyLifebarManager.MaxLifeValue = config.EnemyStartLife;
+            enemyLifebarManager.MaxLifeValue = _effectiveConfig.EnemyStartLife;
             enemyLifebarManager.CurrentLifeValue = _enemyCurrentLife;
         }
     }
@@ -211,7 +223,7 @@ public class GameplayLoopController : MonoBehaviour
     {
         if (musicPitchManager == null)
             return;
-        float lifeRatio = (float)_enemyCurrentLife / config.EnemyStartLife;
+        float lifeRatio = (float)_enemyCurrentLife / _effectiveConfig.EnemyStartLife;
         musicPitchManager.pitch = Mathf.Lerp(emptyLifeMusicSpeed, fullLifeMusicSpeed, lifeRatio);
     }
 
@@ -294,6 +306,7 @@ public class GameplayLoopController : MonoBehaviour
         _isInWindDown = false;
         _currentAttaqueDirection = attaqueDirection;
         _parriedInCombo.Add(false);
+        _perfectParryInCombo.Add(false);
     }
 
     /// <summary>Called when wind-down starts; parry during this phase is a perfect parry.</summary>
@@ -311,6 +324,11 @@ public class GameplayLoopController : MonoBehaviour
         if (_parriedInCombo.Count > 0 && !_parriedInCombo[_parriedInCombo.Count - 1])
         {
             _playerCurrentLife--;
+            if (GameplayEvents.Instance != null)
+            {
+                GameplayEvents.Instance.InvokeMissParry();
+                GameplayEvents.Instance.InvokePlayerLoseHealth();
+            }
             if (playerLifebarManager != null)
                 playerLifebarManager.NotifyDamage();
             UpdateLifebars();
@@ -352,8 +370,18 @@ public class GameplayLoopController : MonoBehaviour
         if (swipeDirection == expectedParryDirection)
         {
             _parriedInCombo[_parriedInCombo.Count - 1] = true;
-            _parryWindowActive = false;
             bool isPerfectParry = _isInWindDown;
+            _perfectParryInCombo[_perfectParryInCombo.Count - 1] = isPerfectParry;
+            _parryWindowActive = false;
+
+            if (GameplayEvents.Instance != null)
+            {
+                GameplayEvents.Instance.InvokeParry();
+                if (isPerfectParry)
+                    GameplayEvents.Instance.InvokePerfectParry();
+                else
+                    GameplayEvents.Instance.InvokeNonPerfectParry();
+            }
 
             StartCoroutine(HitStopCoroutine());
             if (playerSquashStretch != null)
@@ -433,6 +461,9 @@ public class GameplayLoopController : MonoBehaviour
         countdownText.text = "Fight!";
         yield return AnimateCountdownStep(countdownRect, countdownText);
 
+        if (GameplayEvents.Instance != null)
+            GameplayEvents.Instance.InvokeFightStarted();
+
         countdownText.gameObject.SetActive(false);
     }
 
@@ -480,14 +511,15 @@ public class GameplayLoopController : MonoBehaviour
             int numberOfAttaques;
             float durationBetweenAttaque, windUpDuration, windDownDuration;
 
-            float lifeRatio = (float)_enemyCurrentLife / config.EnemyStartLife;
+            float lifeRatio = (float)_enemyCurrentLife / _effectiveConfig.EnemyStartLife;
 
-            numberOfAttaques = (int)Mathf.Lerp(config.EmptyLifeComboNumberOfAttaques, config.FullLifeComboNumberOfAttaques, lifeRatio);
-            durationBetweenAttaque = Mathf.Lerp(config.EmptyLifeDurationBetweenAttaque, config.FullLifeDurationBetweenAttaque, lifeRatio);
-            windUpDuration = Mathf.Lerp(config.EmptyLifeWindUpDuration, config.FullLifeWindUpDuration, lifeRatio);
-            windDownDuration = Mathf.Lerp(config.EmptyLifeWindDownDuration, config.FullLifeWindDownDuration, lifeRatio);
+            numberOfAttaques = (int)Mathf.Lerp(_effectiveConfig.EmptyLifeComboNumberOfAttaques, _effectiveConfig.FullLifeComboNumberOfAttaques, lifeRatio);
+            durationBetweenAttaque = Mathf.Lerp(_effectiveConfig.EmptyLifeDurationBetweenAttaque, _effectiveConfig.FullLifeDurationBetweenAttaque, lifeRatio);
+            windUpDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindUpDuration, _effectiveConfig.FullLifeWindUpDuration, lifeRatio);
+            windDownDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindDownDuration, _effectiveConfig.FullLifeWindDownDuration, lifeRatio);
 
             _parriedInCombo.Clear();
+            _perfectParryInCombo.Clear();
             _parryWindowActive = false;
             _isInWindDown = false;
             _currentAttaqueDirection = Direction.Neutral;
@@ -502,17 +534,35 @@ public class GameplayLoopController : MonoBehaviour
             UnsubscribeFromComboAndInput();
 
             bool allParried = _parriedInCombo.Count > 0;
+            bool allPerfectlyParried = _parriedInCombo.Count > 0 && _perfectParryInCombo.Count == _parriedInCombo.Count;
             for (int i = 0; i < _parriedInCombo.Count; i++)
             {
                 if (!_parriedInCombo[i])
                 {
                     allParried = false;
+                    allPerfectlyParried = false;
                     break;
                 }
+                if (i >= _perfectParryInCombo.Count || !_perfectParryInCombo[i])
+                    allPerfectlyParried = false;
             }
+
+            if (GameplayEvents.Instance != null)
+            {
+                if (allParried)
+                    GameplayEvents.Instance.InvokeComboEndAllParried();
+                if (allPerfectlyParried)
+                    GameplayEvents.Instance.InvokeComboEndAllPerfectlyParried();
+                if (!allParried)
+                    GameplayEvents.Instance.InvokeComboEndAtLeastOneNotParried();
+                GameplayEvents.Instance.InvokeEnemyComboEnd();
+            }
+
             if (allParried)
             {
                 _enemyCurrentLife--;
+                if (GameplayEvents.Instance != null)
+                    GameplayEvents.Instance.InvokeEnemyLoseHealth();
                 if (enemyLifebarManager != null)
                     enemyLifebarManager.NotifyDamage();
                 UpdateLifebars();
@@ -533,7 +583,7 @@ public class GameplayLoopController : MonoBehaviour
                     Handheld.Vibrate();
             }
 
-            float pauseDuration = config.PauseBetweenComboDuration;
+            float pauseDuration = _effectiveConfig.PauseBetweenComboDuration;
             if (pauseDuration > 0f)
                 yield return new WaitForSeconds(pauseDuration);
         }
@@ -572,6 +622,8 @@ public class GameplayLoopController : MonoBehaviour
         else
             Debug.Log("Enemy wins");
 
+        if (GameplayEvents.Instance != null)
+            GameplayEvents.Instance.InvokeGameEnd(result);
         GameEnded?.Invoke(result);
     }
 }
