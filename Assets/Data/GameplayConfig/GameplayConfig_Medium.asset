@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c0e3b7482f7c5d4eb85eea97b144f21, type: 3}
-  m_Name: GameplayConfig_Easy
+  m_Name: GameplayConfig_Medium
   m_EditorClassIdentifier: Assembly-CSharp::GameplayConfig
   playerStartLife: 10
   enemyStartLife: 10

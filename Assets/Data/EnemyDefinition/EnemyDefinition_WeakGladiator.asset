@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68864ba047bffcc45afbdd222e0ed11c, type: 3}
+  m_Name: EnemyDefinition_WeakGladiator
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
+  displayName: Weak Gladiator
+  optionalPrefab: {fileID: 0}
+  spriteSet:
+    spriteNeutral: {fileID: -1647726389776391840, guid: 9f6de63a860aaf046bcb3a190b32a985, type: 3}
+    spriteUp: {fileID: -4657304565732526233, guid: 35f6a0c51641e8c4c928241fa1b32c23, type: 3}
+    spriteLeft: {fileID: 4360830333143415650, guid: 996055dc66b72d24586b8473bdfbd84c, type: 3}
+    spriteRight: {fileID: 563345693872922132, guid: 224221b2d20258c418820239141c5916, type: 3}
+    spriteDown: {fileID: 7845233712703562237, guid: 4aca0c2d3dbf15b4fa73737875553949, type: 3}
+    spriteHurt: {fileID: 2404651772464138904, guid: 42d21d800e9f04d4094fd1e6068e5abb, type: 3}
+    spriteDownState: {fileID: 3648489116189608215, guid: 0af2325f21f7ef345adbc67abb20b244, type: 3}
+    scaleNeutral: 1
+    scaleUp: 1.25
+    scaleLeft: 1
+    scaleRight: 1
+    scaleDown: 1
+    scaleHurt: 1.25
+    scaleDownState: 1.33
+  windDownFxIndex: 0
+  allParriedComboFxIndex: 3

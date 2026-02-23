@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8b1634ccbdd9242b7456c7ca388712, type: 3}
-  m_Name: FightConfig_Test
+  m_Name: FightConfig_Medium
   m_EditorClassIdentifier: Assembly-CSharp::FightConfig
-  gameplayConfig: {fileID: 11400000, guid: 357c32a064b1837478c4c9f389813297, type: 2}
-  optionalEnemyDefinition: {fileID: 11400000, guid: 19b55bf8f467fdc4cb6685d314f75115, type: 2}
+  gameplayConfig: {fileID: 11400000, guid: 45a3d147811122d4aa717092b6d0b3c0, type: 2}
+  optionalEnemyDefinition: {fileID: 11400000, guid: 41041743d0df6ab4a9431100e7e388b0, type: 2}
+  musicConfig: {fileID: 11400000, guid: 8368e0941ac987645b18648dbee99225, type: 2}
+  environmentConfig: {fileID: 11400000, guid: 8ccd6c76d2af51443add48ace8fa0fe9, type: 2}

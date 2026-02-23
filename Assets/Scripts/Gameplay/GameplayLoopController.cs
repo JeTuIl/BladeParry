@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
@@ -122,6 +123,9 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Drives vignette from low life and missed parry. Notify via NotifyPlayerDamaged.</summary>
     [SerializeField] private GameplayPostProcessDriver gameplayPostProcessDriver;
 
+    /// <summary>Optional fight background; when EnvironmentConfig is set, its sprite/position/scale are applied here at fight start.</summary>
+    [SerializeField] private Image fightBackgroundImage;
+
     /// <summary>Player's current life; decremented on missed parry.</summary>
     private int _playerCurrentLife;
 
@@ -151,6 +155,12 @@ public class GameplayLoopController : MonoBehaviour
 
     /// <summary>Cached enemy definition for the current fight (from resolved FightConfig).</summary>
     private EnemyDefinition _enemyDefinition;
+
+    /// <summary>Effective full-life music speed (from MusicConfig if set, else scene fallback).</summary>
+    private float _effectiveFullLifeMusicSpeed;
+
+    /// <summary>Effective empty-life music speed (from MusicConfig if set, else scene fallback).</summary>
+    private float _effectiveEmptyLifeMusicSpeed;
 
     /// <summary>Set when the current combo has finished all attacks.</summary>
     private bool _comboComplete;
@@ -198,7 +208,6 @@ public class GameplayLoopController : MonoBehaviour
         _playerCurrentLife = _effectiveConfig.PlayerStartLife;
         _enemyCurrentLife = _effectiveConfig.EnemyStartLife;
         UpdateLifebars();
-        UpdateMusicPitch();
 
         FightConfig resolvedFightConfig = FightConfigProvider.CurrentFightConfig != null ? FightConfigProvider.CurrentFightConfig : fightConfig;
         _enemyDefinition = resolvedFightConfig?.OptionalEnemyDefinition;
@@ -206,6 +215,26 @@ public class GameplayLoopController : MonoBehaviour
             enemySpriteDirection.ApplySpriteConfig(_enemyDefinition.SpriteSet);
         if (characterAttaqueSequence != null)
             characterAttaqueSequence.SetWindDownFxIndex(_enemyDefinition != null ? _enemyDefinition.WindDownFxIndex : 0);
+
+        _effectiveFullLifeMusicSpeed = fullLifeMusicSpeed;
+        _effectiveEmptyLifeMusicSpeed = emptyLifeMusicSpeed;
+        MusicConfig musicConfig = resolvedFightConfig?.GetMusicConfig();
+        if (musicConfig != null)
+        {
+            _effectiveFullLifeMusicSpeed = musicConfig.FullLifeMusicSpeed;
+            _effectiveEmptyLifeMusicSpeed = musicConfig.EmptyLifeMusicSpeed;
+            if (musicConfig.MusicClip != null && musicSwitchManager != null)
+                musicSwitchManager.SwitchMusic(musicConfig.MusicClip, 0f, true);
+        }
+        UpdateMusicPitch();
+
+        EnvironmentConfig envConfig = resolvedFightConfig?.GetEnvironmentConfig();
+        if (envConfig != null && envConfig.BackgroundSprite != null && fightBackgroundImage != null)
+        {
+            fightBackgroundImage.sprite = envConfig.BackgroundSprite;
+            fightBackgroundImage.rectTransform.localPosition = envConfig.BackgroundPosition;
+            fightBackgroundImage.rectTransform.localScale = envConfig.BackgroundScale;
+        }
 
         _mainLoopCoroutine = StartCoroutine(MainLoopCoroutine());
     }
@@ -235,7 +264,7 @@ public class GameplayLoopController : MonoBehaviour
         if (musicPitchManager == null)
             return;
         float lifeRatio = (float)_enemyCurrentLife / _effectiveConfig.EnemyStartLife;
-        musicPitchManager.pitch = Mathf.Lerp(emptyLifeMusicSpeed, fullLifeMusicSpeed, lifeRatio);
+        musicPitchManager.pitch = Mathf.Lerp(_effectiveEmptyLifeMusicSpeed, _effectiveFullLifeMusicSpeed, lifeRatio);
     }
 
     /// <summary>

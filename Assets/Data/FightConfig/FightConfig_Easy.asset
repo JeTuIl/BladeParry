@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: FightConfig_Easy
   m_EditorClassIdentifier: Assembly-CSharp::FightConfig
   gameplayConfig: {fileID: 11400000, guid: fcdf5b85eeb8bdc4f8b3892b176178f9, type: 2}
-  optionalEnemyDefinition: {fileID: 11400000, guid: 41041743d0df6ab4a9431100e7e388b0, type: 2}
+  optionalEnemyDefinition: {fileID: 11400000, guid: 042d95e2e883e2f4aa71ced215edb63e, type: 2}
+  musicConfig: {fileID: 11400000, guid: f8e502b3f3dd92e40b179ab8c2bae5e7, type: 2}
+  environmentConfig: {fileID: 11400000, guid: b385a3a3d101e104badc330d9b6826cf, type: 2}

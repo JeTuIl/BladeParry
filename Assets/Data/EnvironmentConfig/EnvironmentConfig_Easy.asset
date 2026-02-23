@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a5f03d645190d458b213fb54735927, type: 3}
+  m_Name: EnvironmentConfig_Easy
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentConfig
+  backgroundSprite: {fileID: 9079627475848329142, guid: 37cff1e699c75b648a10fd310bb02f5d, type: 3}
+  backgroundPosition: {x: 264, y: 51, z: 0}
+  backgroundScale: {x: 5.770245, y: 5.770245, z: 5.770245}
