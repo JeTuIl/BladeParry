@@ -656,13 +656,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpriteManager
   _image: {fileID: 1476378253}
   Direction: 0
-  spriteNeutral: {fileID: 7896879507418422366, guid: bfb6794a8ac45df4cb06c40bdcde637a, type: 3}
-  spriteUp: {fileID: -1823528606274303932, guid: ddf3aeeb47d53714891f429e1f4efb17, type: 3}
-  spriteLeft: {fileID: -9064020888558258055, guid: 147ffc6e8e6d7d143aaa6272d814f772, type: 3}
-  spriteRight: {fileID: 1572294537600053802, guid: 36fb91e3524bbfb4c95da32edd8dcbb3, type: 3}
-  spriteDown: {fileID: 2762869300973893336, guid: 5fed9d4c06820a74fbe4cd801a28a403, type: 3}
-  spriteHurt: {fileID: -6410082007035369781, guid: cc9f436fc82479f4096331ccba77a9e7, type: 3}
-  spriteDead: {fileID: -4339928078722919852, guid: d91b057a452c9344ba145410b829a956, type: 3}
+  spriteNeutral: {fileID: -6401503363514780387, guid: 6d422a7b62f7cb746b61435e8122083c, type: 3}
+  spriteUp: {fileID: 5327686028174776640, guid: 9f3fec5a39694104ca5f6565ab640b9b, type: 3}
+  spriteLeft: {fileID: -2330395112794482587, guid: 5f28b4144d3046a4293af93df967d76b, type: 3}
+  spriteRight: {fileID: -5830736634674898042, guid: 7333c3beed299144a91d8b5826382b97, type: 3}
+  spriteDown: {fileID: -8535969353328151377, guid: baa3b90bb8f2dd1409a600e34d23ada2, type: 3}
+  spriteHurt: {fileID: -2871590882205412365, guid: 03944b8511b1cbf4e9e4b38148a19cc6, type: 3}
+  spriteDead: {fileID: -4192752881704667939, guid: b6d93c43ecc629c4091809b7072560d8, type: 3}
   windUpDuration: 0.3
   windDownDuration: 0.2
   hurtDuration: 0.5
