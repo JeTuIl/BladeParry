@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// Result of a finished game: either the player or the enemy wins.
@@ -88,6 +90,8 @@ public class GameplayLoopController : MonoBehaviour
 
     /// <summary>Text used for the pre-fight countdown (5, 4, 3, 2, 1, Fight!).</summary>
     [SerializeField] private TMP_Text countdownText;
+
+    private static readonly LocalizedString s_fightLabel = new LocalizedString("BladeParry_LocalizationTable", "Gameplay_Fight");
 
     /// <summary>Duration of each countdown number animation in seconds.</summary>
     [SerializeField] private float countdownStepDuration = 1f;
@@ -498,7 +502,10 @@ public class GameplayLoopController : MonoBehaviour
             yield return AnimateCountdownStep(countdownRect, countdownText);
         }
 
-        countdownText.text = "Fight!";
+        AsyncOperationHandle<string> fightOp = s_fightLabel.GetLocalizedStringAsync();
+        if (!fightOp.IsDone)
+            yield return fightOp;
+        countdownText.text = (fightOp.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(fightOp.Result)) ? fightOp.Result : "Fight!";
         yield return AnimateCountdownStep(countdownRect, countdownText);
 
         if (GameplayEvents.Instance != null)

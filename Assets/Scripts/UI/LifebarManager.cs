@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// Displays a life bar (main fill) and a trailing red bar that lerps toward the current value—always shown when redBarImage is assigned.
@@ -49,8 +51,11 @@ public class LifebarManager : MonoBehaviour
     [Header("Numeric Display")]
     [SerializeField] private bool showNumeric = false;
     [SerializeField] private TMP_Text numericText;
-    [Tooltip("Format: {0} = current, {1} = max. E.g. \"{0} / {1}\" or \"{0}\" only.")]
+    [Tooltip("Format: {0} = current, {1} = max. E.g. \"{0} / {1}\" or \"{0}\" only. Overridden by localization when available.")]
     [SerializeField] private string numericFormat = "{0} / {1}";
+
+    private static readonly LocalizedString s_lifebarFormat = new LocalizedString("BladeParry_LocalizationTable", "UI_LifebarFormat");
+    private string _cachedLifebarFormat;
 
     /// <summary>Maximum life (used as denominator for fill).</summary>
     public int MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); } }
@@ -84,6 +89,17 @@ public class LifebarManager : MonoBehaviour
         }
         if (redBarImage != null)
             _currentRedBarWidth = redBarImage.rectTransform.sizeDelta.x;
+        StartCoroutine(PreloadFormat());
+        RefreshNumeric();
+    }
+
+    private IEnumerator PreloadFormat()
+    {
+        var op = s_lifebarFormat.GetLocalizedStringAsync();
+        if (!op.IsDone)
+            yield return op;
+        if (op.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(op.Result))
+            _cachedLifebarFormat = op.Result;
         RefreshNumeric();
     }
 
@@ -172,9 +188,10 @@ public class LifebarManager : MonoBehaviour
     {
         if (!showNumeric || numericText == null)
             return;
+        string format = !string.IsNullOrEmpty(_cachedLifebarFormat) ? _cachedLifebarFormat : numericFormat;
         try
         {
-            numericText.text = string.Format(numericFormat, currentLifeValue, maxLifeValue);
+            numericText.text = string.Format(format, currentLifeValue, maxLifeValue);
         }
         catch (System.Exception)
         {

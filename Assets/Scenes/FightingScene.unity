@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 156613687}
   - component: {fileID: 156613686}
   - component: {fileID: 156613685}
+  - component: {fileID: 156613688}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -328,6 +329,46 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &156613688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156613684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: BladeParry_LocalizationTable
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: FightingScene_Canvas_Container_Mask_Text_TMP
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2059226465603768804}
+        m_TargetAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &195032799
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 271055211}
   - component: {fileID: 271055210}
+  - component: {fileID: 271055212}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1026,6 +1068,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &271055212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271055209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.PropertyVariants.GameObjectLocalizer
+  m_TrackedObjects:
+  - rid: 9148304532597637336
+  references:
+    version: 2
+    RefIds:
+    - rid: 9148304532597637336
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 271055210}
+        m_TrackedProperties:
+          items:
+          - rid: 9148304532597637337
+          - rid: 9148304532597637338
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 9148304532597637337
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: config
+        m_TypeString: GameplayConfig, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 11400000, guid: 357c32a064b1837478c4c9f389813297, type: 2}
+        - localeIdentifier:
+            m_Code: fr
+          value: {fileID: 11400000, guid: fcdf5b85eeb8bdc4f8b3892b176178f9, type: 2}
+    - rid: 9148304532597637338
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: fightConfig
+        m_TypeString: FightConfig, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 11400000, guid: 49e0b481436b8f543bb42843575e1b9e, type: 2}
+        - localeIdentifier:
+            m_Code: fr
+          value: {fileID: 11400000, guid: 6afa5013866ee024db3dac841ddee12e, type: 2}
 --- !u!1 &314321452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1951,7 @@ GameObject:
   - component: {fileID: 886555980}
   - component: {fileID: 886555979}
   - component: {fileID: 886555978}
+  - component: {fileID: 886555981}
   m_Layer: 5
   m_Name: Combo
   m_TagString: Untagged
@@ -1946,7 +2044,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: No translation found for 'FightingScene_Canvas_Container_Mask_UI_Combo'
+    in BladeParry_LocalizationTable
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aada1fb32b9303b449b66a47b1b01918, type: 2}
   m_sharedMaterial: {fileID: -3509374467213842216, guid: aada1fb32b9303b449b66a47b1b01918, type: 2}
@@ -2026,6 +2125,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886555976}
   m_CullTransparentMesh: 1
+--- !u!114 &886555981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886555976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.PropertyVariants.GameObjectLocalizer
+  m_TrackedObjects:
+  - rid: 9148304532597637353
+  references:
+    version: 2
+    RefIds:
+    - rid: 9148304532597637353
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 886555979}
+        m_TrackedProperties:
+          items:
+          - rid: 9148304532597637354
+        m_UpdateType: 0
+    - rid: 9148304532597637354
+      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_Localized:
+          m_TableReference:
+            m_TableCollectionName: GUID:4a64b00258a839b4e8ed936a0e170a60
+          m_TableEntryReference:
+            m_KeyId: 23574452834304
+            m_Key: 
+          m_FallbackState: 0
+          m_WaitForCompletion: 0
+          m_LocalVariables: []
+        m_PropertyPath: m_text
 --- !u!1 &892255044
 GameObject:
   m_ObjectHideFlags: 0
@@ -3256,6 +3393,7 @@ GameObject:
   - component: {fileID: 1533086736}
   - component: {fileID: 1533086735}
   - component: {fileID: 1533086734}
+  - component: {fileID: 1533086737}
   m_Layer: 5
   m_Name: FpsCounter
   m_TagString: Untagged
@@ -3396,6 +3534,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533086732}
   m_CullTransparentMesh: 1
+--- !u!114 &1533086737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533086732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: BladeParry_LocalizationTable
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: FightingScene_Canvas_Container_Mask_UI_FpsCounter
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1537447840
 GameObject:
   m_ObjectHideFlags: 0
@@ -3678,13 +3844,61 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5691993319435138244, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1598483175}
   m_SourcePrefab: {fileID: 100100000, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
 --- !u!224 &1598483173 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2564954208842425235, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
   m_PrefabInstance: {fileID: 1598483172}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1598483174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5691993319435138244, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+  m_PrefabInstance: {fileID: 1598483172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1598483175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598483174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: BladeParry_LocalizationTable
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: FightingScene_Canvas_Container_EndGame_Button_Quit_Text_TMP
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2059226465603768804}
+        m_TargetAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1706769690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4676,13 +4890,72 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5691993319435138244, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2059226465603768806}
   m_SourcePrefab: {fileID: 100100000, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
 --- !u!224 &2059226465603768803 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2564954208842425235, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
   m_PrefabInstance: {fileID: 2059226465603768802}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2059226465603768804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6971229004968475144, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+  m_PrefabInstance: {fileID: 2059226465603768802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059226465603768805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &2059226465603768805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5691993319435138244, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+  m_PrefabInstance: {fileID: 2059226465603768802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2059226465603768806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059226465603768805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: BladeParry_LocalizationTable
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: FightingScene_Canvas_Container_EndGame_Button_Retry_Text_TMP
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2059226465603768804}
+        m_TargetAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1001 &3042010153856764146
 PrefabInstance:
   m_ObjectHideFlags: 0

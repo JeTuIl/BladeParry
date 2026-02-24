@@ -1,0 +1,204 @@
+﻿{
+    "sceneEntries": [
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/Mask/CountDown",
+            "currentText": "",
+            "suggestedKey": "FightingScene_Canvas_Container_Mask_CountDown"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/EndGame/SummaryBackground/SummartText",
+            "currentText": "New Text",
+            "suggestedKey": "FightingScene_Canvas_Container_EndGame_SummaryBackground_SummartText"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/Mask/UI/Combo",
+            "currentText": "",
+            "suggestedKey": "FightingScene_Canvas_Container_Mask_UI_Combo"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/EndGame/Button_Quit/Text (TMP)",
+            "currentText": "Quitter",
+            "suggestedKey": "FightingScene_Canvas_Container_EndGame_Button_Quit_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Text (TMP)",
+            "currentText": "",
+            "suggestedKey": "FightingScene_Canvas_Container_Mask_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/EndGame/Button_Retry/Text (TMP)",
+            "currentText": "Recommencer",
+            "suggestedKey": "FightingScene_Canvas_Container_EndGame_Button_Retry_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/FightingScene.unity",
+            "gameObjectPath": "Canvas/Container/Mask/UI/FpsCounter",
+            "currentText": "88",
+            "suggestedKey": "FightingScene_Canvas_Container_Mask_UI_FpsCounter"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/MainUi/Button_Tuto/Text (TMP)",
+            "currentText": "Tuto",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_MainUi_Button_Tuto_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/MainUi/Button_Quit/Text (TMP)",
+            "currentText": "Quit",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_MainUi_Button_Quit_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/MainUi/Button_Start/Text (TMP)",
+            "currentText": "Commencer",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_MainUi_Button_Start_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Difficulty Selection/Button_Normal/Text (TMP)",
+            "currentText": "Normal",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Normal_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Text (TMP)",
+            "currentText": "",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Tuto/Parchemin/Text (TMP)",
+            "currentText": "Le but du jeu est de parer les attaques de votre adversaire.\r\nParez de toutes les attaques d'un combo pour lui infliger des dégâts.\r\nÉchouez à parer une attaque et vous perdez de la vie.\n\nObservez les mouvements de votre adversaire et slidez votre doigt sur l'écran dans la direction opposée à son attaque pour la  parer .",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Difficulty Selection/Button_Easy/Text (TMP)",
+            "currentText": "Facile",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Easy_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Tuto/Parchemin/Text 3",
+            "currentText": "Dans cet exemple, slidez votre doigt de gauche à droite pour parer l'attaque.",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_3"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Tuto/Button_Back/Text (TMP)",
+            "currentText": "Retour\n",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Tuto_Button_Back_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Tuto/Parchemin/Text 2",
+            "currentText": "L'ennemi brandit son arme dans la direction opposée à son attaque, puis le rabat dans la direction de l'attaque.",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_2"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Difficulty Selection/Button_Hard/Text (TMP)",
+            "currentText": "Difficile",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Hard_Text_TMP"
+        },
+        {
+            "scenePath": "Assets/Scenes/MainMenu.unity",
+            "gameObjectPath": "Canvas/Container/Mask/Difficulty Selection/Button_Back/Text (TMP)",
+            "currentText": "Retour",
+            "suggestedKey": "MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Back_Text_TMP"
+        }
+    ],
+    "scriptEntries": [
+        {
+            "file": "Assets/Scripts/Gameplay/GameplayLoopController.cs",
+            "line": 497,
+            "kind": "Enum/ToString (localize if user-facing)",
+            "snippet": "countdownText.text = i.ToString();",
+            "suggestedKey": "GameplayLoopController_497"
+        },
+        {
+            "file": "Assets/Scripts/Gameplay/GameplayLoopController.cs",
+            "line": 501,
+            "kind": ".text/SetText",
+            "snippet": "Fight!",
+            "suggestedKey": "Gameplay_Fight"
+        },
+        {
+            "file": "Assets/Scripts/Gameplay/SlideDetection.cs",
+            "line": 121,
+            "kind": "Enum/ToString (localize if user-facing)",
+            "snippet": "directionLabel.text = direction.ToString();",
+            "suggestedKey": "SlideDetection_121"
+        },
+        {
+            "file": "Assets/Scripts/UI/FightSummaryDisplay.cs",
+            "line": 41,
+            "kind": "string.Format (multi-line)",
+            "snippet": "Duree du combat : {0} min {1} s\nParades parfaites : {2}\nParades non parfaites : {3}\nPlus grande serie de parades parf...",
+            "suggestedKey": "UI_FightSummary"
+        },
+        {
+            "file": "Assets/Scripts/UI/FloatingFeedbackText.cs",
+            "line": 38,
+            "kind": "Display method",
+            "snippet": "PARRY!",
+            "suggestedKey": "UI_Parry"
+        },
+        {
+            "file": "Assets/Scripts/UI/FloatingFeedbackText.cs",
+            "line": 46,
+            "kind": "Display method",
+            "snippet": "Perfect !",
+            "suggestedKey": "UI_PerfectParry"
+        },
+        {
+            "file": "Assets/Scripts/UI/FloatingFeedbackText.cs",
+            "line": 54,
+            "kind": "Display method",
+            "snippet": "MISS",
+            "suggestedKey": "UI_Miss"
+        },
+        {
+            "file": "Assets/Scripts/UI/FloatingFeedbackText.cs",
+            "line": 62,
+            "kind": "Display method",
+            "snippet": "COMBO!",
+            "suggestedKey": "UI_Combo"
+        },
+        {
+            "file": "Assets/Scripts/UI/FpsCounter.cs",
+            "line": 19,
+            "kind": "Enum/ToString (localize if user-facing)",
+            "snippet": "_fpsText.text = Mathf.RoundToInt(_smoothedFps).ToString();",
+            "suggestedKey": "FpsCounter_19"
+        },
+        {
+            "file": "Assets/Scripts/UI/LifebarManager.cs",
+            "line": 53,
+            "kind": "Format string (SerializeField)",
+            "snippet": "{0} / {1}",
+            "suggestedKey": "UI_LifebarFormat"
+        },
+        {
+            "file": "Assets/Scripts/UI/LifebarManager.cs",
+            "line": 181,
+            "kind": ".text literal",
+            "snippet": "{currentLifeValue} / {maxLifeValue}",
+            "suggestedKey": "LifebarManager_181"
+        },
+        {
+            "file": "Assets/Scripts/UI/PerfectParryComboDisplay.cs",
+            "line": 56,
+            "kind": "Enum/ToString (localize if user-facing)",
+            "snippet": "text.text = _count.ToString();",
+            "suggestedKey": "PerfectParryComboDisplay_56"
+        }
+    ]
+}

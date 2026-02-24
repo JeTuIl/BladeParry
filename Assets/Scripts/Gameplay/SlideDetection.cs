@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// Detects swipe input from touch or mouse and invokes an event with the resolved cardinal direction (Up, Down, Left, Right).
@@ -30,6 +33,40 @@ public class SlideDetection : MonoBehaviour
 
     /// <summary>True when a touch/mouse press has been recorded and we are waiting for release.</summary>
     private bool _touchTracked;
+
+    private const string TableName = "BladeParry_LocalizationTable";
+    private string _dirUp;
+    private string _dirDown;
+    private string _dirLeft;
+    private string _dirRight;
+
+    private void Start()
+    {
+        StartCoroutine(PreloadDirectionLabels());
+    }
+
+    private IEnumerator PreloadDirectionLabels()
+    {
+        var up = new LocalizedString(TableName, "Direction_Up").GetLocalizedStringAsync();
+        yield return up;
+        if (up.IsValid() && up.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(up.Result))
+            _dirUp = up.Result;
+
+        var down = new LocalizedString(TableName, "Direction_Down").GetLocalizedStringAsync();
+        yield return down;
+        if (down.IsValid() && down.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(down.Result))
+            _dirDown = down.Result;
+
+        var left = new LocalizedString(TableName, "Direction_Left").GetLocalizedStringAsync();
+        yield return left;
+        if (left.IsValid() && left.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(left.Result))
+            _dirLeft = left.Result;
+
+        var right = new LocalizedString(TableName, "Direction_Right").GetLocalizedStringAsync();
+        yield return right;
+        if (right.IsValid() && right.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(right.Result))
+            _dirRight = right.Result;
+    }
 
     /// <summary>
     /// Each frame, processes touch input if available, otherwise mouse input.
@@ -118,7 +155,17 @@ public class SlideDetection : MonoBehaviour
         {
             Direction direction = GetDirectionFromDelta(delta);
             if (directionLabel != null)
-                directionLabel.text = direction.ToString();
+            {
+                string label = direction switch
+                {
+                    Direction.Up => _dirUp,
+                    Direction.Down => _dirDown,
+                    Direction.Left => _dirLeft,
+                    Direction.Right => _dirRight,
+                    _ => null
+                };
+                directionLabel.text = !string.IsNullOrEmpty(label) ? label : direction.ToString();
+            }
             onSwipeDetected?.Invoke(direction);
         }
     }

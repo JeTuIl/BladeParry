@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: BladeParry_LocalizationTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: BladeParry_LocalizationTable
+  m_TableCollectionNameGuidString: 4a64b00258a839b4e8ed936a0e170a60
+  m_Entries:
+  - m_Id: 127483973632
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116808142848
+    m_Key: FightingScene_Canvas_Container_Mask_CountDown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337152
+    m_Key: FightingScene_Canvas_Container_EndGame_SummaryBackground_SummartText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337153
+    m_Key: FightingScene_Canvas_Container_Mask_UI_Combo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337154
+    m_Key: FightingScene_Canvas_Container_EndGame_Button_Quit_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337155
+    m_Key: FightingScene_Canvas_Container_Mask_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337156
+    m_Key: FightingScene_Canvas_Container_EndGame_Button_Retry_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337157
+    m_Key: FightingScene_Canvas_Container_Mask_UI_FpsCounter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337158
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Tuto_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337159
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Quit_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337160
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Start_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337161
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Normal_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337162
+    m_Key: MainMenu_Canvas_Container_Mask_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337163
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337164
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Easy_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337165
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337166
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Button_Back_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337167
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337168
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Hard_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337169
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Back_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337170
+    m_Key: GameplayLoopController_497
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337171
+    m_Key: Gameplay_Fight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337172
+    m_Key: SlideDetection_121
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337173
+    m_Key: UI_FightSummary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337174
+    m_Key: UI_Parry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337175
+    m_Key: UI_PerfectParry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337176
+    m_Key: UI_Miss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337177
+    m_Key: UI_Combo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337178
+    m_Key: FpsCounter_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337179
+    m_Key: UI_LifebarFormat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337180
+    m_Key: LifebarManager_181
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337181
+    m_Key: PerfectParryComboDisplay_56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19866595823616
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20593317711872
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21630824943616
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22293009076224
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23539208097792
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23574452834304
+    m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 5
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 9148304531459670241
+  references:
+    version: 2
+    RefIds:
+    - rid: 9148304531459670241
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1771922296450

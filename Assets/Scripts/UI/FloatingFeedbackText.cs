@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Localization;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 /// <summary>
 /// Spawns short-lived floating text for parry, miss, and combo feedback.
@@ -18,8 +20,18 @@ public class FloatingFeedbackText : MonoBehaviour
     [SerializeField] private float scalePeak = 1.2f;
     [SerializeField] private float scaleEnd = 1f;
 
+    private const string TableName = "BladeParry_LocalizationTable";
+    private static readonly LocalizedString s_parry = new LocalizedString(TableName, "UI_Parry");
+    private static readonly LocalizedString s_perfectParry = new LocalizedString(TableName, "UI_PerfectParry");
+    private static readonly LocalizedString s_miss = new LocalizedString(TableName, "UI_Miss");
+    private static readonly LocalizedString s_combo = new LocalizedString(TableName, "UI_Combo");
+
     private Canvas _canvas;
     private CanvasScaler _scaler;
+    private string _cachedParry;
+    private string _cachedPerfectParry;
+    private string _cachedMiss;
+    private string _cachedCombo;
 
     private void Awake()
     {
@@ -30,36 +42,87 @@ public class FloatingFeedbackText : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        StartCoroutine(PreloadStrings());
+    }
+
+    private IEnumerator PreloadStrings()
+    {
+        var opParry = s_parry.GetLocalizedStringAsync();
+        yield return opParry;
+        if (opParry.IsValid() && opParry.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(opParry.Result))
+            _cachedParry = opParry.Result;
+
+        var opPerfect = s_perfectParry.GetLocalizedStringAsync();
+        yield return opPerfect;
+        if (opPerfect.IsValid() && opPerfect.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(opPerfect.Result))
+            _cachedPerfectParry = opPerfect.Result;
+
+        var opMiss = s_miss.GetLocalizedStringAsync();
+        yield return opMiss;
+        if (opMiss.IsValid() && opMiss.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(opMiss.Result))
+            _cachedMiss = opMiss.Result;
+
+        var opCombo = s_combo.GetLocalizedStringAsync();
+        yield return opCombo;
+        if (opCombo.IsValid() && opCombo.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(opCombo.Result))
+            _cachedCombo = opCombo.Result;
+    }
+
+    private static string GetLocalized(LocalizedString localized, string fallback, ref string cache)
+    {
+        if (!string.IsNullOrEmpty(cache))
+            return cache;
+        var op = localized.GetLocalizedStringAsync();
+        if (op.IsDone && op.IsValid() && op.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(op.Result))
+        {
+            cache = op.Result;
+            return cache;
+        }
+        op.WaitForCompletion();
+        if (op.IsValid() && op.Status == AsyncOperationStatus.Succeeded && !string.IsNullOrEmpty(op.Result))
+        {
+            cache = op.Result;
+            return cache;
+        }
+        return fallback;
+    }
+
     /// <summary>
-    /// Shows "PARRY!" at the given world position (converted to canvas space).
+    /// Shows the parry label at the given world position (converted to canvas space).
     /// </summary>
     public void ShowParry(Vector3 worldPosition)
     {
-        ShowAt("PARRY!", worldPosition);
+        string s = GetLocalized(s_parry, "PARRY!", ref _cachedParry);
+        ShowAt(s, worldPosition);
     }
 
     /// <summary>
-    /// Shows "Perfect !" at the given world position (perfect parry during wind-down).
+    /// Shows the perfect parry label at the given world position (perfect parry during wind-down).
     /// </summary>
     public void ShowPerfectParry(Vector3 worldPosition)
     {
-        ShowAt("Perfect !", worldPosition);
+        string s = GetLocalized(s_perfectParry, "Perfect !", ref _cachedPerfectParry);
+        ShowAt(s, worldPosition);
     }
 
     /// <summary>
-    /// Shows "MISS" at the given world position.
+    /// Shows the miss label at the given world position.
     /// </summary>
     public void ShowMiss(Vector3 worldPosition)
     {
-        ShowAt("MISS", worldPosition);
+        string s = GetLocalized(s_miss, "MISS", ref _cachedMiss);
+        ShowAt(s, worldPosition);
     }
 
     /// <summary>
-    /// Shows "COMBO!" at the given world position.
+    /// Shows the combo label at the given world position.
     /// </summary>
     public void ShowCombo(Vector3 worldPosition)
     {
-        ShowAt("COMBO!", worldPosition);
+        string s = GetLocalized(s_combo, "COMBO!", ref _cachedCombo);
+        ShowAt(s, worldPosition);
     }
 
     private void ShowAt(string text, Vector3 worldPosition)

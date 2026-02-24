@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: BladeParry_LocalizationTable_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 4a64b00258a839b4e8ed936a0e170a60, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 4116812337152
+    m_Localized: New Text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337154
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337156
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337157
+    m_Localized: 88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337158
+    m_Localized: Tuto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337159
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337160
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337161
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337163
+    m_Localized: 'The goal of the game is to parry your opponent''s attacks.
+
+      Parry
+      all attacks in a combo to inflict damage.
+
+      Fail to parry an attack and
+      you lose health.
+
+
+
+      Observe your opponent''s movements and slide your
+      finger across the screen in the opposite direction of their attack to parry
+      it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337164
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337165
+    m_Localized: In this example, slide your finger from left to right to parry the
+      attack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337166
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337167
+    m_Localized: The enemy brandishes his weapon in the opposite direction of his
+      attack, then brings it down in the direction of the attack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337168
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337169
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337170
+    m_Localized: countdownText.text = i.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337171
+    m_Localized: Fight !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337172
+    m_Localized: directionLabel.text = direction.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337173
+    m_Localized: 'Fight duration : {0} min {1} s
+
+      Perfect parries : {2}
+
+      Non
+      perfect parries : {3}
+
+      Greatest series of perfect parades : {4}
+
+      Number
+      of enemy combos : {5}
+
+      Number of strike received : {6}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337174
+    m_Localized: PARRY!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337175
+    m_Localized: PERFECT !
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337176
+    m_Localized: MISS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337177
+    m_Localized: COMBO!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337178
+    m_Localized: _fpsText.text = Mathf.RoundToInt(_smoothedFps).ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337179
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337180
+    m_Localized: '{currentLifeValue} / {maxLifeValue}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337181
+    m_Localized: text.text = _count.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19866595823616
+    m_Localized: 88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20593317711872
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21630824943616
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116808142848
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127483973632
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337153
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22293009076224
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23539208097792
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23574452834304
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

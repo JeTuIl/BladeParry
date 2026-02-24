@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: BladeParry_LocalizationTable_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: 4a64b00258a839b4e8ed936a0e170a60, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 4116812337157
+    m_Localized: 88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337172
+    m_Localized: directionLabel.text = direction.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337178
+    m_Localized: _fpsText.text = Mathf.RoundToInt(_smoothedFps).ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337179
+    m_Localized: '{0} / {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337180
+    m_Localized: '{currentLifeValue} / {maxLifeValue}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337181
+    m_Localized: text.text = _count.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337152
+    m_Localized: Nuevo texto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337154
+    m_Localized: Dejar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337156
+    m_Localized: Reanudar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337158
+    m_Localized: Tuto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337159
+    m_Localized: Dejar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337160
+    m_Localized: Comenzar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337161
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337163
+    m_Localized: "El objetivo del juego es parar los ataques de tu oponente.\r\nPara
+      todos los ataques de un combo para infligir da\xF1o.\r\nSi no logras parar
+      un ataque, perder\xE1s salud.\r\n\r\nObserva los movimientos de tu oponente
+      y desliza el dedo por la pantalla en direcci\xF3n opuesta a su ataque para
+      pararlo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337164
+    m_Localized: Facil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337165
+    m_Localized: En este ejemplo, deslice el dedo de izquierda a derecha para detener
+      el ataque.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337166
+    m_Localized: Atras
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337167
+    m_Localized: "El enemigo blande su arma en la direcci\xF3n opuesta a su ataque,
+      luego la baja en la direcci\xF3n del ataque."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337168
+    m_Localized: Duro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337169
+    m_Localized: "Atr\xE1s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337170
+    m_Localized: countdownText.text = i.ToString();
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337171
+    m_Localized: "\xA1 Luchar !"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337173
+    m_Localized: "Duraci\xF3n del combate: {0} min {1} s\r\nParadas perfectas: {2}\r\nParadas
+      no perfectas: {3}\r\nMayor serie de desfiles perfectos: {4}\r\nN\xFAmero de
+      combos enemigos: {5}\r\nN\xFAmero de golpes recibidos: {6}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337174
+    m_Localized: "\xA1PARAR!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337175
+    m_Localized: "\xA1PERFECTO!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337176
+    m_Localized: ERRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337177
+    m_Localized: "\xA1COMBINADO!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116808142848
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 127483973632
+    m_Localized: ' '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337153
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23539208097792
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23574452834304
+    m_Localized: '0
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19866595823616
+    m_Localized: 88
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20593317711872
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21630824943616
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22293009076224
+    m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
