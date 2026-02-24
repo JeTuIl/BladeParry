@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4116812337169
-    m_Localized: "Atr\xE1s"
+    m_Localized: Atras
     m_Metadata:
       m_Items: []
   - m_Id: 4116812337170
@@ -170,6 +170,30 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 22293009076224
     m_Localized: 0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39393693995008
+    m_Localized: GoBackFromOptions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40619315761152
+    m_Localized: Opciones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109749704265728
+    m_Localized: 'Musica:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110081121390592
+    m_Localized: 'SFX:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110329730371584
+    m_Localized: "H\xE1ptico:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110545170796544
+    m_Localized: 'Efectos:'
     m_Metadata:
       m_Items: []
   references:

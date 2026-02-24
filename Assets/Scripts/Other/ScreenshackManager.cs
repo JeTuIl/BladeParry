@@ -77,6 +77,8 @@ public class ScreenshackManager : MonoBehaviour
     /// <param name="strength">Strength level determining shake distance and duration.</param>
     public void TriggerScreenShake(ScreenShakeStrength strength)
     {
+        if (OptionManager.Instance != null && !OptionManager.Instance.GetScreenEffectsEnabled())
+            return;
         if (targetRectTransform == null)
         {
             Debug.LogWarning("[ScreenshackManager] targetRectTransform is not assigned.");

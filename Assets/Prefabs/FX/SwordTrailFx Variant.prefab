@@ -86,6 +86,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2719658062553907681}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3271699565671114030}
   m_SourcePrefab: {fileID: 100100000, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
 --- !u!1 &4601240073441695431 stripped
 GameObject:
@@ -205,3 +208,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 438e8b23f837be84180a86a8f2804ea4, type: 3}
   _playOnStart: 1
   _audioSource: {fileID: 5290693050548962604}
+--- !u!114 &3271699565671114030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4601240073441695431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7623226247f8494aa9c1007d19562b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioVolumeFromOptions
+  audioSource: {fileID: 5290693050548962604}
+  baseVolume: 0.5
+  volumeType: 1

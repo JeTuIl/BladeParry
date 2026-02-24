@@ -44,6 +44,12 @@ public class GameplayPostProcessDriver : MonoBehaviour
         if (volume == null || volume.profile == null)
             return;
 
+        if (OptionManager.Instance != null && !OptionManager.Instance.GetScreenEffectsEnabled())
+        {
+            ApplyScreenEffectsDisabled();
+            return;
+        }
+
         if (!volume.profile.TryGet<Vignette>(out Vignette vignette))
             return;
 
@@ -79,6 +85,25 @@ public class GameplayPostProcessDriver : MonoBehaviour
             float caIntensity = Mathf.Lerp(chromaticAberrationAtZeroLife, chromaticAberrationAtMaxLife, lifeRatio);
             chromaticAberration.active = true;
             chromaticAberration.intensity.Override(caIntensity);
+        }
+    }
+
+    private void ApplyScreenEffectsDisabled()
+    {
+        if (volume.profile.TryGet<Vignette>(out Vignette vignette))
+        {
+            vignette.active = true;
+            vignette.intensity.Override(0f);
+        }
+        if (volume.profile.TryGet<ChromaticAberration>(out ChromaticAberration chromaticAberration))
+        {
+            chromaticAberration.active = true;
+            chromaticAberration.intensity.Override(0f);
+        }
+        if (volume.profile.TryGet<LensDistortion>(out LensDistortion lensDistortion))
+        {
+            lensDistortion.active = true;
+            lensDistortion.intensity.Override(0f);
         }
     }
 }

@@ -56,7 +56,7 @@ public class MusciSwitchManager : MonoBehaviour
             yield break;
         }
 
-        float startVolume = audioSource.volume;
+        float startVolume = GetMusicVolumeFromOptions();
         float elapsed = 0f;
 
         // Fade-out phase
@@ -70,9 +70,14 @@ public class MusciSwitchManager : MonoBehaviour
         audioSource.volume = 0f;
         audioSource.Stop();
         ApplyNewClipAndPlay(newClip, shouldLoop);
-        audioSource.volume = startVolume;
+        audioSource.volume = GetMusicVolumeFromOptions();
 
         _switchCoroutine = null;
+    }
+
+    private static float GetMusicVolumeFromOptions()
+    {
+        return OptionManager.Instance != null ? OptionManager.Instance.GetMusicVolume() : 1f;
     }
 
     /// <summary>
@@ -88,6 +93,7 @@ public class MusciSwitchManager : MonoBehaviour
             musicPitchManager.pitch = 1.0f;
         else
             audioSource.pitch = 1.0f;
+        audioSource.volume = GetMusicVolumeFromOptions();
         audioSource.Play();
     }
 }

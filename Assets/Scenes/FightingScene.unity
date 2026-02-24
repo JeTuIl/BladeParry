@@ -1050,7 +1050,6 @@ MonoBehaviour:
   floatingFeedback: {fileID: 1706769691}
   perfectParryFxIndex: 5
   perfectParryComboDisplay: {fileID: 886555978}
-  enableHaptics: 1
   gameplayPostProcessDriver: {fileID: 892255047}
   fightBackgroundImage: {fileID: 883260692}
 --- !u!4 &271055211
@@ -3884,7 +3883,7 @@ MonoBehaviour:
   m_UpdateString:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2059226465603768804}
+      - m_Target: {fileID: 1598483176}
         m_TargetAssemblyTypeName: TMPro.TextMeshProUGUI, Unity.TextMeshPro
         m_MethodName: SetText
         m_Mode: 0
@@ -3899,6 +3898,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1598483176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6971229004968475144, guid: c89125515f74f8740bb8272b53e530b6, type: 3}
+  m_PrefabInstance: {fileID: 1598483172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598483174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1706769690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4151,6 +4161,7 @@ GameObject:
   - component: {fileID: 1845716670}
   - component: {fileID: 1845716672}
   - component: {fileID: 1845716673}
+  - component: {fileID: 1845716674}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -4298,6 +4309,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusciSwitchManager
   audioSource: {fileID: 1845716670}
   musicPitchManager: {fileID: 1845716672}
+--- !u!114 &1845716674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845716669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7623226247f8494aa9c1007d19562b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioVolumeFromOptions
+  audioSource: {fileID: 1845716670}
+  baseVolume: 1
+  volumeType: 0
 --- !u!1 &1849678583
 GameObject:
   m_ObjectHideFlags: 0

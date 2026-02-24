@@ -14,9 +14,26 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private UiFader mainUi;
     [SerializeField] private UiFader tutoUi;
     [SerializeField] private UiFader difficultyUi;
+    [SerializeField] private UiFader optionsUi;
     [SerializeField] private List<FightConfig> fightConfigs = new List<FightConfig>();
     [SerializeField] private string sceneToLoad;
     [SerializeField] private AudioSource musicAudioSource;
+
+    private void Start()
+    {
+        ApplyMusicVolumeFromOptions();
+    }
+
+    private static float GetMusicVolumeFromOptions()
+    {
+        return OptionManager.Instance != null ? OptionManager.Instance.GetMusicVolume() : 1f;
+    }
+
+    private void ApplyMusicVolumeFromOptions()
+    {
+        if (musicAudioSource != null)
+            musicAudioSource.volume = GetMusicVolumeFromOptions();
+    }
 
     /// <summary>
     /// Fades to black then quits the game (or leaves play mode in editor).
@@ -75,6 +92,22 @@ public class MainMenuManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Fades out the main UI then fades in the options UI.
+    /// </summary>
+    public void GoToOptions()
+    {
+        StartCoroutine(GoToOptionsCoroutine());
+    }
+
+    /// <summary>
+    /// Fades out the options UI then fades in the main UI.
+    /// </summary>
+    public void GoBackFromOptions()
+    {
+        StartCoroutine(GoBackFromOptionsCoroutine());
+    }
+
+    /// <summary>
     /// Sets the fight config for the next fight via FightConfigProvider using the FightConfig at the given index in the fightConfigs list.
     /// </summary>
     /// <param name="index">Index into the fightConfigs list. Ignored if out of range.</param>
@@ -102,7 +135,7 @@ public class MainMenuManager : MonoBehaviour
     private IEnumerator QuitGameCoroutine()
     {
         float duration = blackFader != null ? blackFader.FadeDuration : 0f;
-        float startVolume = musicAudioSource != null ? musicAudioSource.volume : 0f;
+        float startVolume = musicAudioSource != null ? GetMusicVolumeFromOptions() : 0f;
 
         if (blackFader != null)
             blackFader.FadeIn();
@@ -132,7 +165,7 @@ public class MainMenuManager : MonoBehaviour
     private IEnumerator StartGameCoroutine()
     {
         float duration = blackFader != null ? blackFader.FadeDuration : 0f;
-        float startVolume = musicAudioSource != null ? musicAudioSource.volume : 0f;
+        float startVolume = musicAudioSource != null ? GetMusicVolumeFromOptions() : 0f;
 
         if (blackFader != null)
             blackFader.FadeIn();
@@ -216,5 +249,29 @@ public class MainMenuManager : MonoBehaviour
 
         if (tutoUi != null)
             tutoUi.FadeIn();
+    }
+
+    private IEnumerator GoToOptionsCoroutine()
+    {
+        if (mainUi != null)
+        {
+            mainUi.FadeOut();
+            yield return new WaitUntil(() => mainUi == null || !mainUi.IsFading);
+        }
+
+        if (optionsUi != null)
+            optionsUi.FadeIn();
+    }
+
+    private IEnumerator GoBackFromOptionsCoroutine()
+    {
+        if (optionsUi != null)
+        {
+            optionsUi.FadeOut();
+            yield return new WaitUntil(() => optionsUi == null || !optionsUi.IsFading);
+        }
+
+        if (mainUi != null)
+            mainUi.FadeIn();
     }
 }

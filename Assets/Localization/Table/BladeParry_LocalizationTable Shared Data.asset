@@ -167,6 +167,30 @@ MonoBehaviour:
     m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 5
     m_Metadata:
       m_Items: []
+  - m_Id: 39393693995008
+    m_Key: MainMenu/Canvas/Container/Mask/Option/Button_Back (1)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40619315761152
+    m_Key: MainMenu/Canvas/Container/Mask/Option/OptionTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109749704265728
+    m_Key: MusicOption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110081121390592
+    m_Key: OptionSfx
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110329730371584
+    m_Key: OptionHaptic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110545170796544
+    m_Key: OptionEffects
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -188,6 +188,30 @@ MonoBehaviour:
     m_Localized: 0
     m_Metadata:
       m_Items: []
+  - m_Id: 39393693995008
+    m_Localized: GoBackFromDifficultyToMain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40619315761152
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 109749704265728
+    m_Localized: 'Music:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110081121390592
+    m_Localized: 'SFX:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110329730371584
+    m_Localized: 'Haptic:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110545170796544
+    m_Localized: 'Effects:'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

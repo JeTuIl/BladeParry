@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 928333664970807728}
   - component: {fileID: 2361303490586915241}
   - component: {fileID: 1114903922082788851}
+  - component: {fileID: 3459108501247246315}
   m_Layer: 0
   m_Name: Claw
   m_TagString: Untagged
@@ -155,6 +156,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef75f535ec67fc441ad76656ebdb75ed, type: 3}
   _playOnStart: 1
   _audioSource: {fileID: 2361303490586915241}
+--- !u!114 &3459108501247246315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423630890732734506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7623226247f8494aa9c1007d19562b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioVolumeFromOptions
+  audioSource: {fileID: 2361303490586915241}
+  baseVolume: 0.5
+  volumeType: 1
 --- !u!1001 &606318448163479317
 PrefabInstance:
   m_ObjectHideFlags: 0

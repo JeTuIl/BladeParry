@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2909780176202380342}
   - component: {fileID: 4978240279714419029}
   - component: {fileID: -1969309011939591710}
+  - component: {fileID: 5316753931570492433}
   m_Layer: 0
   m_Name: FullPary
   m_TagString: Untagged
@@ -169,6 +170,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1dc904b120aea44b58e588234674f5d7, type: 3}
   _playOnStart: 1
   _audioSource: {fileID: 4978240279714419029}
+--- !u!114 &5316753931570492433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7594147683835015852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7623226247f8494aa9c1007d19562b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioVolumeFromOptions
+  audioSource: {fileID: 4978240279714419029}
+  baseVolume: 1
+  volumeType: 1
 --- !u!1001 &3974241859142902427
 PrefabInstance:
   m_ObjectHideFlags: 0

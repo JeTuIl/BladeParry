@@ -121,9 +121,6 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Displays current perfect parries in a row (count, gradient, tremble).</summary>
     [SerializeField] private PerfectParryComboDisplay perfectParryComboDisplay;
 
-    /// <summary>When true, haptic feedback is triggered on parry / miss / combo (handheld only).</summary>
-    [SerializeField] private bool enableHaptics = true;
-
     /// <summary>Drives vignette from low life and missed parry. Notify via NotifyPlayerDamaged.</summary>
     [SerializeField] private GameplayPostProcessDriver gameplayPostProcessDriver;
 
@@ -390,7 +387,7 @@ public class GameplayLoopController : MonoBehaviour
                 ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.High);
             if (floatingFeedback != null)
                 floatingFeedback.ShowMiss(missedParryFxPosition);
-            if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+            if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
             _perfectParriesInARow = 0;
             UpdatePerfectParryComboDisplay();
@@ -451,7 +448,7 @@ public class GameplayLoopController : MonoBehaviour
                 _perfectParriesInARow = 0;
                 UpdatePerfectParryComboDisplay();
             }
-            if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+            if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
         }
     }
@@ -626,7 +623,7 @@ public class GameplayLoopController : MonoBehaviour
                     enemySpriteDirection.isHurt = true;
                 if (floatingFeedback != null)
                     floatingFeedback.ShowCombo(allParriedFxPosition);
-                if (enableHaptics && SystemInfo.deviceType == DeviceType.Handheld)
+                if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
                     Handheld.Vibrate();
             }
 
