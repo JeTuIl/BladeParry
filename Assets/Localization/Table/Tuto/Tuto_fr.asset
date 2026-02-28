@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tuto_fr
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 0edc49eb3e109a1488bebf846b3cd54e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 4829941760
+    m_Localized: "Pendant un combat, le but est de parer les attaques de l'adversaire.\nObservez
+      ses mouvements pour d\xE9terminer la direction de l'attaque."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20130762752
+    m_Localized: "Pour parer une attaque, glissez votre doigt sur l'\xE9cran dans
+      la direction oppos\xE9e.\nAinsi, si un ennemi attaque de la droite vers la
+      gauche, glissez votre doigt de la gauche vers la droite pour le parer."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32277467136
+    m_Localized: "Si vous parvenez \xE0 parer une attaque de votre adversaire, vous
+      lui infligez des d\xE9g\xE2ts.\nA l'inverse, si vous \xE9chouez c'est vous
+      qui serez bless\xE9.\nVous gagnez quand votre adversaire n'a plus de vie et
+      \xE0 l'inverse vous perdez quand vous n'avez plus de vie."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38384373760
+    m_Localized: "Le timing des parades est important. Rel\xE2chez le doigt de l'\xE9cran
+      pour enclencher la parade.\nSi vous enclenchez la parade au bon moment (pendant
+      que l'adversaire abat son arme), vous effectuerez une parade parfaite !\nUne
+      parade parfaite inflige plus de d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53718749184
+    m_Localized: "Les adversaires utilisent des combos: une s\xE9rie d\u2019attaques
+      successives avant de faire une pause.\nParez toutes les attaques d\u2019un
+      combo pour infliger des d\xE9g\xE2ts importants. C\u2019est la fa\xE7on la
+      plus rapide de gagner !"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

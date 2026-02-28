@@ -15,132 +15,8 @@ MonoBehaviour:
   m_TableCollectionName: BladeParry_LocalizationTable
   m_TableCollectionNameGuidString: 4a64b00258a839b4e8ed936a0e170a60
   m_Entries:
-  - m_Id: 127483973632
-    m_Key: New Entry
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116808142848
-    m_Key: FightingScene_Canvas_Container_Mask_CountDown
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337152
-    m_Key: FightingScene_Canvas_Container_EndGame_SummaryBackground_SummartText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337153
-    m_Key: FightingScene_Canvas_Container_Mask_UI_Combo
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337154
-    m_Key: FightingScene_Canvas_Container_EndGame_Button_Quit_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337155
-    m_Key: FightingScene_Canvas_Container_Mask_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337156
-    m_Key: FightingScene_Canvas_Container_EndGame_Button_Retry_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337157
-    m_Key: FightingScene_Canvas_Container_Mask_UI_FpsCounter
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337158
-    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Tuto_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337159
-    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Quit_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337160
-    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Start_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337161
-    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Normal_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337162
-    m_Key: MainMenu_Canvas_Container_Mask_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337163
-    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337164
-    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Easy_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337165
-    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337166
-    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Button_Back_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337167
-    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337168
-    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Hard_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337169
-    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Back_Text_TMP
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337170
-    m_Key: GameplayLoopController_497
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337171
-    m_Key: Gameplay_Fight
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337172
-    m_Key: SlideDetection_121
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337173
-    m_Key: UI_FightSummary
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337174
-    m_Key: UI_Parry
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337175
-    m_Key: UI_PerfectParry
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337176
-    m_Key: UI_Miss
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337177
-    m_Key: UI_Combo
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337178
-    m_Key: FpsCounter_19
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337179
-    m_Key: UI_LifebarFormat
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337180
-    m_Key: LifebarManager_181
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4116812337181
-    m_Key: PerfectParryComboDisplay_56
+  - m_Id: 1468031886888960
+    m_Key: Back
     m_Metadata:
       m_Items: []
   - m_Id: 19866595823616
@@ -167,6 +43,50 @@ MonoBehaviour:
     m_Key: FightingScene/Canvas/Container/Mask/UI/Combo 5
     m_Metadata:
       m_Items: []
+  - m_Id: 4116812337154
+    m_Key: FightingScene_Canvas_Container_EndGame_Button_Quit_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337156
+    m_Key: FightingScene_Canvas_Container_EndGame_Button_Retry_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337152
+    m_Key: FightingScene_Canvas_Container_EndGame_SummaryBackground_SummartText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116808142848
+    m_Key: FightingScene_Canvas_Container_Mask_CountDown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337155
+    m_Key: FightingScene_Canvas_Container_Mask_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337153
+    m_Key: FightingScene_Canvas_Container_Mask_UI_Combo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337157
+    m_Key: FightingScene_Canvas_Container_Mask_UI_FpsCounter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337178
+    m_Key: FpsCounter_19
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337171
+    m_Key: Gameplay_Fight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337170
+    m_Key: GameplayLoopController_497
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337180
+    m_Key: LifebarManager_181
+    m_Metadata:
+      m_Items: []
   - m_Id: 39393693995008
     m_Key: MainMenu/Canvas/Container/Mask/Option/Button_Back (1)
     m_Metadata:
@@ -175,20 +95,104 @@ MonoBehaviour:
     m_Key: MainMenu/Canvas/Container/Mask/Option/OptionTitle
     m_Metadata:
       m_Items: []
+  - m_Id: 4116812337169
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Back_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337164
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Easy_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337168
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Hard_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337161
+    m_Key: MainMenu_Canvas_Container_Mask_Difficulty_Selection_Button_Normal_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337159
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Quit_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337160
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Start_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337158
+    m_Key: MainMenu_Canvas_Container_Mask_MainUi_Button_Tuto_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337162
+    m_Key: MainMenu_Canvas_Container_Mask_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337166
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Button_Back_Text_TMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337167
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337165
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337163
+    m_Key: MainMenu_Canvas_Container_Mask_Tuto_Parchemin_Text_TMP
+    m_Metadata:
+      m_Items: []
   - m_Id: 109749704265728
     m_Key: MusicOption
     m_Metadata:
       m_Items: []
-  - m_Id: 110081121390592
-    m_Key: OptionSfx
+  - m_Id: 1467736926654464
+    m_Key: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110545170796544
+    m_Key: OptionEffects
     m_Metadata:
       m_Items: []
   - m_Id: 110329730371584
     m_Key: OptionHaptic
     m_Metadata:
       m_Items: []
-  - m_Id: 110545170796544
-    m_Key: OptionEffects
+  - m_Id: 110081121390592
+    m_Key: OptionSfx
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337181
+    m_Key: PerfectParryComboDisplay_56
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337172
+    m_Key: SlideDetection_121
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337177
+    m_Key: UI_Combo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337173
+    m_Key: UI_FightSummary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337179
+    m_Key: UI_LifebarFormat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337176
+    m_Key: UI_Miss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4116812337174
+    m_Key: UI_Parry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1512793104912384
+    m_Key: UI_PerfectParry
     m_Metadata:
       m_Items: []
   m_Metadata:

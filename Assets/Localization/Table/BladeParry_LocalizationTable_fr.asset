@@ -166,10 +166,6 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
-  - m_Id: 127483973632
-    m_Localized: ' '
-    m_Metadata:
-      m_Items: []
   - m_Id: 22293009076224
     m_Localized: 0
     m_Metadata:
@@ -200,6 +196,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 110545170796544
     m_Localized: 'Effets:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1467736926654464
+    m_Localized: Suivant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1468031886888960
+    m_Localized: Precedent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1512793104912384
+    m_Localized: PARFAIT !
     m_Metadata:
       m_Items: []
   references:

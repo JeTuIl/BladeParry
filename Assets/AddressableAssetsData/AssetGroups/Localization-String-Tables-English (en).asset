@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (en)
   m_GUID: 23e8d7c820ea20b43b2a013b0f9dabad
   m_SerializeEntries:
+  - m_GUID: 6c4f631b7728ffd4d88691d87b113562
+    m_Address: Tuto_en
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-en
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f43a92959b5bc504d886fa64e25fcfce
     m_Address: BladeParry_LocalizationTable_en
     m_ReadOnly: 1

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Tuto_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: 0edc49eb3e109a1488bebf846b3cd54e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 4829941760
+    m_Localized: "Durante una pelea, el objetivo es parar los ataques del oponente.
+      Observa sus movimientos para determinar la direcci\xF3n del ataque."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20130762752
+    m_Localized: "Para parar un ataque, desliza el dedo por la pantalla en la direcci\xF3n
+      opuesta.\nPor lo tanto, si un enemigo ataca de derecha a izquierda, desliza
+      el dedo de izquierda a derecha para parar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32277467136
+    m_Localized: "Si logras parar un ataque de tu oponente, le infliges da\xF1o.\nPor
+      el contrario, si fallas, ser\xE1s t\xFA quien resulte herido.\nGanas cuando
+      tu oponente se queda sin vida y pierdes cuando t\xFA te quedas sin vida."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38384373760
+    m_Localized: "Calcular bien tus paradas es crucial. Levanta el dedo de la pantalla
+      para iniciar la parada.\nSi la paras en el momento justo (mientras tu oponente
+      blande su arma), \xA1har\xE1s una parada perfecta!\nUna parada perfecta inflige
+      m\xE1s da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53718749184
+    m_Localized: "Los oponentes usan combos: una serie de ataques sucesivos seguidos
+      de una pausa.\nPara todos los ataques de un combo para infligir da\xF1o considerable.
+      \xA1Es la forma m\xE1s r\xE1pida de ganar!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

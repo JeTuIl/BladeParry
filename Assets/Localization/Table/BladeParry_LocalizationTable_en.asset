@@ -76,7 +76,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4116812337166
-    m_Localized: Back
+    m_Localized: Quit
     m_Metadata:
       m_Items: []
   - m_Id: 4116812337167
@@ -168,10 +168,6 @@ MonoBehaviour:
     m_Localized: 0
     m_Metadata:
       m_Items: []
-  - m_Id: 127483973632
-    m_Localized: ' '
-    m_Metadata:
-      m_Items: []
   - m_Id: 4116812337153
     m_Localized: 0
     m_Metadata:
@@ -210,6 +206,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 110545170796544
     m_Localized: 'Effects:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1467736926654464
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1468031886888960
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1512793104912384
+    m_Localized: PERFECT !
     m_Metadata:
       m_Items: []
   references:
