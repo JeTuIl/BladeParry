@@ -71,6 +71,19 @@ public class CharacterComboSequence : MonoBehaviour
     }
 
     /// <summary>
+    /// Stops the current combo immediately and invokes onComboComplete so listeners can continue (e.g. game end).
+    /// </summary>
+    public void StopComboAndNotifyComplete()
+    {
+        if (_comboCoroutine != null)
+        {
+            StopCoroutine(_comboCoroutine);
+            _comboCoroutine = null;
+        }
+        onComboComplete?.Invoke();
+    }
+
+    /// <summary>
     /// Context menu: triggers a combo using serialized parameters.
     /// </summary>
     [ContextMenu("Debug: Trigger Combo")]

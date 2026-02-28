@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
+  m_Name: LevelSelection
+  m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.StringTableCollection
+  m_SharedTableData: {fileID: 11400000, guid: 642d5c0d060501043aa5f4effa35900b, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: ced6873cc6bb03e4aa40bf7b146d78d1, type: 2}
+  - {fileID: 11400000, guid: 9554150a854c9354d8e7b5fba79f8e69, type: 2}
+  - {fileID: 11400000, guid: 50526ca9590fad3498de8f3a1346fc45, type: 2}
+  m_Extensions: []
+  m_Group: String Table
+  references:
+    version: 2
+    RefIds: []

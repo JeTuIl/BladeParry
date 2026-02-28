@@ -391,6 +391,9 @@ public class GameplayLoopController : MonoBehaviour
                 Handheld.Vibrate();
             _perfectParriesInARow = 0;
             UpdatePerfectParryComboDisplay();
+
+            if (_playerCurrentLife <= 0 && characterComboSequence != null)
+                characterComboSequence.StopComboAndNotifyComplete();
         }
 
         _parryWindowActive = false;
@@ -421,6 +424,9 @@ public class GameplayLoopController : MonoBehaviour
             _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - parryDamage);
             UpdateLifebars();
             UpdateMusicPitch();
+
+            if (_enemyCurrentLife <= 0 && characterComboSequence != null)
+                characterComboSequence.StopComboAndNotifyComplete();
 
             if (GameplayEvents.Instance != null)
             {
@@ -635,7 +641,7 @@ public class GameplayLoopController : MonoBehaviour
             }
 
             float pauseDuration = _effectiveConfig.PauseBetweenComboDuration;
-            if (pauseDuration > 0f)
+            if (_playerCurrentLife > 0 && _enemyCurrentLife > 0 && pauseDuration > 0f)
                 yield return new WaitForSeconds(pauseDuration);
         }
 

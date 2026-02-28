@@ -41,6 +41,44 @@ public class MusciSwitchManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Fades out the current music over the given duration, then stops playback.
+    /// </summary>
+    /// <param name="transitionDuration">Fade-out duration in seconds.</param>
+    public void Fadeout(float transitionDuration)
+    {
+        if (_switchCoroutine != null)
+            StopCoroutine(_switchCoroutine);
+
+        _switchCoroutine = StartCoroutine(FadeoutCoroutine(transitionDuration));
+    }
+
+    /// <summary>
+    /// Fades volume to zero over transitionDuration, then stops the AudioSource.
+    /// </summary>
+    private IEnumerator FadeoutCoroutine(float transitionDuration)
+    {
+        if (audioSource == null || !audioSource.isPlaying)
+        {
+            _switchCoroutine = null;
+            yield break;
+        }
+
+        float startVolume = GetMusicVolumeFromOptions();
+        float elapsed = 0f;
+
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / transitionDuration);
+            yield return null;
+        }
+
+        audioSource.volume = 0f;
+        audioSource.Stop();
+        _switchCoroutine = null;
+    }
+
+    /// <summary>
     /// Fades out the current clip, then applies and plays the new clip and restores volume.
     /// </summary>
     /// <param name="newClip">Clip to play after fade-out.</param>

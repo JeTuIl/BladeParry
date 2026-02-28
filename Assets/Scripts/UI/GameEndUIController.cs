@@ -18,6 +18,20 @@ public class GameEndUIController : MonoBehaviour
     /// <summary>Name of the scene to load when Quit is called.</summary>
     [SerializeField] private string quitSceneName;
 
+    /// <summary>Optional music switch manager; when set, ContinueRun will fade out music.</summary>
+    [SerializeField] private MusciSwitchManager musicSwitchManager;
+    /// <summary>Duration in seconds for music fade-out when continuing run.</summary>
+    [SerializeField] private float musicFadeOutDuration = 1.5f;
+
+    [Header("Roguelite run")]
+    [Tooltip("Scene to load when continuing a run after a win (e.g. WorldMap).")]
+    [SerializeField] private string rogueliteMapSceneName = "WorldMap";
+    [Tooltip("Total fights in a run; used to decide Map vs main menu after win.")]
+    [SerializeField] private int rogueliteTotalFightsInRun = 10;
+
+    /// <summary>Last result from GameEnded; used by ContinueRun.</summary>
+    private GameEndResult _lastGameEndResult;
+
     /// <summary>Canvas group for the end-game screen; alpha is animated from 0 to 1.</summary>
     [SerializeField] private CanvasGroup endGameCanvasGroup;
 
@@ -57,6 +71,7 @@ public class GameEndUIController : MonoBehaviour
     /// <param name="result">Whether the player won or lost.</param>
     private void HandleGameEnd(GameEndResult result)
     {
+        _lastGameEndResult = result;
         if (endGameCanvasGroup == null)
             return;
 
@@ -119,6 +134,7 @@ public class GameEndUIController : MonoBehaviour
 
     /// <summary>
     /// Fades the scene to black, then loads the scene specified by quitSceneName.
+    /// If a roguelite run is active, ends the run before loading.
     /// </summary>
     public void Quit()
     {
@@ -127,7 +143,51 @@ public class GameEndUIController : MonoBehaviour
             Debug.LogWarning("GameEndUIController.Quit: quitSceneName is not set.", this);
             return;
         }
+        if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null)
+            RogueliteRunState.Instance.EndRun();
         StartCoroutine(FadeToBlackThenLoadScene(quitSceneName));
+    }
+
+    /// <summary>
+    /// Continues a roguelite run after game end: on win, completes the fight and loads Map or main menu; on loss, ends run and loads main menu.
+    /// Call from a "Continue" button when in roguelite flow.
+    /// </summary>
+    public void ContinueRun()
+    {
+        if (musicSwitchManager != null)
+            musicSwitchManager.Fadeout(musicFadeOutDuration);
+
+        if (!RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
+        {
+            if (!string.IsNullOrEmpty(quitSceneName))
+                StartCoroutine(FadeToBlackThenLoadScene(quitSceneName));
+            return;
+        }
+
+        if (_lastGameEndResult == GameEndResult.PlayerWins)
+        {
+            RogueliteRunState.Instance.CompleteFight();
+            int fightsCompleted = RogueliteRunState.Instance.GetFightsCompleted();
+            if (fightsCompleted >= rogueliteTotalFightsInRun)
+            {
+                RogueliteRunState.Instance.EndRun();
+                if (!string.IsNullOrEmpty(quitSceneName))
+                    StartCoroutine(FadeToBlackThenLoadScene(quitSceneName));
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(rogueliteMapSceneName))
+                    StartCoroutine(FadeToBlackThenLoadScene(rogueliteMapSceneName));
+                else
+                    Debug.LogWarning("GameEndUIController: rogueliteMapSceneName is not set.", this);
+            }
+        }
+        else
+        {
+            RogueliteRunState.Instance.EndRun();
+            if (!string.IsNullOrEmpty(quitSceneName))
+                StartCoroutine(FadeToBlackThenLoadScene(quitSceneName));
+        }
     }
 
     /// <summary>

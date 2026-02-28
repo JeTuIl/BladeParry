@@ -17,6 +17,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private UiFader optionsUi;
     [SerializeField] private List<FightConfig> fightConfigs = new List<FightConfig>();
     [SerializeField] private string sceneToLoad;
+    [Tooltip("Scene to load when starting a roguelite run (e.g. WorldMap).")]
+    [SerializeField] private string rogueliteMapSceneName = "WorldMap";
     [SerializeField] private AudioSource musicAudioSource;
 
     private void Start()
@@ -65,6 +67,15 @@ public class MainMenuManager : MonoBehaviour
     public void GoBackFromTuto()
     {
         StartCoroutine(GoBackFromTutoCoroutine());
+    }
+
+    /// <summary>
+    /// Starts a roguelite run (run state + fights completed = 0) then fades to black and loads the map scene.
+    /// Requires RogueliteRunState to be present in the scene (e.g. on a persistent GameObject).
+    /// </summary>
+    public void StartRogueliteRun()
+    {
+        StartCoroutine(StartRogueliteRunCoroutine());
     }
 
     /// <summary>
@@ -189,6 +200,43 @@ public class MainMenuManager : MonoBehaviour
             SceneManager.LoadScene(sceneToLoad);
         else
             Debug.LogWarning("MainMenuManager: sceneToLoad is empty.", this);
+    }
+
+    private IEnumerator StartRogueliteRunCoroutine()
+    {
+        if (RogueliteRunState.Instance == null)
+        {
+            Debug.LogError("MainMenuManager: RogueliteRunState.Instance is null. Add RogueliteRunState to the scene.", this);
+            yield break;
+        }
+
+        RogueliteRunState.Instance.StartRun();
+
+        float duration = blackFader != null ? blackFader.FadeDuration : 0f;
+        float startVolume = musicAudioSource != null ? GetMusicVolumeFromOptions() : 0f;
+
+        if (blackFader != null)
+            blackFader.FadeIn();
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            if (musicAudioSource != null)
+                musicAudioSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / duration);
+            yield return null;
+        }
+
+        if (musicAudioSource != null)
+            musicAudioSource.volume = 0f;
+
+        if (blackFader != null)
+            yield return new WaitUntil(() => !blackFader.IsFading);
+
+        if (!string.IsNullOrEmpty(rogueliteMapSceneName))
+            SceneManager.LoadScene(rogueliteMapSceneName);
+        else
+            Debug.LogWarning("MainMenuManager: rogueliteMapSceneName is empty.", this);
     }
 
     private IEnumerator GoToTutoCoroutine()

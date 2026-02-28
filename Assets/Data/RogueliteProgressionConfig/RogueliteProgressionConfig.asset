@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9545ffff63df90498295fddd3bf702c, type: 3}
+  m_Name: RogueliteProgressionConfig
+  m_EditorClassIdentifier: Assembly-CSharp::RogueliteProgressionConfig
+  totalFightsInRun: 10
+  difficultyVariationRange: 0.15
+  templateGameplayConfig: {fileID: 11400000, guid: 45a3d147811122d4aa717092b6d0b3c0, type: 2}
+  gameplayRanges:
+    enemyStartLife:
+      valueMin: 5
+      valueMax: 15
+      adjustmentMin: -1
+      adjustmentMax: 1
+    fullLifeComboNumberOfAttaques:
+      valueMin: 3
+      valueMax: 6
+      adjustmentMin: -1
+      adjustmentMax: 1
+    fullLifeDurationBetweenAttaque:
+      valueMin: 0.6
+      valueMax: 0.3
+      adjustmentMin: -0.1
+      adjustmentMax: 0.1
+    fullLifeWindUpDuration:
+      valueMin: 1.5
+      valueMax: 0.5
+      adjustmentMin: -0.2
+      adjustmentMax: 0.2
+    fullLifeWindDownDuration:
+      valueMin: 0.6
+      valueMax: 0.4
+      adjustmentMin: -0.1
+      adjustmentMax: 0.1
+    emptyLifeComboNumberOfAttaques:
+      valueMin: 5
+      valueMax: 12
+      adjustmentMin: -1
+      adjustmentMax: 1
+    emptyLifeDurationBetweenAttaque:
+      valueMin: 0.5
+      valueMax: 0.1
+      adjustmentMin: -0.1
+      adjustmentMax: 0.1
+    emptyLifeWindUpDuration:
+      valueMin: 0.75
+      valueMax: 0.3
+      adjustmentMin: -0.2
+      adjustmentMax: 0.2
+    emptyLifeWindDownDuration:
+      valueMin: 0.5
+      valueMax: 0.3
+      adjustmentMin: -0.1
+      adjustmentMax: 0.1
+    pauseBetweenComboDuration:
+      valueMin: 3
+      valueMax: 3
+      adjustmentMin: 0
+      adjustmentMax: 0
+  enemyPool:
+  - {fileID: 11400000, guid: 042d95e2e883e2f4aa71ced215edb63e, type: 2}
+  - {fileID: 11400000, guid: 41041743d0df6ab4a9431100e7e388b0, type: 2}
+  - {fileID: 11400000, guid: 19b55bf8f467fdc4cb6685d314f75115, type: 2}
+  musicPool:
+  - {fileID: 11400000, guid: f8e502b3f3dd92e40b179ab8c2bae5e7, type: 2}
+  - {fileID: 11400000, guid: 8368e0941ac987645b18648dbee99225, type: 2}
+  - {fileID: 11400000, guid: e0ad3bcc15dd9614bb68f10b29e7dfbd, type: 2}
+  environmentPool:
+  - {fileID: 11400000, guid: b385a3a3d101e104badc330d9b6826cf, type: 2}
+  - {fileID: 11400000, guid: 8ccd6c76d2af51443add48ace8fa0fe9, type: 2}
+  - {fileID: 11400000, guid: d2e25149f4815eb41ac72594327c416a, type: 2}

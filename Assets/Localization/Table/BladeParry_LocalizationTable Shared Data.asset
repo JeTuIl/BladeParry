@@ -195,6 +195,10 @@ MonoBehaviour:
     m_Key: UI_PerfectParry
     m_Metadata:
       m_Items: []
+  - m_Id: 1565793844400128
+    m_Key: Continue
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
