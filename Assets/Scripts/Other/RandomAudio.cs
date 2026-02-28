@@ -35,7 +35,7 @@ public class RandomAudio : MonoBehaviour
         AudioClip clip = _clips[index];
         if (clip != null)
         {
-            float volume = OptionManager.Instance != null ? OptionManager.Instance.GetSfxVolume() : 1f;
+            float volume = OptionManager.GetSfxVolumeFromPrefs();
             _audioSource.PlayOneShot(clip, volume);
         }
     }

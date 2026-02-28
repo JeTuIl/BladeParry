@@ -44,7 +44,7 @@ public class GameplayPostProcessDriver : MonoBehaviour
         if (volume == null || volume.profile == null)
             return;
 
-        if (OptionManager.Instance != null && !OptionManager.Instance.GetScreenEffectsEnabled())
+        if (!OptionManager.GetScreenEffectsEnabledFromPrefs())
         {
             ApplyScreenEffectsDisabled();
             return;
@@ -56,7 +56,7 @@ public class GameplayPostProcessDriver : MonoBehaviour
         float targetFromLife = 0f;
         if (playerLifebarManager != null && playerLifebarManager.MaxLifeValue > 0)
         {
-            float ratio = (float)playerLifebarManager.CurrentLifeValue / playerLifebarManager.MaxLifeValue;
+            float ratio = playerLifebarManager.CurrentLifeValue / playerLifebarManager.MaxLifeValue;
             if (ratio < lowLifeThreshold)
                 targetFromLife = Mathf.Lerp(vignetteIntensityOnLowLife, 0f, ratio / lowLifeThreshold);
         }
@@ -81,7 +81,7 @@ public class GameplayPostProcessDriver : MonoBehaviour
         {
             float lifeRatio = 1f;
             if (playerLifebarManager != null && playerLifebarManager.MaxLifeValue > 0)
-                lifeRatio = (float)playerLifebarManager.CurrentLifeValue / playerLifebarManager.MaxLifeValue;
+                lifeRatio = playerLifebarManager.CurrentLifeValue / playerLifebarManager.MaxLifeValue;
             float caIntensity = Mathf.Lerp(chromaticAberrationAtZeroLife, chromaticAberrationAtMaxLife, lifeRatio);
             chromaticAberration.active = true;
             chromaticAberration.intensity.Override(caIntensity);

@@ -16,20 +16,17 @@ public class OptionUiManager : MonoBehaviour
     private void Start()
     {
         UpdateLanguageIndicatorAlphas();
-        if (OptionManager.Instance != null)
-        {
-            float musicVolume = OptionManager.Instance.GetMusicVolume();
-            if (musicVolumeSlider != null)
-                musicVolumeSlider.value = musicVolume;
-            if (musicAudioSource != null)
-                musicAudioSource.volume = musicVolume;
-            if (sfxVolumeSlider != null)
-                sfxVolumeSlider.value = OptionManager.Instance.GetSfxVolume();
-            if (hapticToggle != null)
-                hapticToggle.isOn = OptionManager.Instance.GetHapticEnabled();
-            if (screenEffectsToggle != null)
-                screenEffectsToggle.isOn = OptionManager.Instance.GetScreenEffectsEnabled();
-        }
+        float musicVolume = OptionManager.GetMusicVolumeFromPrefs();
+        if (musicVolumeSlider != null)
+            musicVolumeSlider.value = musicVolume;
+        if (musicAudioSource != null)
+            musicAudioSource.volume = musicVolume;
+        if (sfxVolumeSlider != null)
+            sfxVolumeSlider.value = OptionManager.GetSfxVolumeFromPrefs();
+        if (hapticToggle != null)
+            hapticToggle.isOn = OptionManager.GetHapticEnabledFromPrefs();
+        if (screenEffectsToggle != null)
+            screenEffectsToggle.isOn = OptionManager.GetScreenEffectsEnabledFromPrefs();
     }
 
     /// <summary>Call from the music volume Slider's On Value Changed. Applies the slider value to OptionManager and the music AudioSource.</summary>
@@ -85,7 +82,7 @@ public class OptionUiManager : MonoBehaviour
 
     private void UpdateLanguageIndicatorAlphas()
     {
-        string currentCode = OptionManager.Instance != null ? OptionManager.Instance.GetLanguageCode() : "en";
+        string currentCode = OptionManager.GetLanguageCodeFromPrefs();
 
         SetImageAlphaForLanguage(imageEnglish, "en", currentCode);
         SetImageAlphaForLanguage(imageFrench, "fr", currentCode);

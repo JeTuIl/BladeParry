@@ -20,10 +20,10 @@ public class LifebarManager : MonoBehaviour
 
     [Header("Core Settings")]
     /// <summary>Maximum life value (denominator for fill ratio).</summary>
-    [SerializeField] private int maxLifeValue = 100;
+    [SerializeField] private float maxLifeValue = 100f;
 
     /// <summary>Current life value (numerator for fill ratio).</summary>
-    [SerializeField] private int currentLifeValue = 100;
+    [SerializeField] private float currentLifeValue = 100f;
 
     /// <summary>Width in units when the bar is at full fill.</summary>
     [SerializeField] private float barSpriteMaxWidth = 200f;
@@ -58,10 +58,10 @@ public class LifebarManager : MonoBehaviour
     private string _cachedLifebarFormat;
 
     /// <summary>Maximum life (used as denominator for fill).</summary>
-    public int MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); } }
+    public float MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); } }
 
     /// <summary>Current life (used for fill; red bar lerps toward this).</summary>
-    public int CurrentLifeValue { get => currentLifeValue; set { currentLifeValue = value; RefreshNumeric(); } }
+    public float CurrentLifeValue { get => currentLifeValue; set { currentLifeValue = value; RefreshNumeric(); } }
 
     /// <summary>Current width of the fill bar (smoothed when eased motion is on).</summary>
     private float _currentFillWidth;
@@ -84,7 +84,7 @@ public class LifebarManager : MonoBehaviour
     {
         if (maxLifeValue > 0)
         {
-            float targetWidth = (Mathf.Clamp(currentLifeValue, 0, maxLifeValue) / (float)maxLifeValue) * barSpriteMaxWidth;
+            float targetWidth = (Mathf.Clamp(currentLifeValue, 0f, maxLifeValue) / maxLifeValue) * barSpriteMaxWidth;
             _currentFillWidth = targetWidth;
         }
         if (redBarImage != null)
@@ -146,8 +146,8 @@ public class LifebarManager : MonoBehaviour
         if (maxLifeValue <= 0)
             return;
 
-        int clampedLife = Mathf.Clamp(currentLifeValue, 0, maxLifeValue);
-        float targetWidth = (clampedLife / (float)maxLifeValue) * barSpriteMaxWidth;
+        float clampedLife = Mathf.Clamp(currentLifeValue, 0f, maxLifeValue);
+        float targetWidth = (clampedLife / maxLifeValue) * barSpriteMaxWidth;
 
         if (useEasedMotion)
         {
@@ -167,7 +167,7 @@ public class LifebarManager : MonoBehaviour
 
         if (useColorByHealth && healthGradient != null)
         {
-            float ratio = clampedLife / (float)maxLifeValue;
+            float ratio = clampedLife / maxLifeValue;
             lifeBarImage.color = healthGradient.Evaluate(ratio);
         }
     }

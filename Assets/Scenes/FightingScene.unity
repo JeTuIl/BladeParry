@@ -998,7 +998,6 @@ GameObject:
   m_Component:
   - component: {fileID: 271055211}
   - component: {fileID: 271055210}
-  - component: {fileID: 271055212}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1067,61 +1066,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &271055212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271055209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.PropertyVariants.GameObjectLocalizer
-  m_TrackedObjects:
-  - rid: 9148304532597637336
-  references:
-    version: 2
-    RefIds:
-    - rid: 9148304532597637336
-      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 271055210}
-        m_TrackedProperties:
-          items:
-          - rid: 9148304532597637337
-          - rid: 9148304532597637338
-        m_UpdateType: 0
-        m_Changed:
-          m_PersistentCalls:
-            m_Calls: []
-    - rid: 9148304532597637337
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: config
-        m_TypeString: GameplayConfig, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 11400000, guid: 357c32a064b1837478c4c9f389813297, type: 2}
-        - localeIdentifier:
-            m_Code: fr
-          value: {fileID: 11400000, guid: fcdf5b85eeb8bdc4f8b3892b176178f9, type: 2}
-    - rid: 9148304532597637338
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: fightConfig
-        m_TypeString: FightConfig, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 11400000, guid: 49e0b481436b8f543bb42843575e1b9e, type: 2}
-        - localeIdentifier:
-            m_Code: fr
-          value: {fileID: 11400000, guid: 6afa5013866ee024db3dac841ddee12e, type: 2}
 --- !u!1 &314321452
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,3 +23,6 @@ MonoBehaviour:
   emptyLifeWindUpDuration: 0.75
   emptyLifeWindDownDuration: 0.4
   pauseBetweenComboDuration: 3
+  damageOnParry: 0.2
+  damagePerfectRatio: 1.5
+  damageOnComboParry: 1

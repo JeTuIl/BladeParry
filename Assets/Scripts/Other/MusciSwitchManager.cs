@@ -77,7 +77,7 @@ public class MusciSwitchManager : MonoBehaviour
 
     private static float GetMusicVolumeFromOptions()
     {
-        return OptionManager.Instance != null ? OptionManager.Instance.GetMusicVolume() : 1f;
+        return OptionManager.GetMusicVolumeFromPrefs();
     }
 
     /// <summary>

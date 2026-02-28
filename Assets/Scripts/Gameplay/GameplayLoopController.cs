@@ -128,10 +128,10 @@ public class GameplayLoopController : MonoBehaviour
     [SerializeField] private Image fightBackgroundImage;
 
     /// <summary>Player's current life; decremented on missed parry.</summary>
-    private int _playerCurrentLife;
+    private float _playerCurrentLife;
 
     /// <summary>Enemy's current life; decremented when all attacks in a combo are parried.</summary>
-    private int _enemyCurrentLife;
+    private float _enemyCurrentLife;
 
     /// <summary>True while the player can input a parry for the current attack.</summary>
     private bool _parryWindowActive;
@@ -264,7 +264,7 @@ public class GameplayLoopController : MonoBehaviour
     {
         if (musicPitchManager == null)
             return;
-        float lifeRatio = (float)_enemyCurrentLife / _effectiveConfig.EnemyStartLife;
+        float lifeRatio = _enemyCurrentLife / _effectiveConfig.EnemyStartLife;
         musicPitchManager.pitch = Mathf.Lerp(_effectiveEmptyLifeMusicSpeed, _effectiveFullLifeMusicSpeed, lifeRatio);
     }
 
@@ -364,7 +364,7 @@ public class GameplayLoopController : MonoBehaviour
     {
         if (_parriedInCombo.Count > 0 && !_parriedInCombo[_parriedInCombo.Count - 1])
         {
-            _playerCurrentLife--;
+            _playerCurrentLife -= 1f;
             if (GameplayEvents.Instance != null)
             {
                 GameplayEvents.Instance.InvokeMissParry();
@@ -387,7 +387,7 @@ public class GameplayLoopController : MonoBehaviour
                 ScreenshackManager.Instance.TriggerScreenShake(ScreenShakeStrength.High);
             if (floatingFeedback != null)
                 floatingFeedback.ShowMiss(missedParryFxPosition);
-            if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
+            if (OptionManager.GetHapticEnabledFromPrefs() && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
             _perfectParriesInARow = 0;
             UpdatePerfectParryComboDisplay();
@@ -414,6 +414,13 @@ public class GameplayLoopController : MonoBehaviour
             bool isPerfectParry = _isInWindDown;
             _perfectParryInCombo[_perfectParryInCombo.Count - 1] = isPerfectParry;
             _parryWindowActive = false;
+
+            float parryDamage = isPerfectParry
+                ? _effectiveConfig.DamageOnParry * _effectiveConfig.DamagePerfectRatio
+                : _effectiveConfig.DamageOnParry;
+            _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - parryDamage);
+            UpdateLifebars();
+            UpdateMusicPitch();
 
             if (GameplayEvents.Instance != null)
             {
@@ -448,7 +455,7 @@ public class GameplayLoopController : MonoBehaviour
                 _perfectParriesInARow = 0;
                 UpdatePerfectParryComboDisplay();
             }
-            if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
+            if (OptionManager.GetHapticEnabledFromPrefs() && SystemInfo.deviceType == DeviceType.Handheld)
                 Handheld.Vibrate();
         }
     }
@@ -555,7 +562,7 @@ public class GameplayLoopController : MonoBehaviour
             int numberOfAttaques;
             float durationBetweenAttaque, windUpDuration, windDownDuration;
 
-            float lifeRatio = (float)_enemyCurrentLife / _effectiveConfig.EnemyStartLife;
+            float lifeRatio = _enemyCurrentLife / _effectiveConfig.EnemyStartLife;
 
             numberOfAttaques = (int)Mathf.Lerp(_effectiveConfig.EmptyLifeComboNumberOfAttaques, _effectiveConfig.FullLifeComboNumberOfAttaques, lifeRatio);
             durationBetweenAttaque = Mathf.Lerp(_effectiveConfig.EmptyLifeDurationBetweenAttaque, _effectiveConfig.FullLifeDurationBetweenAttaque, lifeRatio);
@@ -604,7 +611,7 @@ public class GameplayLoopController : MonoBehaviour
 
             if (allParried)
             {
-                _enemyCurrentLife--;
+                _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - _effectiveConfig.DamageOnComboParry);
                 if (GameplayEvents.Instance != null)
                     GameplayEvents.Instance.InvokeEnemyLoseHealth();
                 if (enemyLifebarManager != null)
@@ -623,7 +630,7 @@ public class GameplayLoopController : MonoBehaviour
                     enemySpriteDirection.isHurt = true;
                 if (floatingFeedback != null)
                     floatingFeedback.ShowCombo(allParriedFxPosition);
-                if (OptionManager.Instance != null && OptionManager.Instance.GetHapticEnabled() && SystemInfo.deviceType == DeviceType.Handheld)
+                if (OptionManager.GetHapticEnabledFromPrefs() && SystemInfo.deviceType == DeviceType.Handheld)
                     Handheld.Vibrate();
             }
 

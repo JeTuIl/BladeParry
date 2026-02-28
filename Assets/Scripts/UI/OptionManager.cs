@@ -38,11 +38,42 @@ public class OptionManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         LoadAllOptions();
         ApplyGlobalOptions();
     }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void ApplyOptionsAtStartup()
+    {
+        ApplyGlobalOptionsFromPrefs();
+    }
+
+    /// <summary>Reads options from PlayerPrefs and applies locale and screen effects. Call at startup or when OptionManager is not in the scene.</summary>
+    public static void ApplyGlobalOptionsFromPrefs()
+    {
+        string languageCode = PlayerPrefs.GetString(KeyLanguageCode, DefaultLanguageCode);
+        bool screenEffectsEnabled = PlayerPrefs.GetInt(KeyScreenEffectsEnabled, DefaultScreenEffectsEnabled ? 1 : 0) != 0;
+        ApplyLocale(languageCode);
+        ApplyScreenEffectsGlobal(screenEffectsEnabled);
+    }
+
+    /// <summary>Returns music volume from PlayerPrefs (0..1).</summary>
+    public static float GetMusicVolumeFromPrefs() => PlayerPrefs.GetFloat(KeyMusicVolume, DefaultMusicVolume);
+    /// <summary>Returns SFX volume from PlayerPrefs (0..1).</summary>
+    public static float GetSfxVolumeFromPrefs() => PlayerPrefs.GetFloat(KeySfxVolume, DefaultSfxVolume);
+    /// <summary>Returns haptic enabled from PlayerPrefs.</summary>
+    public static bool GetHapticEnabledFromPrefs() => PlayerPrefs.GetInt(KeyHapticEnabled, DefaultHapticEnabled ? 1 : 0) != 0;
+    /// <summary>Returns language code from PlayerPrefs (e.g. "en", "fr").</summary>
+    public static string GetLanguageCodeFromPrefs() => PlayerPrefs.GetString(KeyLanguageCode, DefaultLanguageCode);
+    /// <summary>Returns screen effects enabled from PlayerPrefs.</summary>
+    public static bool GetScreenEffectsEnabledFromPrefs() => PlayerPrefs.GetInt(KeyScreenEffectsEnabled, DefaultScreenEffectsEnabled ? 1 : 0) != 0;
 
     /// <summary>Loads all options from PlayerPrefs with defaults for missing keys.</summary>
     private void LoadAllOptions()
@@ -61,7 +92,7 @@ public class OptionManager : MonoBehaviour
         ApplyScreenEffectsGlobal(_screenEffectsEnabled);
     }
 
-    private void ApplyLocale(string code)
+    private static void ApplyLocale(string code)
     {
         if (LocalizationSettings.AvailableLocales == null)
             return;
@@ -72,7 +103,7 @@ public class OptionManager : MonoBehaviour
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(DefaultLanguageCode);
     }
 
-    private void ApplyScreenEffectsGlobal(bool enabled)
+    private static void ApplyScreenEffectsGlobal(bool enabled)
     {
         SetCFXRGlobalDisableCameraShake(!enabled);
     }

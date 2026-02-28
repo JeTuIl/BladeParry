@@ -8,10 +8,10 @@ public class GameplayConfig : ScriptableObject
 {
     /// <summary>Player's starting life count.</summary>
     [Header("Life")]
-    [SerializeField] private int playerStartLife = 3;
+    [SerializeField] private float playerStartLife = 3f;
 
     /// <summary>Enemy's starting life count.</summary>
-    [SerializeField] private int enemyStartLife = 3;
+    [SerializeField] private float enemyStartLife = 3f;
 
     /// <summary>Number of attacks in a combo when enemy is at full life.</summary>
     [Header("Full Life Combo")]
@@ -43,11 +43,21 @@ public class GameplayConfig : ScriptableObject
     [Header("Between Combos")]
     [SerializeField] private float pauseBetweenComboDuration = 3.0f;
 
+    /// <summary>Life removed from enemy per parried attack.</summary>
+    [Header("Parry Damage")]
+    [SerializeField] private float damageOnParry = 0.5f;
+
+    /// <summary>Multiplier when parry is perfect: effective damage = damageOnParry * damagePerfectRatio.</summary>
+    [SerializeField] private float damagePerfectRatio = 1.5f;
+
+    /// <summary>Life removed from enemy when all attacks in a combo are parried.</summary>
+    [SerializeField] private float damageOnComboParry = 1f;
+
     /// <summary>Gets the player's starting life.</summary>
-    public int PlayerStartLife => playerStartLife;
+    public float PlayerStartLife => playerStartLife;
 
     /// <summary>Gets the enemy's starting life.</summary>
-    public int EnemyStartLife => enemyStartLife;
+    public float EnemyStartLife => enemyStartLife;
 
     /// <summary>Gets the number of attacks in a combo at full enemy life.</summary>
     public int FullLifeComboNumberOfAttaques => fullLifeComboNumberOfAttaques;
@@ -76,10 +86,19 @@ public class GameplayConfig : ScriptableObject
     /// <summary>Gets the pause duration between combos in seconds.</summary>
     public float PauseBetweenComboDuration => pauseBetweenComboDuration;
 
+    /// <summary>Gets the life removed from enemy per parried attack.</summary>
+    public float DamageOnParry => damageOnParry;
+
+    /// <summary>Gets the multiplier for perfect parry damage.</summary>
+    public float DamagePerfectRatio => damagePerfectRatio;
+
+    /// <summary>Gets the life removed when all attacks in a combo are parried.</summary>
+    public float DamageOnComboParry => damageOnComboParry;
+
     // --- Runtime API (for runtime-created configs, e.g. roguelite) ---
 
-    public void SetPlayerStartLife(int value) => playerStartLife = value;
-    public void SetEnemyStartLife(int value) => enemyStartLife = value;
+    public void SetPlayerStartLife(float value) => playerStartLife = value;
+    public void SetEnemyStartLife(float value) => enemyStartLife = value;
     public void SetFullLifeComboNumberOfAttaques(int value) => fullLifeComboNumberOfAttaques = value;
     public void SetFullLifeDurationBetweenAttaque(float value) => fullLifeDurationBetweenAttaque = value;
     public void SetFullLifeWindUpDuration(float value) => fullLifeWindUpDuration = value;
@@ -89,6 +108,9 @@ public class GameplayConfig : ScriptableObject
     public void SetEmptyLifeWindUpDuration(float value) => emptyLifeWindUpDuration = value;
     public void SetEmptyLifeWindDownDuration(float value) => emptyLifeWindDownDuration = value;
     public void SetPauseBetweenComboDuration(float value) => pauseBetweenComboDuration = value;
+    public void SetDamageOnParry(float value) => damageOnParry = value;
+    public void SetDamagePerfectRatio(float value) => damagePerfectRatio = value;
+    public void SetDamageOnComboParry(float value) => damageOnComboParry = value;
 
     /// <summary>Creates a runtime copy with the same values. Call setters to customize.</summary>
     public GameplayConfig CloneForRuntime()
@@ -105,6 +127,9 @@ public class GameplayConfig : ScriptableObject
         copy.emptyLifeWindUpDuration = emptyLifeWindUpDuration;
         copy.emptyLifeWindDownDuration = emptyLifeWindDownDuration;
         copy.pauseBetweenComboDuration = pauseBetweenComboDuration;
+        copy.damageOnParry = damageOnParry;
+        copy.damagePerfectRatio = damagePerfectRatio;
+        copy.damageOnComboParry = damageOnComboParry;
         return copy;
     }
 }

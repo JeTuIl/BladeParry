@@ -45,11 +45,9 @@ public class AudioVolumeFromOptions : MonoBehaviour
     {
         if (audioSource == null)
             return;
-        float optionVolume = 1f;
-        if (OptionManager.Instance != null)
-            optionVolume = volumeType == VolumeType.Music
-                ? OptionManager.Instance.GetMusicVolume()
-                : OptionManager.Instance.GetSfxVolume();
+        float optionVolume = volumeType == VolumeType.Music
+            ? OptionManager.GetMusicVolumeFromPrefs()
+            : OptionManager.GetSfxVolumeFromPrefs();
         audioSource.volume = baseVolume * optionVolume;
     }
 }
