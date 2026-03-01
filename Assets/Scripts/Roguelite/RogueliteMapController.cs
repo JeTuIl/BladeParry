@@ -27,6 +27,9 @@ public class RogueliteMapController : MonoBehaviour
     /// <summary>Level options (3) built at Start. Use this from the UI to display and bind selection.</summary>
     public FightConfig[] LevelOptions => _levelOptions;
 
+    /// <summary>Total number of fights in the run (from progression config).</summary>
+    public int TotalFightsInRun => progressionConfig != null ? progressionConfig.TotalFightsInRun : 0;
+
     private void Start()
     {
         if (!RogueliteRunState.IsRunActive)
@@ -45,6 +48,17 @@ public class RogueliteMapController : MonoBehaviour
         Debug.Log("Building random levels. Fights completed: " + fightsCompleted);
         _levelOptions = FightSetupBuilder.BuildLevelOptions(progressionConfig, fightsCompleted);
         onLevelOptionsReady?.Invoke();
+
+        if (RogueliteRunState.Instance != null)
+        {
+            float playerLife = RogueliteRunState.Instance.TryGetPlayerLifeForNextFight(out float life) ? life : -1f;
+            RunSaveService.SaveRun(
+                RogueliteRunState.Instance.GetRunSeed(),
+                fightsCompleted,
+                playerLife,
+                TotalFightsInRun,
+                "WorldMap");
+        }
     }
 
     /// <summary>

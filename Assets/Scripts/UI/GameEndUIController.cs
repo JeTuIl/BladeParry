@@ -176,6 +176,13 @@ public class GameEndUIController : MonoBehaviour
             }
             else
             {
+                float playerLife = RogueliteRunState.Instance.TryGetPlayerLifeForNextFight(out float life) ? life : -1f;
+                RunSaveService.SaveRun(
+                    RogueliteRunState.Instance.GetRunSeed(),
+                    fightsCompleted,
+                    playerLife,
+                    rogueliteTotalFightsInRun,
+                    rogueliteMapSceneName);
                 if (!string.IsNullOrEmpty(rogueliteMapSceneName))
                     StartCoroutine(FadeToBlackThenLoadScene(rogueliteMapSceneName));
                 else

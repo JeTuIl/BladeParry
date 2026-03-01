@@ -207,6 +207,8 @@ public class GameplayLoopController : MonoBehaviour
         }
 
         _playerCurrentLife = _effectiveConfig.PlayerStartLife;
+        if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null && RogueliteRunState.Instance.TryGetPlayerLifeForNextFight(out float savedLife))
+            _playerCurrentLife = Mathf.Clamp(savedLife, 0f, _effectiveConfig.PlayerStartLife);
         _enemyCurrentLife = _effectiveConfig.EnemyStartLife;
         UpdateLifebars();
 
@@ -675,7 +677,11 @@ public class GameplayLoopController : MonoBehaviour
         }
 
         if (result == GameEndResult.PlayerWins)
+        {
             Debug.Log("Player wins");
+            if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null)
+                RogueliteRunState.Instance.RecordPlayerLifeAfterFight(_playerCurrentLife);
+        }
         else
             Debug.Log("Enemy wins");
 

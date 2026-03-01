@@ -12,6 +12,8 @@ public class RogueliteRunState : MonoBehaviour
     private bool _runActive;
     private int _fightsCompleted;
     private int _runSeed;
+    /// <summary>Player life at end of last won fight; -1 means not set (e.g. first fight or after run end).</summary>
+    private float _playerLifeAfterLastFight = -1f;
 
     public static RogueliteRunState Instance => _instance;
 
@@ -48,6 +50,23 @@ public class RogueliteRunState : MonoBehaviour
         _runActive = true;
         _fightsCompleted = 0;
         _runSeed = seed != 0 ? seed : Random.Range(1, int.MaxValue);
+        _playerLifeAfterLastFight = -1f;
+    }
+
+    /// <summary>Records the player's current life at the end of a won fight. Call when the player wins so the next fight can start with this life.</summary>
+    public void RecordPlayerLifeAfterFight(float life)
+    {
+        _playerLifeAfterLastFight = life;
+    }
+
+    /// <summary>Gets the stored player life for the next fight when there was a previous fight in this run. Returns true and the value when FightsCompleted >= 1 and a value was recorded; otherwise false (e.g. first fight uses config full life).</summary>
+    public bool TryGetPlayerLifeForNextFight(out float life)
+    {
+        life = 0f;
+        if (_fightsCompleted < 1 || _playerLifeAfterLastFight < 0f)
+            return false;
+        life = _playerLifeAfterLastFight;
+        return true;
     }
 
     /// <summary>Marks one more fight as completed. Call after player wins a fight.</summary>
@@ -56,11 +75,22 @@ public class RogueliteRunState : MonoBehaviour
         _fightsCompleted++;
     }
 
-    /// <summary>Ends the run (e.g. on player loss or run complete). Clears run state.</summary>
+    /// <summary>Loads run state from a save for resume. Sets run active and restores seed, fights completed, and player life.</summary>
+    public void LoadState(int seed, int fightsCompleted, float playerLifeAfterLastFight)
+    {
+        _runActive = true;
+        _runSeed = seed;
+        _fightsCompleted = fightsCompleted;
+        _playerLifeAfterLastFight = playerLifeAfterLastFight;
+    }
+
+    /// <summary>Ends the run (e.g. on player loss or run complete). Clears run state and the run save file.</summary>
     public void EndRun()
     {
         _runActive = false;
         _fightsCompleted = 0;
+        _playerLifeAfterLastFight = -1f;
+        RunSaveService.ClearSave();
     }
 
     /// <summary>Returns the current fights-completed count (instance method for use by builders).</summary>

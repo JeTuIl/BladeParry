@@ -46,6 +46,10 @@ public class MapUiManager : MonoBehaviour
     [Tooltip("Optional. Fades out map music when starting the selected level.")]
     [SerializeField] private MusciSwitchManager musicSwitchManager;
 
+    [Header("Run progress")]
+    [Tooltip("Optional. Displays fights completed / total fights in the run.")]
+    [SerializeField] private LifebarManager runProgressLifebar;
+
     private readonly List<GameObject> _spawnedButtons = new List<GameObject>();
     private int _lastSelectedLevelIndex = -1;
 
@@ -159,6 +163,17 @@ public class MapUiManager : MonoBehaviour
         if (randomSpriteList == null || randomSpriteList.Length == 0)
         {
             Debug.LogWarning("MapUiManager: randomSpriteList is empty; button images will not be set.", this);
+        }
+
+        if (runProgressLifebar != null)
+        {
+            int completed = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetFightsCompleted() : 0;
+            int total = mapController.TotalFightsInRun;
+            if (total > 0)
+            {
+                runProgressLifebar.MaxLifeValue = total;
+                runProgressLifebar.CurrentLifeValue = completed;
+            }
         }
 
         ClearSpawnedButtons();
