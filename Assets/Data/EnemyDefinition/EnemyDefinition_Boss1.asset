@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68864ba047bffcc45afbdd222e0ed11c, type: 3}
+  m_Name: EnemyDefinition_Boss1
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
+  displayName: Boss1
+  optionalPrefab: {fileID: 1760928958552806250, guid: f93c302922edf9e47b16883cbac05722, type: 3}
+  spriteSet:
+    spriteNeutral: {fileID: 7552218760340626732, guid: d739d03ec625f5a439342e45c65b9ffd, type: 3}
+    spriteUp: {fileID: -3468412046695757212, guid: 7e04612cea777724f88c5120e2b88c8a, type: 3}
+    spriteLeft: {fileID: -6552441958233186775, guid: e1ed00134eda70148a1e98593706e7d0, type: 3}
+    spriteRight: {fileID: 4008823878582839321, guid: 0c23d7add02b7944baaeeb7bc38cab1c, type: 3}
+    spriteDown: {fileID: -5822306786682983148, guid: 1812561f6de94f64d82791717abbd4f2, type: 3}
+    spriteHurt: {fileID: 7396673196861646620, guid: af0c563482b35824eb89123c33996eb7, type: 3}
+    spriteDownState: {fileID: 2045744203604122597, guid: 7918af0b05618bf449e7ea62dde2e8f7, type: 3}
+    scaleNeutral: 1.6
+    scaleUp: 1.6
+    scaleLeft: 1.6
+    scaleRight: 1.6
+    scaleDown: 1.6
+    scaleHurt: 1.6
+    scaleDownState: 1.6
+  windDownFxIndex: 0
+  allParriedComboFxIndex: 3

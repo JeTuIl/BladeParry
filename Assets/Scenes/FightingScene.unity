@@ -650,11 +650,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScreenshackManager
   targetRectTransform: {fileID: 702530546}
   shakeDistanceLow: 40
-  shakeDistanceMedium: 60
-  shakeDistanceHigh: 80
+  shakeDistanceMedium: 50
+  shakeDistanceHigh: 60
   shakeDurationLow: 0.5
-  shakeDurationMedium: 0.75
-  shakeDurationHigh: 1
+  shakeDurationMedium: 0.6
+  shakeDurationHigh: 0.7
 --- !u!4 &227769040
 Transform:
   m_ObjectHideFlags: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
   spriteRight: {fileID: -5830736634674898042, guid: 7333c3beed299144a91d8b5826382b97, type: 3}
   spriteDown: {fileID: -8535969353328151377, guid: baa3b90bb8f2dd1409a600e34d23ada2, type: 3}
   spriteHurt: {fileID: -2871590882205412365, guid: 03944b8511b1cbf4e9e4b38148a19cc6, type: 3}
-  spriteDead: {fileID: -4192752881704667939, guid: b6d93c43ecc629c4091809b7072560d8, type: 3}
+  spriteDead: {fileID: -8600324014695851602, guid: b6d93c43ecc629c4091809b7072560d8, type: 3}
   windUpDuration: 0.3
   windDownDuration: 0.2
   hurtDuration: 0.5
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameplayLoopController
   config: {fileID: 11400000, guid: 357c32a064b1837478c4c9f389813297, type: 2}
-  fightConfig: {fileID: 11400000, guid: 49e0b481436b8f543bb42843575e1b9e, type: 2}
+  fightConfig: {fileID: 11400000, guid: db18d420ad1297c499250c5da968a1e7, type: 2}
   characterComboSequence: {fileID: 1516926050}
   characterAttaqueSequence: {fileID: 1516926049}
   slideDetection: {fileID: 1013647271}
@@ -1838,14 +1838,14 @@ RectTransform:
   m_GameObject: {fileID: 883260689}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.7702446, y: 5.7702446, z: 5.7702446}
+  m_LocalScale: {x: 6.4069395, y: 6.4069395, z: 6.4069395}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 702530546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 264, y: 51}
+  m_AnchoredPosition: {x: 4, y: 67}
   m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &883260692
@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 9079627475848329142, guid: 37cff1e699c75b648a10fd310bb02f5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bc1cea05059a834ca20393498647a9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2175,8 +2175,8 @@ MonoBehaviour:
   volume: {fileID: 892255045}
   vignetteIntensityOnLowLife: 0.1
   lowLifeThreshold: 0.35
-  vignettePulseOnMiss: 0.6
-  vignetteRecoverySpeed: 3
+  vignettePulseOnMiss: 0.3
+  vignetteRecoverySpeed: 1
   chromaticAberrationAtMaxLife: 0
   chromaticAberrationAtZeroLife: 0.25
   playerLifebarManager: {fileID: 197640196}

@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: b6d93c43ecc629c4091809b7072560d8
+guid: 0c23d7add02b7944baaeeb7bc38cab1c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4192752881704667939
-    second: Hero_Dead_0
-  - first:
-      213: -8600324014695851602
-    second: Hero_Dead_1
-  - first:
-      213: -1702860098541100889
-    second: Hero_Dead_2
-  - first:
-      213: 6127828978670848304
-    second: Hero_Dead_3
-  - first:
-      213: 5353768709881876262
-    second: Hero_Dead_4
-  - first:
-      213: -9168507553012045535
-    second: Hero_Dead_5
+      213: 4008823878582839321
+    second: Boss1_Right_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -141,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hero_Dead_1
+      name: Boss1_Right_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 259
-        width: 855
-        height: 382
+        x: 1
+        y: 65
+        width: 1023
+        height: 894
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ea9dac600e285a880800000000000000
-      internalID: -8600324014695851602
+      spriteID: 918a802f31432a730800000000000000
+      internalID: 4008823878582839321
       vertices: []
       indices: 
       edges: []
@@ -166,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 26b1d0cece47547428c8bd45f6c357cc
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -176,12 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hero_Dead_0: -4192752881704667939
-      Hero_Dead_1: -8600324014695851602
-      Hero_Dead_2: -1702860098541100889
-      Hero_Dead_3: 6127828978670848304
-      Hero_Dead_4: 5353768709881876262
-      Hero_Dead_5: -9168507553012045535
+      Boss1_Right_0: 4008823878582839321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
