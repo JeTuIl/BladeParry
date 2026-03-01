@@ -45,8 +45,17 @@ public class RogueliteMapController : MonoBehaviour
         }
 
         int fightsCompleted = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetFightsCompleted() : 0;
-        Debug.Log("Building random levels. Fights completed: " + fightsCompleted);
-        _levelOptions = FightSetupBuilder.BuildLevelOptions(progressionConfig, fightsCompleted);
+        bool isBossMap = progressionConfig.BossFightConfig != null && fightsCompleted == progressionConfig.TotalFightsInRun;
+        if (isBossMap)
+        {
+            Debug.Log("Building boss level. Fights completed: " + fightsCompleted);
+            _levelOptions = new FightConfig[1] { progressionConfig.BossFightConfig };
+        }
+        else
+        {
+            Debug.Log("Building random levels. Fights completed: " + fightsCompleted);
+            _levelOptions = FightSetupBuilder.BuildLevelOptions(progressionConfig, fightsCompleted);
+        }
         onLevelOptionsReady?.Invoke();
 
         if (RogueliteRunState.Instance != null)

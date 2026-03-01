@@ -95,7 +95,12 @@ public class RogueliteProgressionConfig : ScriptableObject
     [Tooltip("Environment configs to pick from at random per level option.")]
     [SerializeField] private List<EnvironmentConfig> environmentPool = new List<EnvironmentConfig>();
 
+    [Header("Boss")]
+    [Tooltip("Optional. When set, after completing all normal fights the player returns to the map once more with a single level using this config (no randomization). Winning it ends the run.")]
+    [SerializeField] private FightConfig bossFightConfig;
+
     public int TotalFightsInRun => totalFightsInRun;
+    public FightConfig BossFightConfig => bossFightConfig;
     public float DifficultyVariationRange => difficultyVariationRange;
     public GameplayConfig TemplateGameplayConfig => templateGameplayConfig;
     public RogueliteGameplayRanges GameplayRanges => gameplayRanges;

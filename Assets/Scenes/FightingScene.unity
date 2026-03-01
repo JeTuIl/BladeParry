@@ -405,6 +405,7 @@ MonoBehaviour:
   quitSceneName: MainMenu
   musicSwitchManager: {fileID: 1845716673}
   musicFadeOutDuration: 1.5
+  rogueliteProgressionConfig: {fileID: 11400000, guid: bdf891b1f9bf39f4bb2a80ab18e65601, type: 2}
   rogueliteMapSceneName: WorldMap
   rogueliteTotalFightsInRun: 10
   endGameCanvasGroup: {fileID: 1029670703}

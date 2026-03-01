@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MusicConfig
   musicClip: {fileID: 8300000, guid: 2e82a1f76e635ca41bbeaea7eea590de, type: 3}
   fullLifeMusicSpeed: 1
-  emptyLifeMusicSpeed: 1.2
+  emptyLifeMusicSpeed: 1.35

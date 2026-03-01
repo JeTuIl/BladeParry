@@ -179,6 +179,8 @@ public class MapUiManager : MonoBehaviour
         ClearSpawnedButtons();
 
         _lastQualityScores = EvaluateQualityScores(levelOptions);
+        if (levelOptions.Length == 1)
+            _lastQualityScores[0] = new FightConfigQualityScores { Durability = 3, Strength = 3, Speed = 3 };
 
         List<int> availableSpriteIndices = new List<int>();
         if (randomSpriteList != null)

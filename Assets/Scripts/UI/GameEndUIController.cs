@@ -24,9 +24,11 @@ public class GameEndUIController : MonoBehaviour
     [SerializeField] private float musicFadeOutDuration = 1.5f;
 
     [Header("Roguelite run")]
+    [Tooltip("Optional. When set, total fights and boss phase are read from this config; otherwise uses rogueliteTotalFightsInRun and no boss.")]
+    [SerializeField] private RogueliteProgressionConfig rogueliteProgressionConfig;
     [Tooltip("Scene to load when continuing a run after a win (e.g. WorldMap).")]
     [SerializeField] private string rogueliteMapSceneName = "WorldMap";
-    [Tooltip("Total fights in a run; used to decide Map vs main menu after win.")]
+    [Tooltip("Total fights in a run; used when rogueliteProgressionConfig is not set.")]
     [SerializeField] private int rogueliteTotalFightsInRun = 10;
 
     /// <summary>Last result from GameEnded; used by ContinueRun.</summary>
@@ -168,7 +170,10 @@ public class GameEndUIController : MonoBehaviour
         {
             RogueliteRunState.Instance.CompleteFight();
             int fightsCompleted = RogueliteRunState.Instance.GetFightsCompleted();
-            if (fightsCompleted >= rogueliteTotalFightsInRun)
+            int total = rogueliteProgressionConfig != null ? rogueliteProgressionConfig.TotalFightsInRun : rogueliteTotalFightsInRun;
+            bool hasBoss = rogueliteProgressionConfig?.BossFightConfig != null;
+            bool endRun = fightsCompleted > total || (fightsCompleted == total && !hasBoss);
+            if (endRun)
             {
                 RogueliteRunState.Instance.EndRun();
                 if (!string.IsNullOrEmpty(quitSceneName))
@@ -181,7 +186,7 @@ public class GameEndUIController : MonoBehaviour
                     RogueliteRunState.Instance.GetRunSeed(),
                     fightsCompleted,
                     playerLife,
-                    rogueliteTotalFightsInRun,
+                    total,
                     rogueliteMapSceneName);
                 if (!string.IsNullOrEmpty(rogueliteMapSceneName))
                     StartCoroutine(FadeToBlackThenLoadScene(rogueliteMapSceneName));
