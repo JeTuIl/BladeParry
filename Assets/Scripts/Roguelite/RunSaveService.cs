@@ -37,13 +37,14 @@ public static class RunSaveService
 
     /// <summary>
     /// Saves the current run state to disk. Call after a fight (win) or when on the map.
+    /// If extensionsJson is null and RogueliteRunState.Instance exists, builds it from run state (e.g. enhancements).
     /// </summary>
     /// <param name="runSeed">Run seed.</param>
     /// <param name="fightsCompleted">Fights completed.</param>
     /// <param name="playerLifeAfterLastFight">Player life after last fight (-1 if not set).</param>
     /// <param name="totalFightsInRun">Total fights in run.</param>
     /// <param name="targetSceneName">Scene to load on resume (e.g. WorldMap).</param>
-    /// <param name="extensionsJson">Optional JSON string for extensible data.</param>
+    /// <param name="extensionsJson">Optional JSON string for extensible data (enhancements). If null, built from RogueliteRunState when available.</param>
     public static void SaveRun(
         int runSeed,
         int fightsCompleted,
@@ -52,6 +53,9 @@ public static class RunSaveService
         string targetSceneName,
         string extensionsJson = null)
     {
+        if (extensionsJson == null && RogueliteRunState.Instance != null)
+            extensionsJson = RogueliteRunState.Instance.BuildExtensionsJson();
+
         var data = new RogueliteRunSaveData
         {
             version = RogueliteRunSaveData.CurrentVersion,
@@ -103,7 +107,7 @@ public static class RunSaveService
                 return;
             }
 
-            RogueliteRunState.Instance.LoadState(data.runSeed, data.fightsCompleted, data.playerLifeAfterLastFight);
+            RogueliteRunState.Instance.LoadState(data.runSeed, data.fightsCompleted, data.playerLifeAfterLastFight, data.extensionsJson);
             SceneManager.LoadScene(data.targetSceneName);
         }
         catch (Exception e)

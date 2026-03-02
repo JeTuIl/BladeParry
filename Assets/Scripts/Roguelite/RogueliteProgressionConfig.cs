@@ -99,6 +99,10 @@ public class RogueliteProgressionConfig : ScriptableObject
     [Tooltip("Optional. When set, after completing all normal fights the player returns to the map once more with a single level using this config (no randomization). Winning it ends the run.")]
     [SerializeField] private FightConfig bossFightConfig;
 
+    [Header("Enhancements")]
+    [Tooltip("Pool of enhancement definitions to offer after each win (choose 3, pick 1).")]
+    [SerializeField] private List<RogueliteEnhancementDefinition> enhancementPool = new List<RogueliteEnhancementDefinition>();
+
     public int TotalFightsInRun => totalFightsInRun;
     public FightConfig BossFightConfig => bossFightConfig;
     public float DifficultyVariationRange => difficultyVariationRange;
@@ -107,4 +111,5 @@ public class RogueliteProgressionConfig : ScriptableObject
     public IReadOnlyList<EnemyDefinition> EnemyPool => enemyPool;
     public IReadOnlyList<MusicConfig> MusicPool => musicPool;
     public IReadOnlyList<EnvironmentConfig> EnvironmentPool => environmentPool;
+    public IReadOnlyList<RogueliteEnhancementDefinition> EnhancementPool => enhancementPool;
 }

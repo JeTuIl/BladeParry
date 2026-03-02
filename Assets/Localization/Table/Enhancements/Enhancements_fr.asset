@@ -1,0 +1,298 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Enhancements_fr
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: 63554f172855b124fac98a321c79d723, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 11319908700160
+    m_Localized: Selectionnez une amelioration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67309911871488
+    m_Localized: Meilleur tranchant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67716914548736
+    m_Localized: Meuilleur garde
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67787244638208
+    m_Localized: Meilleur pointe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67848246595584
+    m_Localized: Pierre de fardeau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68035413217280
+    m_Localized: Pierre de Cadence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68171547742208
+    m_Localized: Lame Crescendo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68704996102144
+    m_Localized: Charme d'endurance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68892838006784
+    m_Localized: Marque du bourreau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68944608301056
+    m_Localized: "Charme effiloch\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68995673952256
+    m_Localized: Gambeson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69094697275392
+    m_Localized: Bague de periode de grace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69234518593536
+    m_Localized: Faveur du gardien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69304483778560
+    m_Localized: Coeur du Taureau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69376822939648
+    m_Localized: Huile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69421349670912
+    m_Localized: Plume de phenix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69512051494912
+    m_Localized: Charme du repit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69677609062400
+    m_Localized: Spirale du serpent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69728041373696
+    m_Localized: "Jeton d'indemnit\xE9 de d\xE9part"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69899500326912
+    m_Localized: Ancre de l'ame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69996745265152
+    m_Localized: "Cape stup\xE9fiante"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70064458108928
+    m_Localized: Lame de chirurgien
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70204245872640
+    m_Localized: "Garde d'\xE9p\xE9e"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70248063766528
+    m_Localized: Cloche de telegraphe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70433863045120
+    m_Localized: "Sceau de la Trinit\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70491371147264
+    m_Localized: Carapace du veteran
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70633478361088
+    m_Localized: Essence vitale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70680148381696
+    m_Localized: "L'\u0153il du guetteur"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70754471448576
+    m_Localized: "Pierre \xE0 aiguiser"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72785835790336
+    m_Localized: "Vous infligez plus de d\xE9g\xE2ts en parant.\nGagner des niveaux
+      augmentera ce bonus de d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73066078212096
+    m_Localized: "Vous infligez davantage de d\xE9g\xE2ts en r\xE9ussissant une parade
+      parfaite.\nGagner des niveaux augmentera ce bonus de d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73202745413632
+    m_Localized: "Vous infligez davantage de d\xE9g\xE2ts lorsque vous parez toutes
+      les attaques d'un combo ennemi.\nGagner des niveaux augmentera ce bonus de
+      d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73305019322368
+    m_Localized: "Plus vous encha\xEEnez de parades parfaites, plus les mouvements
+      de votre ennemi seront ralentis.\nGagner des niveaux augmentera l'intensit\xE9
+      du ralentissement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73491716182016
+    m_Localized: "Infligez des d\xE9g\xE2ts \xE0 chaque fois que vous r\xE9ussissez
+      une parade parfaite plusieurs fois de suite.\nGagner des niveaux r\xE9duit
+      le nombre de parades parfaites n\xE9cessaires pour infliger des d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73602215120896
+    m_Localized: "Plus vous encha\xEEnez de parades parfaites, plus les d\xE9g\xE2ts
+      inflig\xE9s augmentent.\nGagner des niveaux augmentera encore davantage vos
+      d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73716631539712
+    m_Localized: "Ignorer un coup lorsque le nombre de parades parfaites cons\xE9cutives
+      est suffisamment \xE9lev\xE9. Cela r\xE9initialisera le compteur de parades
+      parfaites cons\xE9cutives.\nGagner un niveau diminuera le nombre de parades
+      parfaites n\xE9cessaires pour que la parade soit efficace."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73935574208512
+    m_Localized: "Moins vous avez de points de vie, plus vous infligez de d\xE9g\xE2ts
+      \xE0 l'ennemi.\nGagner des niveaux augmente les d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74068621725696
+    m_Localized: "Lorsque vous r\xE9ussissez une parade parfaite, vous avez une chance
+      de r\xE9duire le nombre d'attaques du combo ennemi en cours.\nGagner des niveaux
+      augmente cette chance."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74177539411968
+    m_Localized: "Vous avez la possibilit\xE9 d'ignorer la premi\xE8re attaque que
+      vous ne parez pas lors d'un combo.\nGagner des niveaux augmentera cette chance."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74275182809088
+    m_Localized: "Ralentissez les mouvements de r\xE9cup\xE9ration de votre ennemi.\nGagner
+      des niveaux augmentera l'intensit\xE9 du ralentissement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74410373615616
+    m_Localized: "Lorsqu'on effectue une parade imparfaite, il est possible qu'elle
+      soit comptabilis\xE9e comme une parade parfaite.\nGagner des niveaux augmente
+      cette probabilit\xE9."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74545258237952
+    m_Localized: "Augmentez votre vie maximale.\nPasser au niveau sup\xE9rieur augmentera
+      encore davantage votre vie maximale."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74675688509440
+    m_Localized: "Vous subissez plus de d\xE9g\xE2ts, mais vous en infligez \xE9galement
+      davantage.\nGagner des niveaux augmentera les d\xE9g\xE2ts inflig\xE9s, aussi
+      bien par vous que par votre ennemi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74928219164672
+    m_Localized: "Si vous parez parfaitement toutes les attaques d'un combo, vous
+      r\xE9cup\xE9rez un peu de vie.\nGagner des niveaux augmente la quantit\xE9
+      de vie r\xE9cup\xE9r\xE9e."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75068141146112
+    m_Localized: "Augmentez le d\xE9lai avant le prochain combo apr\xE8s une parade
+      parfaite.\nGagner des niveaux augmentera ce d\xE9lai."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75225045864448
+    m_Localized: 'Vous avez une faible chance d''ignorer toute attaque que vous ne
+      parez pas.
+
+      Gagner des niveaux augmentera cette chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75311679213568
+    m_Localized: "Il est possible qu'une parade parfaite compte pour deux dans le
+      calcul du nombre de parades parfaites cons\xE9cutives.\nGagner des niveaux
+      augmente cette probabilit\xE9."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75426640891904
+    m_Localized: "Une fois par combat, vous survivez \xE0 la mort et revenez \xE0
+      la vie avec un petit nombre de points de vie.\nGagner des niveaux augmente
+      ce nombre de points de vie \xE0 la r\xE9surrection."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75570958503936
+    m_Localized: 'Lorsque vous ratez une parade, vous avez une chance d''interrompre
+      le combo de l''ennemi.
+
+      Gagner des niveaux augmente cette chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75785400684544
+    m_Localized: "Parer parfaitement une attaque augmentera tous les d\xE9g\xE2ts
+      inflig\xE9s jusqu'\xE0 la fin du combo.\nGagner des niveaux augmentera les
+      d\xE9g\xE2ts inflig\xE9s."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76008105644032
+    m_Localized: "Lorsqu'on r\xE9ussit une parade parfaite, la prochaine attaque
+      a une chance suppl\xE9mentaire de venir du haut.\nGagner des niveaux augmente
+      cette chance."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76103433785344
+    m_Localized: "Ralentissez les mouvements pr\xE9paratoires de votre ennemi.\nGagner
+      des niveaux augmentera l'intensit\xE9 du ralentissement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229661364224
+    m_Localized: "Apr\xE8s trois parades parfaites cons\xE9cutives, vous infligez
+      des d\xE9g\xE2ts \xE0 votre ennemi.\nGagner des niveaux augmente les d\xE9g\xE2ts
+      inflig\xE9s."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76346464342016
+    m_Localized: "Plus vous encha\xEEnez de parades parfaites, moins vous subissez
+      de d\xE9g\xE2ts.\nGagner des niveaux r\xE9duit encore davantage ces d\xE9g\xE2ts."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76474172510208
+    m_Localized: "Soignez-vous entre les combats.\nGagner un niveau augmentera la
+      quantit\xE9 de vie restaur\xE9e."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76622789283840
+    m_Localized: "Ralentissez la prochaine attaque ennemie apr\xE8s une parade parfaite.\nGagner
+      des niveaux augmentera l'intensit\xE9 du ralentissement."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76730268323840
+    m_Localized: "Augmentez l\xE9g\xE8rement les d\xE9g\xE2ts inflig\xE9s \xE0 votre
+      ennemi.\nGagner des niveaux augmentera les d\xE9g\xE2ts inflig\xE9s."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

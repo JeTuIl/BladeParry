@@ -1,6 +1,27 @@
 using System;
 
 /// <summary>
+/// Single enhancement entry for extensions JSON (id + level).
+/// </summary>
+[Serializable]
+public class RogueliteRunEnhancementEntry
+{
+    public string id;
+    public int level;
+}
+
+/// <summary>
+/// Extensible run data serialized in extensionsJson (e.g. enhancements).
+/// </summary>
+[Serializable]
+public class RogueliteRunExtensions
+{
+    public RogueliteRunEnhancementEntry[] enhancements = Array.Empty<RogueliteRunEnhancementEntry>();
+    /// <summary>Max life bonus from MaxHealthBonus enhancements (applied when selected/leveled up). Restored on continue.</summary>
+    public float maxLifeBonus;
+}
+
+/// <summary>
 /// Serializable DTO for the roguelite run save file.
 /// Versioned for future migrations; includes optional fields for level options and extensions.
 /// </summary>

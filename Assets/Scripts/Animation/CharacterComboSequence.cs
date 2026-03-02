@@ -29,6 +29,12 @@ public class CharacterComboSequence : MonoBehaviour
     /// <summary>Active combo coroutine; null when no combo is running.</summary>
     private Coroutine _comboCoroutine;
 
+    /// <summary>Remaining attacks in the current combo; can be reduced by enhancements (e.g. ChancePerfectParryReduceComboCount).</summary>
+    private int _attacksRemaining;
+
+    /// <summary>If set, the next attack in the combo uses this direction instead of random (e.g. ChancePerfectParryNextAttackFromGivenDirection).</summary>
+    private Direction? _nextAttackDirectionOverride;
+
     /// <summary>Cardinal directions used to pick random attack direction (excludes Neutral).</summary>
     private static readonly Direction[] AttackDirections = { Direction.Up, Direction.Left, Direction.Right, Direction.Down };
 
@@ -68,6 +74,25 @@ public class CharacterComboSequence : MonoBehaviour
             StopCoroutine(_comboCoroutine);
 
         _comboCoroutine = StartCoroutine(ComboSequenceCoroutineWithParameters(numberOfAttaques, durationBetweenAttaque, windUpDuration, windDownDuration));
+    }
+
+    /// <summary>
+    /// Forces the next attack in the combo to use the given direction (e.g. Direction.Up for "from top").
+    /// Used by enhancements (e.g. Sword Guard). Override is consumed when the next attack starts.
+    /// </summary>
+    public void SetNextAttackDirectionOverride(Direction direction)
+    {
+        _nextAttackDirectionOverride = direction;
+    }
+
+    /// <summary>
+    /// Reduces the number of remaining attacks in the current combo by one. Used by enhancements (e.g. Fray Charm).
+    /// No effect if no combo is running or remaining is already 0.
+    /// </summary>
+    public void ReduceRemainingAttacks()
+    {
+        if (_attacksRemaining > 0)
+            _attacksRemaining--;
     }
 
     /// <summary>
@@ -133,11 +158,23 @@ public class CharacterComboSequence : MonoBehaviour
             yield break;
         }
 
-        for (int i = 0; i < numberOfAttaques; i++)
+        _attacksRemaining = numberOfAttaques;
+
+        while (_attacksRemaining > 0)
         {
-            Direction randomDirection = AttackDirections[Random.Range(0, AttackDirections.Length)];
-            characterAttaqueSequence.StartAttaque(randomDirection, windUpDuration, windDownDuration);
+            Direction attackDirection;
+            if (_nextAttackDirectionOverride.HasValue)
+            {
+                attackDirection = _nextAttackDirectionOverride.Value;
+                _nextAttackDirectionOverride = null;
+            }
+            else
+            {
+                attackDirection = AttackDirections[Random.Range(0, AttackDirections.Length)];
+            }
+            characterAttaqueSequence.StartAttaque(attackDirection, windUpDuration, windDownDuration);
             yield return new WaitForSeconds(windUpDuration + windDownDuration + durationBetweenAttaque);
+            _attacksRemaining--;
         }
 
         onComboComplete?.Invoke();

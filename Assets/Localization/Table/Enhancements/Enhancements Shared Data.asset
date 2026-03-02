@@ -1,0 +1,256 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Enhancements Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Enhancements
+  m_TableCollectionNameGuidString: 63554f172855b124fac98a321c79d723
+  m_Entries:
+  - m_Id: 11319908700160
+    m_Key: Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67309911871488
+    m_Key: BetterCuttingEdge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67716914548736
+    m_Key: BetterGuard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67787244638208
+    m_Key: BetterTip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67848246595584
+    m_Key: BurdenStone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68035413217280
+    m_Key: CadenceStone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68171547742208
+    m_Key: CrescendoBlade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68704996102144
+    m_Key: EnduranceWard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68892838006784
+    m_Key: ExecutionersMark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68944608301056
+    m_Key: FrayCharm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68995673952256
+    m_Key: Gambeson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69094697275392
+    m_Key: GracePeriodRing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69234518593536
+    m_Key: GuardiansFavor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69304483778560
+    m_Key: HeartOfTheBull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69376822939648
+    m_Key: Oil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69421349670912
+    m_Key: PhoenixFeather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69512051494912
+    m_Key: RespiteCharm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69677609062400
+    m_Key: SerpentsCoil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69728041373696
+    m_Key: SeveranceToken
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69899500326912
+    m_Key: SoulAnchor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69996745265152
+    m_Key: StaggeringCloak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70064458108928
+    m_Key: SurgeonsEdge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70204245872640
+    m_Key: SwordGuard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70248063766528
+    m_Key: TelegraphBell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70433863045120
+    m_Key: TrinitySeal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70491371147264
+    m_Key: VeteransCarapace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70633478361088
+    m_Key: VitalEssence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70680148381696
+    m_Key: WatchersEye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70754471448576
+    m_Key: Whetstone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72785835790336
+    m_Key: BetterCuttingEdgeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73066078212096
+    m_Key: BetterGuardDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73202745413632
+    m_Key: BetterTipDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73305019322368
+    m_Key: BurdenStoneDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73491716182016
+    m_Key: CadenceStoneDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73602215120896
+    m_Key: CrescendoBladeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73716631539712
+    m_Key: EnduranceWardDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73935574208512
+    m_Key: ExecutionersMarkDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74068621725696
+    m_Key: FrayCharmDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74177539411968
+    m_Key: GambesonDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74275182809088
+    m_Key: GracePeriodRingDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74410373615616
+    m_Key: GuardiansFavorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74545258237952
+    m_Key: HeartOfTheBullDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74675688509440
+    m_Key: OilDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74928219164672
+    m_Key: PhoenixFeatherDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75068141146112
+    m_Key: RespiteCharmDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75225045864448
+    m_Key: SerpentsCoilDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75311679213568
+    m_Key: SeveranceTokenDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75426640891904
+    m_Key: SoulAnchorDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75570958503936
+    m_Key: StaggeringCloakDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75785400684544
+    m_Key: SurgeonsEdgeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76008105644032
+    m_Key: SwordGuardDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76103433785344
+    m_Key: TelegraphBellDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229661364224
+    m_Key: TrinitySealDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76346464342016
+    m_Key: VeteransCarapaceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76474172510208
+    m_Key: VitalEssenceDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76622789283840
+    m_Key: WatchersEyeDescription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76730268323840
+    m_Key: WhetstoneDescription
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 7067329822233198709
+  references:
+    version: 2
+    RefIds:
+    - rid: 7067329822233198709
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1772381367024

@@ -20,6 +20,10 @@ public class RogueliteMapController : MonoBehaviour
 
     [SerializeField] private FightConfig[] _levelOptions = new FightConfig[FightSetupBuilder.LevelOptionsCount];
 
+    [Header("Enhancement choice")]
+    [Tooltip("Optional. When set and at least one fight has been won, enhancement choice is shown before level selection. Wire its onChoiceComplete to ShowLevelSelectionAfterEnhancement.")]
+    [SerializeField] private RogueliteEnhancementChoiceController enhancementChoiceController;
+
     [Header("Events")]
     [Tooltip("Invoked when level options have been built. Wire MapUiManager.BuildLevelButtons here.")]
     [SerializeField] private UnityEvent onLevelOptionsReady;
@@ -56,7 +60,18 @@ public class RogueliteMapController : MonoBehaviour
             Debug.Log("Building random levels. Fights completed: " + fightsCompleted);
             _levelOptions = FightSetupBuilder.BuildLevelOptions(progressionConfig, fightsCompleted);
         }
-        onLevelOptionsReady?.Invoke();
+
+        if (RogueliteRunState.Instance != null && progressionConfig != null && progressionConfig.EnhancementPool != null)
+            RogueliteRunState.Instance.SetEnhancementPool(progressionConfig.EnhancementPool);
+
+        if (RogueliteEnhancementChoiceController.ShouldShowEnhancementChoice() && enhancementChoiceController != null)
+        {
+            enhancementChoiceController.ShowAndPopulate();
+        }
+        else
+        {
+            onLevelOptionsReady?.Invoke();
+        }
 
         if (RogueliteRunState.Instance != null)
         {
@@ -68,6 +83,15 @@ public class RogueliteMapController : MonoBehaviour
                 TotalFightsInRun,
                 "WorldMap");
         }
+    }
+
+    /// <summary>
+    /// Call this when the enhancement choice is complete (wire from RogueliteEnhancementChoiceController.onChoiceComplete).
+    /// Invokes onLevelOptionsReady so level selection UI is built and shown.
+    /// </summary>
+    public void ShowLevelSelectionAfterEnhancement()
+    {
+        onLevelOptionsReady?.Invoke();
     }
 
     /// <summary>

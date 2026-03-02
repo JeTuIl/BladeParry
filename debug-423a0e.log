@@ -1,0 +1,6 @@
+{"sessionId":"423a0e","hypothesisId":"H4","location":"MapUiManager.BuildLevelButtons","message":"Entry","data":{"mapControllerNull":false,"levelOptionsCount":3,"levelOptionsNull":false,"buttonContainerNull":false,"buttonPrefabNull":false},"timestamp":1772388536163}
+{"sessionId":"423a0e","hypothesisId":"H5","location":"MapUiManager.BuildLevelButtons","message":"Loop done","data":{"spawnedCount":3},"timestamp":1772388536174}
+{"sessionId":"423a0e","hypothesisId":"H1","location":"RogueliteEnhancementChoiceController.TransitionToLevelSelection","message":"About to invoke onChoiceComplete","data":{"onChoiceCompleteNull":false,"listenerCount":0},"timestamp":1772388607414}
+{"sessionId":"423a0e","hypothesisId":"H2","location":"RogueliteMapController.ShowLevelSelectionAfterEnhancement","message":"Called; invoking onLevelOptionsReady","data":{"onLevelOptionsReadyNull":false,"listenerCount":1},"timestamp":1772388607420}
+{"sessionId":"423a0e","hypothesisId":"H4","location":"MapUiManager.BuildLevelButtons","message":"Entry","data":{"mapControllerNull":false,"levelOptionsCount":3,"levelOptionsNull":false,"buttonContainerNull":false,"buttonPrefabNull":false},"timestamp":1772388607420}
+{"sessionId":"423a0e","hypothesisId":"H5","location":"MapUiManager.BuildLevelButtons","message":"Loop done","data":{"spawnedCount":3},"timestamp":1772388607421}

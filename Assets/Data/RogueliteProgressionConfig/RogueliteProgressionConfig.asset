@@ -80,3 +80,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ccd6c76d2af51443add48ace8fa0fe9, type: 2}
   - {fileID: 11400000, guid: d2e25149f4815eb41ac72594327c416a, type: 2}
   bossFightConfig: {fileID: 11400000, guid: db18d420ad1297c499250c5da968a1e7, type: 2}
+  enhancementPool:
+  - {fileID: 11400000, guid: f8dbc1828a5da854abf84f951e8845fd, type: 2}
+  - {fileID: 11400000, guid: 03e59925afe2f01469409ab350776666, type: 2}
+  - {fileID: 11400000, guid: 9ac095d3613dcca4987a91247e15026d, type: 2}
+  - {fileID: 11400000, guid: ddf937078255ab24b99befb30a0ea27a, type: 2}
+  - {fileID: 11400000, guid: cf178cda3ba830849acdc91353f55b45, type: 2}
+  - {fileID: 11400000, guid: 5f8351492d8acfd4a853cf3f8c5e26db, type: 2}
+  - {fileID: 11400000, guid: 1ed485f046065bc479fd8a7c8f154e02, type: 2}
+  - {fileID: 11400000, guid: eccd6c09aec1d054591cb80495768909, type: 2}
+  - {fileID: 11400000, guid: a14308cd40cc1c64084ff71177b632e4, type: 2}
+  - {fileID: 11400000, guid: d28daf9dddfcd574c83a67e3d30c175d, type: 2}
+  - {fileID: 11400000, guid: 413dab2a8529193449a4e6ef7843e522, type: 2}
+  - {fileID: 11400000, guid: 895588d85060d624390c3865969d4e7d, type: 2}
+  - {fileID: 11400000, guid: 5ab99851bbb329c4285042d895c603c2, type: 2}
+  - {fileID: 11400000, guid: ba0bbe9ac01f1ec4389e948b29f816b2, type: 2}
+  - {fileID: 11400000, guid: 14f5b2c76aba42f4a8e2d950301e3ecf, type: 2}
+  - {fileID: 11400000, guid: 6f230e30b61553d43baadf7aecee1842, type: 2}
+  - {fileID: 11400000, guid: 6e9b16e085abed4439afcb82c587b13b, type: 2}
+  - {fileID: 11400000, guid: b785d4c7a73be224098d901016ff2b8a, type: 2}
+  - {fileID: 11400000, guid: 9a64ab1d7ab0ad840951d0ea69460b19, type: 2}
+  - {fileID: 11400000, guid: c98110204732e274fa7c01501e6ef4e2, type: 2}
+  - {fileID: 11400000, guid: 19df73a5705b0974a8502f999994dcd1, type: 2}
+  - {fileID: 11400000, guid: da6858e83dbbc364a8c630ed7e4f6615, type: 2}
+  - {fileID: 11400000, guid: cabb5f85d1219284eb27c4a4280d8d2b, type: 2}
+  - {fileID: 11400000, guid: 5c3b977728abb2e4ebb6b9eb04e8568d, type: 2}
+  - {fileID: 11400000, guid: 37dd6e1139893fb42a1e0fd8f76c3755, type: 2}
+  - {fileID: 11400000, guid: bc94780d8a23bb842809efd13584076f, type: 2}
+  - {fileID: 11400000, guid: 4993adb5a096efb4d9e92282c67c8ce6, type: 2}
+  - {fileID: 11400000, guid: b47e0b6f4bd43ef4d9eb16b9fbc958c9, type: 2}

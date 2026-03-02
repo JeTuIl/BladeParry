@@ -1,0 +1,290 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Enhancements_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: 63554f172855b124fac98a321c79d723, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 11319908700160
+    m_Localized: Selecciona una mejora
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67309911871488
+    m_Localized: Mejor vanguardia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67716914548736
+    m_Localized: Mejor guardia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67787244638208
+    m_Localized: Mejor punta de espada
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67848246595584
+    m_Localized: Piedra de carga
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68035413217280
+    m_Localized: Piedra de cadencia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68171547742208
+    m_Localized: Hoja Crescendo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68704996102144
+    m_Localized: Sala de Resistencia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68892838006784
+    m_Localized: Marca del verdugo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68944608301056
+    m_Localized: Encanto de fray
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68995673952256
+    m_Localized: Gambeson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69094697275392
+    m_Localized: Anillo de periodo de gracia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69234518593536
+    m_Localized: Favor del guardian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69304483778560
+    m_Localized: Corazon del Toro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69376822939648
+    m_Localized: Aceite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69421349670912
+    m_Localized: Pluma de fenix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69512051494912
+    m_Localized: Encanto de respiro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69677609062400
+    m_Localized: La espiral de la serpiente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69728041373696
+    m_Localized: "Token de indemnizaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69899500326912
+    m_Localized: Ancla del alma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69996745265152
+    m_Localized: Capa tambaleante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70064458108928
+    m_Localized: Hoja de cirujano
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70204245872640
+    m_Localized: Protector de espada
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70248063766528
+    m_Localized: Campana de telegrafo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70433863045120
+    m_Localized: Sello de la Trinidad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70491371147264
+    m_Localized: Caparazon de veterano
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70633478361088
+    m_Localized: Esencia vital
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70680148381696
+    m_Localized: Ojo del Vigilante
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70754471448576
+    m_Localized: Piedra de afilar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72785835790336
+    m_Localized: "Infliges m\xE1s da\xF1o al hacer una parada. Subir de nivel aumentar\xE1
+      esta bonificaci\xF3n de da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73066078212096
+    m_Localized: "Infliges m\xE1s da\xF1o al realizar una parada perfecta. Subir
+      de nivel aumentar\xE1 esta bonificaci\xF3n de da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73202745413632
+    m_Localized: "Infliges m\xE1s da\xF1o al parar todos los ataques del combo de
+      un enemigo. Subir de nivel aumentar\xE1 esta bonificaci\xF3n de da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73305019322368
+    m_Localized: "\"Ralentiza el movimiento de tu enemigo cuantas m\xE1s paradas
+      perfectas tengas seguidas.\nSubir de nivel aumentar\xE1 la ralentizaci\xF3n.\""
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73491716182016
+    m_Localized: "Inflige da\xF1o cada vez que consigas una parada perfecta suficientes
+      veces seguidas. Subir de nivel reducir\xE1 la cantidad de paradas perfectas
+      necesarias para infligir da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73602215120896
+    m_Localized: "El da\xF1o que infliges aumenta cuanto m\xE1s perfectas sean tus
+      paradas consecutivas.\nSubir de nivel aumentar\xE1 a\xFAn m\xE1s tu da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73716631539712
+    m_Localized: "Ignora un golpe cuando el n\xFAmero de paradas perfectas consecutivas
+      es lo suficientemente alto. Esto reiniciar\xE1 el conteo de paradas perfectas
+      consecutivas.\nSubir de nivel disminuir\xE1 el n\xFAmero de paradas perfectas
+      que surten efecto.\""
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73935574208512
+    m_Localized: "Cuanto menos vida tengas, m\xE1s da\xF1o le infligir\xE1s al enemigo.
+      Subir de nivel aumenta el da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74068621725696
+    m_Localized: "Al realizar una parada perfecta, tienes la posibilidad de reducir
+      el n\xFAmero de ataques del combo enemigo actual.\nSubir de nivel aumenta la
+      probabilidad de que esto ocurra."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74177539411968
+    m_Localized: "Tienes la posibilidad de ignorar el primer ataque que no logres
+      parar durante un combo.\nSubir de nivel aumentar\xE1 esa posibilidad."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74275182809088
+    m_Localized: "Ralentiza el movimiento de tu enemigo. Subir de nivel aumentar\xE1
+      la ralentizaci\xF3n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74410373615616
+    m_Localized: 'Cuando haces una parada imperfecta, tienes la posibilidad de que
+      se considere perfecta.
+
+      Subir de nivel aumenta la probabilidad de que
+      esto ocurra.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74545258237952
+    m_Localized: "Aumenta tu vida m\xE1xima. Subir de nivel aumentar\xE1 a\xFAn m\xE1s
+      tu vida m\xE1xima."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74675688509440
+    m_Localized: "Recibes m\xE1s da\xF1o, pero tambi\xE9n lo infliges. Subir de nivel
+      aumentar\xE1 el da\xF1o, tanto para ti como para tu enemigo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74928219164672
+    m_Localized: "Si paras con precisi\xF3n cada ataque de un combo, recuperas algo
+      de vida. Subir de nivel aumentar\xE1 la cantidad de vida recuperada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75068141146112
+    m_Localized: "Aumenta el tiempo antes del siguiente combo tras una parada perfecta.\nSubir
+      de nivel aumentar\xE1 el retraso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75225045864448
+    m_Localized: "Tienes una peque\xF1a probabilidad de ignorar cualquier ataque
+      que no puedas parar. Subir de nivel aumentar\xE1 esa probabilidad."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75311679213568
+    m_Localized: Tienes la posibilidad de que una parada perfecta cuente como dos
+      para calcular la cantidad de paradas perfectas seguidas que realizaste. Subir
+      de nivel aumenta la probabilidad de que esto suceda.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75426640891904
+    m_Localized: "Una vez por combate, sobrevive a la muerte y regresa con una peque\xF1a
+      cantidad de vida.\nSubir de nivel aumentar\xE1 la cantidad de vida con la que
+      regresas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75570958503936
+    m_Localized: "Cuando no logras parar un ataque, tienes la posibilidad de detener
+      el combo del enemigo.\nSubir de nivel aumentar\xE1 esa posibilidad."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75785400684544
+    m_Localized: "Parar un ataque a la perfecci\xF3n aumentar\xE1 todo el da\xF1o
+      que inflijas hasta el final del combo. Subir de nivel aumentar\xE1 el da\xF1o
+      infligido."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76008105644032
+    m_Localized: "Cuando haces una parada perfecta, hay una probabilidad adicional
+      de que el siguiente ataque venga desde arriba. Subir de nivel aumentar\xE1
+      esta probabilidad."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76103433785344
+    m_Localized: "Ralentiza el movimiento de tu enemigo. Subir de nivel aumentar\xE1
+      la ralentizaci\xF3n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229661364224
+    m_Localized: "Tras 3 paradas perfectas seguidas, infliges da\xF1o a tu enemigo.
+      Subir de nivel aumentar\xE1 el da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76346464342016
+    m_Localized: "El da\xF1o recibido disminuye cuanto m\xE1s perfectas sean tus
+      paradas consecutivas.\nSubir de nivel reducir\xE1 a\xFAn m\xE1s el da\xF1o."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76474172510208
+    m_Localized: "C\xFArate entre combates. Subir de nivel aumentar\xE1 la cantidad
+      de vida restaurada."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76622789283840
+    m_Localized: "Ralentiza el siguiente ataque enemigo tras una parada perfecta.
+      Subir de nivel aumentar\xE1 la ralentizaci\xF3n."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76730268323840
+    m_Localized: "Aumenta ligeramente el da\xF1o que infliges a tu enemigo.\nSubir
+      de nivel aumentar\xE1 el da\xF1o infligido."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

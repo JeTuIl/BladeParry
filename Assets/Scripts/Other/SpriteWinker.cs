@@ -27,30 +27,40 @@ public class SpriteWinker : MonoBehaviour
     /// </summary>
     public void TriggerWink()
     {
+        TriggerWink(totalDuration);
+    }
+
+    /// <summary>
+    /// Starts a shorter wink using the given total duration. Uses the same on/off phase timings.
+    /// </summary>
+    /// <param name="duration">Total duration in seconds.</param>
+    public void TriggerWink(float duration)
+    {
         if (_winkCoroutine != null)
             StopCoroutine(_winkCoroutine);
 
         if (image != null)
-            _winkCoroutine = StartCoroutine(WinkRoutine());
+            _winkCoroutine = StartCoroutine(WinkRoutine(duration));
     }
 
     /// <summary>
-    /// Alternates image.enabled on/off using onPhaseDuration and offPhaseDuration until totalDuration is reached.
+    /// Alternates image.enabled on/off using onPhaseDuration and offPhaseDuration until duration is reached.
     /// </summary>
+    /// <param name="duration">Total duration in seconds.</param>
     /// <returns>Enumerator for the coroutine.</returns>
-    System.Collections.IEnumerator WinkRoutine()
+    System.Collections.IEnumerator WinkRoutine(float duration)
     {
         float elapsed = 0f;
         bool isOn = true;
         image.enabled = true;
 
-        while (elapsed < totalDuration)
+        while (elapsed < duration)
         {
             if (isOn)
             {
                 yield return new WaitForSeconds(onPhaseDuration);
                 elapsed += onPhaseDuration;
-                if (elapsed >= totalDuration) break;
+                if (elapsed >= duration) break;
                 image.enabled = false;
                 isOn = false;
             }
@@ -58,7 +68,7 @@ public class SpriteWinker : MonoBehaviour
             {
                 yield return new WaitForSeconds(offPhaseDuration);
                 elapsed += offPhaseDuration;
-                if (elapsed >= totalDuration) break;
+                if (elapsed >= duration) break;
                 image.enabled = true;
                 isOn = true;
             }

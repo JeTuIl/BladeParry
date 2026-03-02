@@ -1,0 +1,341 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Enhancements_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 63554f172855b124fac98a321c79d723, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 11319908700160
+    m_Localized: Select an improvement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67309911871488
+    m_Localized: Better cutting edge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67716914548736
+    m_Localized: Better guard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67787244638208
+    m_Localized: Better sword tip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 67848246595584
+    m_Localized: Burden Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68035413217280
+    m_Localized: Cadence Stone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68171547742208
+    m_Localized: Crescendo Blade
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68704996102144
+    m_Localized: Endurance Ward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68892838006784
+    m_Localized: Executioner's Mark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68944608301056
+    m_Localized: Fray Charm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 68995673952256
+    m_Localized: Gambeson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69094697275392
+    m_Localized: Grace Period Ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69234518593536
+    m_Localized: Guardian's Favor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69304483778560
+    m_Localized: Heart of the Bull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69376822939648
+    m_Localized: Oil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69421349670912
+    m_Localized: Phoenix Feather
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69512051494912
+    m_Localized: Respite Charm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69677609062400
+    m_Localized: Serpent's Coil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69728041373696
+    m_Localized: Severance Token
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69899500326912
+    m_Localized: Soul Anchor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 69996745265152
+    m_Localized: "\"Staggering Cloak\t\""
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70064458108928
+    m_Localized: Surgeon's Edge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70204245872640
+    m_Localized: Sword guard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70248063766528
+    m_Localized: Telegraph Bell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70433863045120
+    m_Localized: Trinity Seal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70491371147264
+    m_Localized: Veteran's Carapace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70633478361088
+    m_Localized: Vital Essence
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70680148381696
+    m_Localized: Watcher's Eye
+    m_Metadata:
+      m_Items: []
+  - m_Id: 70754471448576
+    m_Localized: Whetstone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 72785835790336
+    m_Localized: 'You inflict more damage when doing a parry.
+
+      Leveling up
+      will increase this damage bonus.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73066078212096
+    m_Localized: 'You inflict more damage when doing a perfect parry.
+
+      Leveling
+      up will increase this damage bonus.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73202745413632
+    m_Localized: 'You inflict more damage when you parried all the attacks of an
+      enemy''s combo.
+
+      Leveling up will increase this damage bonus.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73305019322368
+    m_Localized: 'Slow down your enemy''s movement the more perfect parry in a row
+      you have.
+
+      Leveling up will increase the amount of slow down.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73491716182016
+    m_Localized: 'Inflict damage each time you successfully perfect parry enough
+      time in a row.
+
+      Leveling up will decrease the number of perfect parry
+      required to inflict damage.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73602215120896
+    m_Localized: 'The damage you inflicted increases the more perfect parry in a
+      row you do.
+
+      Leveling up will increase your damage even more.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73716631539712
+    m_Localized: 'Ignore a hit when the number of perfect parry in a row is big enough.
+      It will reset the perfect parry in a row count.
+
+      Leveling up will decrease
+      the number of perfect parry to take effect.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 73935574208512
+    m_Localized: 'The less life you have, the more damage you apply to the enemy.
+
+      Leveling
+      up increases the damage.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74068621725696
+    m_Localized: 'When you do a perfect parry, you have a chance to lower the number
+      of attacks in the current enemy combo.
+
+      Leveling up increases the chance
+      of this happening.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74177539411968
+    m_Localized: 'You have a chance to ignore the first attack you fail to parry
+      during a combo.
+
+      Leveling up will increase that chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74275182809088
+    m_Localized: 'Slow down your enemy''s wind down movement.
+
+      Leveling up
+      will increase the amount of slow down.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74410373615616
+    m_Localized: 'When you do a non-perfect parry, you have a chance it counts as
+      a perfect parry.
+
+      Leveling up increases the chance of this happening.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74545258237952
+    m_Localized: 'Increase your maximum life.
+
+      Leveling up will increase your
+      maximum life even more.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74675688509440
+    m_Localized: 'You receive more damage but inflict more damage as well.
+
+      Leveling
+      up will increase the amount of damage, both for you and your enemy.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 74928219164672
+    m_Localized: 'If you perfect parry every attack of a combo, you recover a bit
+      of life.
+
+      Leveling up will increase the amount of life recovered.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75068141146112
+    m_Localized: 'Increase the time before the next combo after a perfect parry.
+
+      Leveling
+      up will increase the amount of delay.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75225045864448
+    m_Localized: 'You have a small chance to ignore any attack you fail to parry.
+
+      Leveling
+      up will increase that chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75311679213568
+    m_Localized: 'You have a chance that a perfect parry counts as two to calculate
+      the number of perfect parries in a row you did.
+
+      Leveling up increases
+      the chance of this to happen.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75426640891904
+    m_Localized: 'Once per fight, survive death and come back with a small life amount.
+
+      Leveling
+      up will increase the amount of life you come back with.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75570958503936
+    m_Localized: 'When you fail to parry an attack, you have a chance to stop the
+      enemy''s combo.
+
+      Leveling up will increase that chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75785400684544
+    m_Localized: 'Parrying perfectly an attack will enhance all damage you inflict
+      until the end of the combo.
+
+      Leveling up will increase the amount of
+      damage inflicted.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76008105644032
+    m_Localized: 'When you do a perfect parry, there is an additional chance that
+      the next attack comes from the top.
+
+      Leveling up will increase this
+      chance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76103433785344
+    m_Localized: 'Slow down your enemy''s wind up movement.
+
+      Leveling up will
+      increase the amount of slow down.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76229661364224
+    m_Localized: 'After 3 perfect parry in a row, you inflict damage on your enemy.
+
+      Leveling
+      up will increase the amount of damage.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76346464342016
+    m_Localized: 'The damage you received decrease the more perfect parry in a row
+      you do.
+
+      Leveling up will decrease the damage even more.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76474172510208
+    m_Localized: 'Heal yourself between fights.
+
+      Leveling up will increase
+      the amount of life restored.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76622789283840
+    m_Localized: 'Slow down the next enemy attack after a perfect parry.
+
+      Leveling
+      up will increase the amount of slow down.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 76730268323840
+    m_Localized: 'Enhance every damage you inflict on your enemy by a small amount.
+
+      Leveling
+      up will increase the amount of damage inflicted.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -42,6 +42,7 @@ public static class FightSetupBuilder
                 ? template.CloneForRuntime()
                 : ScriptableObject.CreateInstance<GameplayConfig>();
             NumericalGenerator.FillGameplayConfig(gameplayConfig, adjustedDifficulty, ranges);
+            RogueliteEnhancementApplier.ApplyToConfig(gameplayConfig);
 
             EnemyDefinition enemy = PoolSelector.Pick(progressionConfig.EnemyPool);
             MusicConfig music = PoolSelector.Pick(progressionConfig.MusicPool);
