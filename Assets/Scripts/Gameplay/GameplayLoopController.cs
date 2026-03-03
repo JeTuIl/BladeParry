@@ -237,6 +237,26 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>True when the current attack's outcome was already applied via test queue (skip miss in OnParryWindowClose).</summary>
     private bool _lastAttackOutcomeAppliedByTest;
 
+    /// <summary>When true, fight simulation is running: auto-request combos with random outcomes until fight ends.</summary>
+    private bool _fightSimulationActive;
+
+    /// <summary>Simulation: probability (0–1) that each attack is a miss.</summary>
+    private float _simulationMissRate;
+
+    /// <summary>Simulation: among non-miss attacks, probability (0–1) of perfect parry.</summary>
+    private float _simulationPerfectParryRate;
+
+    /// <summary>Simulation: time scale and target FPS base (60) for restore.</summary>
+    private float _simulationTimeScale;
+
+    private const int DefaultTargetFrameRate = 60;
+
+    /// <summary>Fight stats for simulation log: start time (realtime) or -1 if not started.</summary>
+    private float _fightStartTime = -1f;
+
+    /// <summary>Fight stats: total attacks, combos, parries, perfect parries this fight.</summary>
+    private int _totalAttacks, _totalCombos, _totalParries, _totalPerfectParries;
+
     /// <summary>Raised when the game ends, with the result (player or enemy wins).</summary>
     public event System.Action<GameEndResult> GameEnded;
 
@@ -265,6 +285,58 @@ public class GameplayLoopController : MonoBehaviour
     {
         if (attackCount < 1) return;
         _testComboRequestedCount = attackCount;
+    }
+
+    /// <summary>True when fight simulation is active (editor test tool).</summary>
+    public bool IsFightSimulationActive() => _fightSimulationActive;
+
+    /// <summary>Starts fight simulation: test mode, time scale and target FPS set, outcomes generated from rates until fight ends.</summary>
+    /// <param name="missRate">Probability (0–1) that each attack is a miss.</param>
+    /// <param name="perfectParryRate">Among non-miss attacks, probability (0–1) of perfect parry.</param>
+    /// <param name="timeScale">Time.timeScale and target FPS = 60 * timeScale.</param>
+    public void StartFightSimulation(float missRate, float perfectParryRate, float timeScale)
+    {
+        _fightSimulationActive = true;
+        _simulationMissRate = Mathf.Clamp01(missRate);
+        _simulationPerfectParryRate = Mathf.Clamp01(perfectParryRate);
+        _simulationTimeScale = Mathf.Max(0.01f, timeScale);
+        _testMode = true;
+        Time.timeScale = _simulationTimeScale;
+        int targetFps = Mathf.RoundToInt(DefaultTargetFrameRate * _simulationTimeScale);
+        Application.targetFrameRate = targetFps;
+        QualitySettings.vSyncCount = 0;
+        GenerateAndRequestNextSimulationCombo();
+    }
+
+    /// <summary>Stops fight simulation and restores time scale and target frame rate.</summary>
+    public void StopFightSimulation()
+    {
+        _fightSimulationActive = false;
+        Time.timeScale = 1f;
+        Application.targetFrameRate = DefaultTargetFrameRate;
+    }
+
+    /// <summary>Generates one combo worth of outcomes from simulation rates and requests the combo (test mode).</summary>
+    private void GenerateAndRequestNextSimulationCombo()
+    {
+        if (_effectiveConfig == null || _playerCurrentLife <= 0 || _enemyCurrentLife <= 0)
+            return;
+        float lifeRatio = _enemyCurrentLife / _effectiveConfig.EnemyStartLife;
+        int numberOfAttaques = (int)Mathf.Lerp(_effectiveConfig.EmptyLifeComboNumberOfAttaques, _effectiveConfig.FullLifeComboNumberOfAttaques, lifeRatio);
+        numberOfAttaques = Mathf.Max(1, numberOfAttaques);
+        var outcomes = new List<ParryOutcome>();
+        for (int i = 0; i < numberOfAttaques; i++)
+        {
+            if (UnityEngine.Random.value < _simulationMissRate)
+                outcomes.Add(ParryOutcome.Miss);
+            else if (UnityEngine.Random.value < _simulationPerfectParryRate)
+                outcomes.Add(ParryOutcome.PerfectParry);
+            else
+                outcomes.Add(ParryOutcome.NormalParry);
+        }
+        ClearTestOutcomes();
+        EnqueueTestOutcomes(outcomes);
+        _testComboRequestedCount = numberOfAttaques;
     }
 
     /// <summary>Sets player life to max (for editor test tool).</summary>
@@ -904,7 +976,7 @@ public class GameplayLoopController : MonoBehaviour
     {
         Time.timeScale = hitStopTimeScale;
         yield return new WaitForSecondsRealtime(hitStopDuration);
-        Time.timeScale = 1f;
+        Time.timeScale = _fightSimulationActive ? _simulationTimeScale : 1f;
     }
 
     /// <summary>
@@ -1000,13 +1072,27 @@ public class GameplayLoopController : MonoBehaviour
 
         while (_playerCurrentLife > 0 && _enemyCurrentLife > 0)
         {
+            if (_fightStartTime < 0f)
+            {
+                _fightStartTime = Time.realtimeSinceStartup;
+                _totalAttacks = 0;
+                _totalCombos = 0;
+                _totalParries = 0;
+                _totalPerfectParries = 0;
+            }
+
             int numberOfAttaques;
             float durationBetweenAttaque, windUpDuration, windDownDuration;
 
             if (_testMode)
             {
                 while (_testMode && _testComboRequestedCount < 0 && _playerCurrentLife > 0 && _enemyCurrentLife > 0)
-                    yield return null;
+                {
+                    if (_fightSimulationActive)
+                        GenerateAndRequestNextSimulationCombo();
+                    if (_testComboRequestedCount < 0)
+                        yield return null;
+                }
                 if (_testComboRequestedCount < 0)
                     continue;
                 numberOfAttaques = _testComboRequestedCount;
@@ -1139,6 +1225,14 @@ public class GameplayLoopController : MonoBehaviour
                     Handheld.Vibrate();
             }
 
+            _totalCombos++;
+            _totalAttacks += numberOfAttaques;
+            for (int i = 0; i < _parriedInCombo.Count; i++)
+            {
+                if (_parriedInCombo[i]) _totalParries++;
+                if (i < _perfectParryInCombo.Count && _perfectParryInCombo[i]) _totalPerfectParries++;
+            }
+
             float pauseDuration = _effectiveConfig.PauseBetweenComboDuration + _extraPauseBeforeNextCombo;
             _extraPauseBeforeNextCombo = 0f;
             if (!_testMode && _playerCurrentLife > 0 && _enemyCurrentLife > 0 && pauseDuration > 0f)
@@ -1167,6 +1261,15 @@ public class GameplayLoopController : MonoBehaviour
     /// <param name="result">Whether the player or the enemy won.</param>
     private void OnGameEnd(GameEndResult result)
     {
+        bool wasSimulation = _fightSimulationActive;
+        if (_fightSimulationActive)
+        {
+            Time.timeScale = 1f;
+            Application.targetFrameRate = DefaultTargetFrameRate;
+            _fightSimulationActive = false;
+        }
+        if (wasSimulation && _effectiveConfig != null && _fightStartTime >= 0f)
+            LogSimulationStats(result);
         if (musicSwitchManager != null)
         {
             AudioClip clip = result == GameEndResult.PlayerWins ? musicOnPlayerWins : musicOnEnemyWins;
@@ -1186,5 +1289,34 @@ public class GameplayLoopController : MonoBehaviour
         if (GameplayEvents.Instance != null)
             GameplayEvents.Instance.InvokeGameEnd(result);
         GameEnded?.Invoke(result);
+    }
+
+    /// <summary>Logs fight statistics after a simulation ends (duration, attacks, combos, parries, damage, rates).</summary>
+    private void LogSimulationStats(GameEndResult result)
+    {
+        float durationSec = Time.realtimeSinceStartup - _fightStartTime;
+        int misses = _totalAttacks - _totalParries;
+        float playerDamageTaken = _effectiveConfig.PlayerStartLife - _playerCurrentLife;
+        float enemyDamageDealt = _effectiveConfig.EnemyStartLife - Mathf.Max(0f, _enemyCurrentLife);
+        float parryRatePct = _totalAttacks > 0 ? (100f * _totalParries / _totalAttacks) : 0f;
+        float perfectRateAmongParriesPct = _totalParries > 0 ? (100f * _totalPerfectParries / _totalParries) : 0f;
+        float avgAttacksPerCombo = _totalCombos > 0 ? (float)_totalAttacks / _totalCombos : 0f;
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.AppendLine("=== Fight simulation stats ===");
+        sb.AppendLine("Result: " + (result == GameEndResult.PlayerWins ? "Player wins" : "Enemy wins"));
+        sb.AppendLine("Duration: " + durationSec.ToString("F2") + " s (realtime)");
+        sb.AppendLine("Combos: " + _totalCombos);
+        sb.AppendLine("Attacks: " + _totalAttacks + " (avg " + avgAttacksPerCombo.ToString("F1") + " per combo)");
+        sb.AppendLine("Parries: " + _totalParries + " (" + parryRatePct.ToString("F1") + "% of attacks)");
+        sb.AppendLine("Perfect parries: " + _totalPerfectParries + " (" + perfectRateAmongParriesPct.ToString("F1") + "% of parries)");
+        sb.AppendLine("Misses: " + misses);
+        sb.AppendLine("Player damage taken: " + playerDamageTaken.ToString("F2") + " / " + _effectiveConfig.PlayerStartLife);
+        sb.AppendLine("Enemy damage dealt: " + enemyDamageDealt.ToString("F2") + " / " + _effectiveConfig.EnemyStartLife);
+        sb.AppendLine("Revive used: " + (_reviveUsedThisFight ? "yes" : "no"));
+        sb.AppendLine("Player life remaining: " + _playerCurrentLife.ToString("F2"));
+        sb.AppendLine("Enemy life remaining: " + Mathf.Max(0f, _enemyCurrentLife).ToString("F2"));
+        sb.Append("==============================");
+        Debug.Log(sb.ToString());
     }
 }

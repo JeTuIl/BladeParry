@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 
@@ -29,6 +30,15 @@ public class RogueliteEnhancementTestWindow : EditorWindow
 
     /// <summary>Maximum combo size for N.</summary>
     private const int ComboSizeMax = 6;
+
+    /// <summary>Fight simulation: probability (0–1) that each attack is a miss.</summary>
+    private float _simulationMissRate = 0.2f;
+
+    /// <summary>Fight simulation: among parries, probability (0–1) of perfect parry.</summary>
+    private float _simulationPerfectParryRate = 0.3f;
+
+    /// <summary>Fight simulation: time scale (target FPS = 60 × speed).</summary>
+    private float _simulationSpeed = 2f;
 
     /// <summary>Opens the Enhancement Test window (BladeParry menu).</summary>
     [MenuItem("BladeParry/Roguelite Enhancement Test")]
@@ -134,6 +144,31 @@ public class RogueliteEnhancementTestWindow : EditorWindow
             TriggerTest(_comboSizeN, ParryOutcome.NormalParry);
         if (GUILayout.Button($"N ({_comboSizeN}) attacks → Perfect parry (every)"))
             TriggerTest(_comboSizeN, ParryOutcome.PerfectParry);
+
+        EditorGUILayout.Space(8);
+        EditorGUILayout.LabelField("Fight simulation", EditorStyles.boldLabel);
+        _simulationMissRate = Mathf.Clamp01(EditorGUILayout.Slider("Miss rate", _simulationMissRate, 0f, 1f));
+        _simulationPerfectParryRate = Mathf.Clamp01(EditorGUILayout.Slider("Perfect parry rate (of parries)", _simulationPerfectParryRate, 0f, 1f));
+        _simulationSpeed = Mathf.Max(0.25f, EditorGUILayout.FloatField("Simulation speed (time scale)", _simulationSpeed));
+        EditorGUILayout.HelpBox("Target FPS = 60 × speed (e.g. 60 for 1, 120 for 2). In Editor, if FPS stays at 60, disable \"VSync (Game view only)\" in the Game view toolbar.", MessageType.None);
+        bool simulationActive = glc.IsFightSimulationActive();
+        EditorGUILayout.LabelField("Simulation: " + (simulationActive ? "Running" : "Stopped"));
+        EditorGUI.BeginDisabledGroup(simulationActive);
+        if (GUILayout.Button("Start simulation"))
+        {
+            int targetFps = Mathf.RoundToInt(60f * _simulationSpeed);
+            Application.targetFrameRate = targetFps;
+            QualitySettings.vSyncCount = 0;
+            DisableGameViewVSync();
+            glc.SetTestMode(true);
+            _pauseTestMode = true;
+            glc.StartFightSimulation(_simulationMissRate, _simulationPerfectParryRate, _simulationSpeed);
+        }
+        EditorGUI.EndDisabledGroup();
+        EditorGUI.BeginDisabledGroup(!simulationActive);
+        if (GUILayout.Button("Stop simulation"))
+            glc.StopFightSimulation();
+        EditorGUI.EndDisabledGroup();
     }
 
     /// <summary>Syncs the window's pause toggle with GameplayLoopController test mode.</summary>
@@ -187,6 +222,22 @@ public class RogueliteEnhancementTestWindow : EditorWindow
         runState.SetEnhancementPool(_progressionConfig.EnhancementPool);
         _enhancementLevels.Clear();
         Debug.Log("RogueliteEnhancementTestWindow: Cleared enhancements.");
+    }
+
+    /// <summary>Disables the Editor Game view's "VSync (Game view only)" so targetFrameRate is honored. Uses reflection for internal GameView type.</summary>
+    private static void DisableGameViewVSync()
+    {
+        try
+        {
+            System.Type gameViewType = System.Type.GetType("UnityEditor.GameView,UnityEditor");
+            if (gameViewType == null) return;
+            EditorWindow gameView = EditorWindow.GetWindow(gameViewType, false, "Game", false);
+            if (gameView == null) return;
+            PropertyInfo vSyncProp = gameViewType.GetProperty("vSyncEnabled", BindingFlags.Public | BindingFlags.Instance);
+            if (vSyncProp != null)
+                vSyncProp.SetValue(gameView, false);
+        }
+        catch (System.Exception) { /* ignore if reflection fails across Unity versions */ }
     }
 
     /// <summary>Enables test mode, enqueues the given outcome for each attack, and starts one combo with the given attack count.</summary>
