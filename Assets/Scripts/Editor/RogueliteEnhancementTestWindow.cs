@@ -101,7 +101,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
 
         _comboSizeN = Mathf.Clamp(EditorGUILayout.IntField("Combo size N", _comboSizeN), ComboSizeMin, ComboSizeMax);
 
-        var glc = Object.FindObjectOfType<GameplayLoopController>();
+        var glc = Object.FindFirstObjectByType<GameplayLoopController>();
         if (glc == null)
         {
             EditorGUILayout.HelpBox("GameplayLoopController not found in the active scene. Load the fighting scene.", MessageType.Warning);
@@ -140,7 +140,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
     private void SyncTestMode()
     {
         if (!Application.isPlaying) return;
-        var glc = Object.FindObjectOfType<GameplayLoopController>();
+        var glc = Object.FindFirstObjectByType<GameplayLoopController>();
         if (glc != null && glc.IsTestMode() != _pauseTestMode)
             glc.SetTestMode(_pauseTestMode);
     }
@@ -195,7 +195,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
     private void TriggerTest(int attackCount, ParryOutcome outcome)
     {
         if (!Application.isPlaying) return;
-        var glc = Object.FindObjectOfType<GameplayLoopController>();
+        var glc = Object.FindFirstObjectByType<GameplayLoopController>();
         if (glc == null)
         {
             Debug.LogWarning("RogueliteEnhancementTestWindow: GameplayLoopController not found.");
