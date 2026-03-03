@@ -9,9 +9,13 @@ using UnityEngine.Localization.Settings;
 /// </summary>
 public class OptionManager : MonoBehaviour
 {
+    /// <summary>Singleton instance. Null until Awake.</summary>
     public static OptionManager Instance { get; private set; }
 
+    /// <summary>PlayerPrefs key prefix for all options.</summary>
     private const string PrefsPrefix = "BladeParry_";
+
+    /// <summary>PlayerPrefs key for music volume.</summary>
     private const string KeyMusicVolume = PrefsPrefix + "MusicVolume";
     private const string KeySfxVolume = PrefsPrefix + "SfxVolume";
     private const string KeyHapticEnabled = PrefsPrefix + "HapticEnabled";
@@ -24,12 +28,22 @@ public class OptionManager : MonoBehaviour
     private const string DefaultLanguageCode = "en";
     private const bool DefaultScreenEffectsEnabled = true;
 
+    /// <summary>Current music volume (0..1).</summary>
     private float _musicVolume;
+
+    /// <summary>Current SFX volume (0..1).</summary>
     private float _sfxVolume;
+
+    /// <summary>Current haptic enabled state.</summary>
     private bool _hapticEnabled;
+
+    /// <summary>Current language code (e.g. "en", "fr").</summary>
     private string _languageCode;
+
+    /// <summary>Current screen effects enabled state.</summary>
     private bool _screenEffectsEnabled;
 
+    /// <summary>Enforces singleton, loads options from PlayerPrefs, and applies global options.</summary>
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,12 +57,14 @@ public class OptionManager : MonoBehaviour
         ApplyGlobalOptions();
     }
 
+    /// <summary>Clears singleton reference when this instance is destroyed.</summary>
     private void OnDestroy()
     {
         if (Instance == this)
             Instance = null;
     }
 
+    /// <summary>Applies global options from PlayerPrefs before the first scene loads.</summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void ApplyOptionsAtStartup()
     {
@@ -92,6 +108,8 @@ public class OptionManager : MonoBehaviour
         ApplyScreenEffectsGlobal(_screenEffectsEnabled);
     }
 
+    /// <summary>Sets the active locale by language code; falls back to default if not found.</summary>
+    /// <param name="code">Language code (e.g. "en", "fr").</param>
     private static void ApplyLocale(string code)
     {
         if (LocalizationSettings.AvailableLocales == null)
@@ -103,11 +121,15 @@ public class OptionManager : MonoBehaviour
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(DefaultLanguageCode);
     }
 
+    /// <summary>Enables or disables global screen effects (e.g. CFXR camera shake).</summary>
+    /// <param name="enabled">True to enable screen effects.</param>
     private static void ApplyScreenEffectsGlobal(bool enabled)
     {
         SetCFXRGlobalDisableCameraShake(!enabled);
     }
 
+    /// <summary>Sets CFXR GlobalDisableCameraShake via reflection (optional dependency).</summary>
+    /// <param name="disable">True to disable camera shake globally.</param>
     private static void SetCFXRGlobalDisableCameraShake(bool disable)
     {
         var type = System.Type.GetType("CFXR_Effect, CFXRRuntime");

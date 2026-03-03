@@ -13,8 +13,13 @@ using ReGolithSystems.UI;
 [System.Serializable]
 public class FightConfigQualityScores
 {
+    /// <summary>Durability score 1–3 (e.g. enemy life; 3 = strongest).</summary>
     public int Durability;
+
+    /// <summary>Strength score 1–3 (e.g. damage; 3 = strongest).</summary>
     public int Strength;
+
+    /// <summary>Speed score 1–3 (e.g. combo speed; 3 = fastest).</summary>
     public int Speed;
 }
 

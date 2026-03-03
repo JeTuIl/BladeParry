@@ -21,7 +21,7 @@ public class MusicPitchManager : MonoBehaviour
     /// <summary>
     /// Caches the AudioSource's output AudioMixerGroup for Update.
     /// </summary>
-    void Start()
+    private void Start()
     {
         mixerGroup = audioSource.outputAudioMixerGroup;
     }
@@ -29,7 +29,7 @@ public class MusicPitchManager : MonoBehaviour
     /// <summary>
     /// When pitch changes, applies it to the AudioSource and sets the mixer "PitchShifter" parameter to 1/pitch.
     /// </summary>
-    void Update()
+    private void Update()
     {
         if(previousPitch != pitch)
         {

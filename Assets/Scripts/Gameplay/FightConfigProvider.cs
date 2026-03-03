@@ -6,8 +6,10 @@ using UnityEngine;
 /// </summary>
 public class FightConfigProvider : MonoBehaviour
 {
+    /// <summary>Singleton instance.</summary>
     private static FightConfigProvider _instance;
 
+    /// <summary>When true, the provider persists across scene loads.</summary>
     [SerializeField] private bool dontDestroyOnLoad = true;
 
     /// <summary>Config to use for the next fight; takes precedence over scene-assigned config.</summary>
@@ -25,6 +27,7 @@ public class FightConfigProvider : MonoBehaviour
     /// <summary>Current gameplay config override if set (when no FightConfig is used).</summary>
     public static GameplayConfig CurrentGameplayConfigOverride => _instance != null ? _instance._currentGameplayConfigOverride : null;
 
+    /// <summary>Enforces singleton; optionally marks object DontDestroyOnLoad.</summary>
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -37,6 +40,7 @@ public class FightConfigProvider : MonoBehaviour
             DontDestroyOnLoad(gameObject);
     }
 
+    /// <summary>Clears singleton reference when this instance is destroyed.</summary>
     private void OnDestroy()
     {
         if (_instance == this)
@@ -44,6 +48,7 @@ public class FightConfigProvider : MonoBehaviour
     }
 
     /// <summary>Sets the config for the next fight. Clear after the fight loads if you want scene config for the next time.</summary>
+    /// <param name="fightConfig">The fight config to use; can be null to clear.</param>
     public void SetFightConfig(FightConfig fightConfig)
     {
         _currentFightConfig = fightConfig;
@@ -51,6 +56,7 @@ public class FightConfigProvider : MonoBehaviour
     }
 
     /// <summary>Sets a gameplay config directly for the next fight (no FightConfig).</summary>
+    /// <param name="gameplayConfig">The gameplay config to use; can be null to clear.</param>
     public void SetGameplayConfig(GameplayConfig gameplayConfig)
     {
         _currentGameplayConfigOverride = gameplayConfig;
@@ -64,7 +70,9 @@ public class FightConfigProvider : MonoBehaviour
         _currentGameplayConfigOverride = null;
     }
 
-    /// <summary>Resolves the GameplayConfig to use: provider FightConfig > provider GameplayConfig override > null (caller uses scene fallback).</summary>
+    /// <summary>Resolves the GameplayConfig to use: provider FightConfig > provider GameplayConfig override > scene fallback.</summary>
+    /// <param name="sceneFallback">Config to return when provider has no override set.</param>
+    /// <returns>The config to use for the fight, or sceneFallback if none set.</returns>
     public static GameplayConfig GetConfigForFight(GameplayConfig sceneFallback)
     {
         if (_instance == null)

@@ -9,21 +9,44 @@ using ReGolithSystems.UI;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Main menu controller: faders for main/tuto/difficulty/options panels, start game, roguelite run, resume, and quit.
+/// </summary>
 public class MainMenuManager : MonoBehaviour
 {
+    /// <summary>Fader for full-screen black (e.g. before load).</summary>
     [SerializeField] private UiFader blackFader;
+
+    /// <summary>Fader for the main menu UI.</summary>
     [SerializeField] private UiFader mainUi;
+
+    /// <summary>Fader for the tutorial UI panel.</summary>
     [SerializeField] private UiFader tutoUi;
+
+    /// <summary>Fader for the difficulty selection UI.</summary>
     [SerializeField] private UiFader difficultyUi;
+
+    /// <summary>Fader for the options UI panel.</summary>
     [SerializeField] private UiFader optionsUi;
+
+    /// <summary>Fight configs for difficulty-based start (e.g. easy, normal, hard).</summary>
     [SerializeField] private List<FightConfig> fightConfigs = new List<FightConfig>();
+
+    /// <summary>Scene to load when starting a normal game.</summary>
     [SerializeField] private string sceneToLoad;
+
+    /// <summary>Scene to load when starting a roguelite run (e.g. WorldMap).</summary>
     [Tooltip("Scene to load when starting a roguelite run (e.g. WorldMap).")]
     [SerializeField] private string rogueliteMapSceneName = "WorldMap";
+
+    /// <summary>Music AudioSource; volume applied from options at Start.</summary>
     [SerializeField] private AudioSource musicAudioSource;
+
+    /// <summary>Optional. Resume run button; interactable set from HasValidRunSave at Start.</summary>
     [Tooltip("Optional. Resume run button; interactable and visible are set from HasResumableRun() at Start.")]
     [SerializeField] private Button resumeButton;
 
+    /// <summary>Applies music volume from options and refreshes resume button state.</summary>
     private void Start()
     {
         ApplyMusicVolumeFromOptions();
@@ -42,11 +65,14 @@ public class MainMenuManager : MonoBehaviour
         //resumeButton.gameObject.SetActive(hasSave);
     }
 
+    /// <summary>Returns music volume from PlayerPrefs (via OptionManager).</summary>
+    /// <returns>Volume in 0..1.</returns>
     private static float GetMusicVolumeFromOptions()
     {
         return OptionManager.GetMusicVolumeFromPrefs();
     }
 
+    /// <summary>Applies the current music volume from options to the music AudioSource.</summary>
     private void ApplyMusicVolumeFromOptions()
     {
         if (musicAudioSource != null)

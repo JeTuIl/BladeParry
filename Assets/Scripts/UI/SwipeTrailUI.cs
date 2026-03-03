@@ -6,18 +6,25 @@ using UnityEngine.UI;
 /// </summary>
 public class SwipeTrailUI : MonoBehaviour
 {
+    /// <summary>Source of drag start/update/end events.</summary>
     [SerializeField] private SlideDetection slideDetection;
+
+    /// <summary>RectTransform representing the line (e.g. a thin Image). Pivot at one end (e.g. 0, 0.5) for correct rotation.</summary>
     [Tooltip("RectTransform representing the line (e.g. a thin Image). Pivot at one end (e.g. 0, 0.5) for correct rotation.")]
     [SerializeField] private RectTransform lineRect;
+
+    /// <summary>Canvas used for screen-to-local conversion. If null, taken from line's parent Canvas.</summary>
     [Tooltip("Canvas used for screen-to-local conversion. If null, taken from line's parent Canvas.")]
     [SerializeField] private Canvas canvas;
 
+    /// <summary>Caches Canvas from line parent if not assigned.</summary>
     private void Awake()
     {
         if (lineRect != null && canvas == null)
             canvas = lineRect.GetComponentInParent<Canvas>();
     }
 
+    /// <summary>Subscribes to drag events and hides the line.</summary>
     private void OnEnable()
     {
         if (slideDetection != null)
@@ -29,6 +36,7 @@ public class SwipeTrailUI : MonoBehaviour
             lineRect.gameObject.SetActive(false);
     }
 
+    /// <summary>Unsubscribes from drag events and hides the line.</summary>
     private void OnDisable()
     {
         if (slideDetection != null)
@@ -40,6 +48,9 @@ public class SwipeTrailUI : MonoBehaviour
             lineRect.gameObject.SetActive(false);
     }
 
+    /// <summary>Updates the line position, rotation, and length from drag start to current position in canvas space.</summary>
+    /// <param name="startScreen">Screen position where the drag started.</param>
+    /// <param name="currentScreen">Current screen position.</param>
     private void OnDragUpdate(Vector2 startScreen, Vector2 currentScreen)
     {
         if (lineRect == null) return;
@@ -65,6 +76,7 @@ public class SwipeTrailUI : MonoBehaviour
         lineRect.sizeDelta = new Vector2(distance, lineRect.sizeDelta.y);
     }
 
+    /// <summary>Hides the line when the drag ends.</summary>
     private void OnDragEnd()
     {
         if (lineRect != null)

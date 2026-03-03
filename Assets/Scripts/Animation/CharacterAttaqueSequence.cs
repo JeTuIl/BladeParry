@@ -167,6 +167,7 @@ public class CharacterAttaqueSequence : MonoBehaviour
     }
 
     /// <summary>Sets the FxManager prefab index used for the effect at start of wind-down (e.g. from EnemyDefinition).</summary>
+    /// <param name="index">FxManager prefab index for the wind-down effect.</param>
     public void SetWindDownFxIndex(int index) => _windDownFxIndex = index;
 
     /// <summary>

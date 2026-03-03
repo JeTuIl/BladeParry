@@ -80,6 +80,7 @@ public class CharacterComboSequence : MonoBehaviour
     /// Forces the next attack in the combo to use the given direction (e.g. Direction.Up for "from top").
     /// Used by enhancements (e.g. Sword Guard). Override is consumed when the next attack starts.
     /// </summary>
+    /// <param name="direction">The cardinal direction for the next attack.</param>
     public void SetNextAttackDirectionOverride(Direction direction)
     {
         _nextAttackDirectionOverride = direction;

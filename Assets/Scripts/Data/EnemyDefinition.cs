@@ -7,17 +7,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDefinition", menuName = "BladeParry/Enemy Definition")]
 public class EnemyDefinition : ScriptableObject
 {
+    /// <summary>Display name for this enemy (UI or debug).</summary>
     [SerializeField] private string displayName = "Enemy";
+
+    /// <summary>Optional prefab to spawn for this enemy (e.g. different character).</summary>
     [Tooltip("Optional prefab to spawn for this enemy (e.g. different character).")]
     [SerializeField] private GameObject optionalPrefab;
 
+    /// <summary>Optional sprite set for this enemy (direction and state sprites + scales). When set, applied to the enemy's CharacterSpriteDirection at fight start.</summary>
     [Tooltip("Optional sprite set for this enemy (direction and state sprites + scales). When set, applied to the enemy's CharacterSpriteDirection at fight start.")]
     [SerializeField] private CharacterSpriteSet spriteSet;
 
     [Header("Fight FX (FxManager prefab indices)")]
+    /// <summary>Index of the effect spawned at the start of wind-down during each attack (position/orientation from CharacterAttaqueSequence).</summary>
     [Tooltip("Index of the effect spawned at the start of wind-down during each attack (position/orientation from CharacterAttaqueSequence).")]
     [SerializeField] private int windDownFxIndex = 0;
 
+    /// <summary>Index of the effect spawned when all attacks in a combo are parried (position from GameplayLoopController; orientation not used).</summary>
     [Tooltip("Index of the effect spawned when all attacks in a combo are parried (position from GameplayLoopController; orientation not used).")]
     [SerializeField] private int allParriedComboFxIndex = 3;
 

@@ -6,8 +6,9 @@ using UnityEngine;
 /// </summary>
 public static class FrameRateSetup
 {
+    /// <summary>Sets target frame rate to 60 and disables VSync so the limit is respected on mobile.</summary>
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void ConfigureFrameRate()
+    private static void ConfigureFrameRate()
     {
         // 60 FPS cap; use -1 for uncapped (may increase battery use on mobile).
         Application.targetFrameRate = 60;

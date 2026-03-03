@@ -97,22 +97,64 @@ public class GameplayConfig : ScriptableObject
 
     // --- Runtime API (for runtime-created configs, e.g. roguelite) ---
 
+    /// <summary>Sets the player's starting life count.</summary>
+    /// <param name="value">Starting life value.</param>
     public void SetPlayerStartLife(float value) => playerStartLife = value;
+
+    /// <summary>Sets the enemy's starting life count.</summary>
+    /// <param name="value">Starting life value.</param>
     public void SetEnemyStartLife(float value) => enemyStartLife = value;
+
+    /// <summary>Sets the number of attacks in a combo when enemy is at full life.</summary>
+    /// <param name="value">Number of attacks.</param>
     public void SetFullLifeComboNumberOfAttaques(int value) => fullLifeComboNumberOfAttaques = value;
+
+    /// <summary>Sets the seconds between attacks in a full-life combo.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetFullLifeDurationBetweenAttaque(float value) => fullLifeDurationBetweenAttaque = value;
+
+    /// <summary>Sets the wind-up duration per attack at full life.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetFullLifeWindUpDuration(float value) => fullLifeWindUpDuration = value;
+
+    /// <summary>Sets the wind-down duration per attack at full life.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetFullLifeWindDownDuration(float value) => fullLifeWindDownDuration = value;
+
+    /// <summary>Sets the number of attacks in a combo when enemy is at empty life.</summary>
+    /// <param name="value">Number of attacks.</param>
     public void SetEmptyLifeComboNumberOfAttaques(int value) => emptyLifeComboNumberOfAttaques = value;
+
+    /// <summary>Sets the seconds between attacks in an empty-life combo.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetEmptyLifeDurationBetweenAttaque(float value) => emptyLifeDurationBetweenAttaque = value;
+
+    /// <summary>Sets the wind-up duration per attack at empty life.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetEmptyLifeWindUpDuration(float value) => emptyLifeWindUpDuration = value;
+
+    /// <summary>Sets the wind-down duration per attack at empty life.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetEmptyLifeWindDownDuration(float value) => emptyLifeWindDownDuration = value;
+
+    /// <summary>Sets the seconds to wait between combos.</summary>
+    /// <param name="value">Duration in seconds.</param>
     public void SetPauseBetweenComboDuration(float value) => pauseBetweenComboDuration = value;
+
+    /// <summary>Sets the life removed from enemy per parried attack.</summary>
+    /// <param name="value">Damage value.</param>
     public void SetDamageOnParry(float value) => damageOnParry = value;
+
+    /// <summary>Sets the multiplier for perfect parry damage.</summary>
+    /// <param name="value">Ratio value (e.g. 1.5 for 50% bonus).</param>
     public void SetDamagePerfectRatio(float value) => damagePerfectRatio = value;
+
+    /// <summary>Sets the life removed when all attacks in a combo are parried.</summary>
+    /// <param name="value">Damage value.</param>
     public void SetDamageOnComboParry(float value) => damageOnComboParry = value;
 
     /// <summary>Creates a runtime copy with the same values. Call setters to customize.</summary>
+    /// <returns>A new GameplayConfig instance with copied values.</returns>
     public GameplayConfig CloneForRuntime()
     {
         var copy = CreateInstance<GameplayConfig>();

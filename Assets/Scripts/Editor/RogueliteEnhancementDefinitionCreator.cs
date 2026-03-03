@@ -10,16 +10,26 @@ namespace BladeParry.Editor
     /// </summary>
     public static class RogueliteEnhancementDefinitionCreator
     {
+        /// <summary>Default folder for created enhancement assets.</summary>
         private const string DefaultOutputPath = "Assets/Data/RogueliteEnhancements";
 
+        /// <summary>One enhancement row from the reference spreadsheet (id, effect type, base value, max level).</summary>
         private struct EnhancementEntry
         {
+            /// <summary>Stable enhancement ID (e.g. Gambeson).</summary>
             public string Id;
+
+            /// <summary>Effect type for gameplay linking.</summary>
             public RogueliteEnhancementEffectType EffectType;
+
+            /// <summary>Base value (effective = baseValue * level).</summary>
             public float BaseValue;
+
+            /// <summary>Maximum upgrade level.</summary>
             public int MaxLevel;
         }
 
+        /// <summary>Creates or updates RogueliteEnhancementDefinition assets for all entries. Creates Assets/Data/RogueliteEnhancements if needed.</summary>
         [MenuItem("Tools/BladeParry/Create Enhancement Definitions")]
         public static void CreateAll()
         {

@@ -71,7 +71,8 @@ public class LifebarManager : MonoBehaviour
 
     private Coroutine _damageFeedbackCoroutine;
 
-    void OnDestroy()
+    /// <summary>Stops the damage feedback coroutine if running.</summary>
+    private void OnDestroy()
     {
         if (_damageFeedbackCoroutine != null)
             StopCoroutine(_damageFeedbackCoroutine);
@@ -80,7 +81,7 @@ public class LifebarManager : MonoBehaviour
     /// <summary>
     /// Initializes bar widths from current life and red bar RectTransform.
     /// </summary>
-    void Start()
+    private void Start()
     {
         if (maxLifeValue > 0)
         {
@@ -93,6 +94,8 @@ public class LifebarManager : MonoBehaviour
         RefreshNumeric();
     }
 
+    /// <summary>Loads the localized lifebar format string and refreshes numeric display.</summary>
+    /// <returns>Enumerator for the coroutine.</returns>
     private IEnumerator PreloadFormat()
     {
         var op = s_lifebarFormat.GetLocalizedStringAsync();
@@ -115,6 +118,8 @@ public class LifebarManager : MonoBehaviour
         _damageFeedbackCoroutine = StartCoroutine(DamageFeedbackCoroutine());
     }
 
+    /// <summary>Runs a short scale pulse on the life bar image for damage feedback.</summary>
+    /// <returns>Enumerator for the coroutine.</returns>
     private IEnumerator DamageFeedbackCoroutine()
     {
         RectTransform pulseTarget = lifeBarImage.rectTransform;
@@ -138,7 +143,7 @@ public class LifebarManager : MonoBehaviour
     /// <summary>
     /// Updates the life bar width from current life, applies color-by-health, and lerps the red bar toward that width.
     /// </summary>
-    void Update()
+    private void Update()
     {
         if (lifeBarImage == null || redBarImage == null)
             return;
@@ -172,6 +177,7 @@ public class LifebarManager : MonoBehaviour
         }
     }
 
+    /// <summary>Editor/reset: creates a default health gradient if none is set.</summary>
     private void Reset()
     {
         if (healthGradient == null)
@@ -184,6 +190,7 @@ public class LifebarManager : MonoBehaviour
         }
     }
 
+    /// <summary>Updates the numeric text with current/max life using cached format or numericFormat.</summary>
     private void RefreshNumeric()
     {
         if (!showNumeric || numericText == null)
@@ -202,6 +209,8 @@ public class LifebarManager : MonoBehaviour
     /// <summary>
     /// Sets the width of the given RectTransform's sizeDelta (x only).
     /// </summary>
+    /// <param name="rectTransform">RectTransform to resize.</param>
+    /// <param name="width">Width in units.</param>
     private static void SetBarWidth(RectTransform rectTransform, float width)
     {
         Vector2 size = rectTransform.sizeDelta;

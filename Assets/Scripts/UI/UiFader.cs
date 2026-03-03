@@ -14,35 +14,43 @@ namespace ReGolithSystems.UI
     public class UiFader : MonoBehaviour
     {
         #region Serialized Fields
-        
+
         [Header("🎯 Initial Configuration")]
+        /// <summary>Starting state when the scene loads: Enabled (visible, interactable) or Disabled (invisible, non-interactable).</summary>
         [Tooltip("Determines the starting state of the UI element when the scene loads.\n• Enabled: Starts visible and interactable\n• Disabled: Starts invisible and non-interactable")]
         [SerializeField] private DefaultState defaultState = DefaultState.Disabled;
-        
+
         [Header("⚙️ Animation Properties")]
+        /// <summary>Duration of the fade animation in seconds. Higher values create slower, more gradual transitions.</summary>
         [Tooltip("Duration of the fade animation in seconds. Higher values create slower, more gradual transitions.")]
         [Range(0.01f, 10f)]
         [SerializeField] private float fadeDuration = 1f;
-        
+
+        /// <summary>Animation curve for the fade (time 0–1). Linear = constant speed; EaseInOut = slow start/end, fast middle.</summary>
         [Tooltip("Animation curve that defines the easing of the fade animation.\n• Linear: Constant speed\n• EaseInOut: Slow start and end, fast middle\n• Custom: Define your own curve")]
         [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-        
+
+        /// <summary>When true, interactable and blocksRaycasts are set from the final alpha (e.g. interactable when alpha > 0.5).</summary>
         [Tooltip("Automatically manages interactable and blocksRaycasts properties based on the final alpha value.\n• Enabled: UI becomes interactable when alpha > 0.5\n• Disabled: Manual control required")]
         [SerializeField] private bool setInteractableOnComplete = true;
-        
+
+        /// <summary>When true, this script updates CanvasGroup interactable and blocksRaycasts during fades and SetInstant.</summary>
         [Tooltip("Controls whether this script should manage the CanvasGroup's interactable and blocksRaycasts properties.\n• Enabled: Script automatically sets these properties during fades and state changes\n• Disabled: Script only manages alpha, leaving interactable/raycasts to external control")]
         [SerializeField] private bool manageInteractableAndRaycasts = true;
 
+        /// <summary>When true, Start() applies defaultState by running FadeIn or FadeOut instead of setting alpha instantly.</summary>
         [SerializeField] private bool setCanvasGroupAlphaOnStart = false;
-        
+
         [Header("🔧 Component References")]
+        /// <summary>CanvasGroup to fade. If null, one is taken from this GameObject in Start/Reset.</summary>
         [Tooltip("Reference to the CanvasGroup component. If null, will automatically find one on this GameObject.")]
         [SerializeField] private CanvasGroup canvasGroup;
-        
+
         [Header("🐛 Debug & Development")]
+        /// <summary>When true, logs fade and state changes to the console for debugging.</summary>
         [Tooltip("Enable detailed debug logging for all fade operations. Useful for troubleshooting animation issues.")]
         [SerializeField] private bool showDebugLogs = false;
-        
+
         #endregion
         
         #region Private Fields

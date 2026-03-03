@@ -8,26 +8,34 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RogueliteEnhancement", menuName = "BladeParry/Roguelite Enhancement Definition")]
 public class RogueliteEnhancementDefinition : ScriptableObject
 {
+    /// <summary>Localization table name for enhancement name/description keys.</summary>
     public const string LocalizationTableName = "Enhancements";
 
+    /// <summary>Stable ID for save/load and upgrade logic (e.g. Gambeson). Must match localization keys: Id_Name, Id_Desc.</summary>
     [Tooltip("Stable ID for save/load and upgrade logic (e.g. Gambeson). Must match localization keys: Id_Name, Id_Desc.")]
     [SerializeField] private string id = "";
 
+    /// <summary>Icon shown in the enhancement choice UI.</summary>
     [Tooltip("Icon shown in the enhancement choice UI.")]
     [SerializeField] private Sprite sprite;
 
+    /// <summary>Localization key for display name (Enhancements table). If empty, uses Id + "_Name".</summary>
     [Tooltip("Localization key for display name (Enhancements table). If empty, uses Id + \"_Name\".")]
     [SerializeField] private string nameKey = "";
 
+    /// <summary>Localization key for description (Enhancements table). If empty, uses Id + "_Desc".</summary>
     [Tooltip("Localization key for description (Enhancements table). If empty, uses Id + \"_Desc\".")]
     [SerializeField] private string descriptionKey = "";
 
+    /// <summary>Base numerical value; effective value = baseValue * level.</summary>
     [Tooltip("Base numerical value; effective value = baseValue * level.")]
     [SerializeField] private float baseValue = 1f;
 
+    /// <summary>Maximum level this enhancement can be upgraded to.</summary>
     [Tooltip("Maximum level this enhancement can be upgraded to.")]
     [SerializeField] private int maxLevel = 3;
 
+    /// <summary>Effect type used by the central reader to apply gameplay modifiers.</summary>
     [Tooltip("Effect type used by the central reader to apply gameplay modifiers.")]
     [SerializeField] private RogueliteEnhancementEffectType effectType = RogueliteEnhancementEffectType.None;
 
@@ -53,6 +61,8 @@ public class RogueliteEnhancementDefinition : ScriptableObject
     public RogueliteEnhancementEffectType EffectType => effectType;
 
     /// <summary>Effective value at a given level (baseValue * level).</summary>
+    /// <param name="level">Enhancement level (clamped to 1..MaxLevel).</param>
+    /// <returns>baseValue * clamped level.</returns>
     public float GetValueAtLevel(int level)
     {
         int clamped = Mathf.Clamp(level, 1, maxLevel);

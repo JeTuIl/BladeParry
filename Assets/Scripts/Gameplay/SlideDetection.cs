@@ -34,17 +34,29 @@ public class SlideDetection : MonoBehaviour
     /// <summary>True when a touch/mouse press has been recorded and we are waiting for release.</summary>
     private bool _touchTracked;
 
+    /// <summary>Localization table name for direction labels.</summary>
     private const string TableName = "BladeParry_LocalizationTable";
+
+    /// <summary>Cached localized string for "Up" direction (debug label).</summary>
     private string _dirUp;
+
+    /// <summary>Cached localized string for "Down" direction (debug label).</summary>
     private string _dirDown;
+
+    /// <summary>Cached localized string for "Left" direction (debug label).</summary>
     private string _dirLeft;
+
+    /// <summary>Cached localized string for "Right" direction (debug label).</summary>
     private string _dirRight;
 
+    /// <summary>Starts preloading localized direction labels for the debug UI.</summary>
     private void Start()
     {
         StartCoroutine(PreloadDirectionLabels());
     }
 
+    /// <summary>Loads localized strings for direction labels (Up, Down, Left, Right) asynchronously.</summary>
+    /// <returns>Enumerator for the coroutine.</returns>
     private IEnumerator PreloadDirectionLabels()
     {
         var up = new LocalizedString(TableName, "Direction_Up").GetLocalizedStringAsync();

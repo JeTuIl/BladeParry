@@ -11,20 +11,27 @@ using ReGolithSystems.UI;
 public class RogueliteMapController : MonoBehaviour
 {
     [Header("Config")]
+    /// <summary>Progression config for pools and run parameters.</summary>
     [SerializeField] private RogueliteProgressionConfig progressionConfig;
+
+    /// <summary>Scene name to load when a level is selected (e.g. FightingScene).</summary>
     [Tooltip("Scene name to load when a level is selected (e.g. FightingScene).")]
     [SerializeField] private string fightSceneName = "FightingScene";
 
     [Header("Fade")]
+    /// <summary>Fader used when transitioning to the fight scene.</summary>
     [SerializeField] private UiFader blackFader;
 
+    /// <summary>Level options (3 or 1 for boss) built at Start.</summary>
     [SerializeField] private FightConfig[] _levelOptions = new FightConfig[FightSetupBuilder.LevelOptionsCount];
 
     [Header("Enhancement choice")]
+    /// <summary>Optional. When set and at least one fight has been won, enhancement choice is shown before level selection.</summary>
     [Tooltip("Optional. When set and at least one fight has been won, enhancement choice is shown before level selection. Wire its onChoiceComplete to ShowLevelSelectionAfterEnhancement.")]
     [SerializeField] private RogueliteEnhancementChoiceController enhancementChoiceController;
 
     [Header("Events")]
+    /// <summary>Invoked when level options have been built. Wire MapUiManager.BuildLevelButtons here.</summary>
     [Tooltip("Invoked when level options have been built. Wire MapUiManager.BuildLevelButtons here.")]
     [SerializeField] private UnityEvent onLevelOptionsReady;
 
@@ -34,6 +41,7 @@ public class RogueliteMapController : MonoBehaviour
     /// <summary>Total number of fights in the run (from progression config).</summary>
     public int TotalFightsInRun => progressionConfig != null ? progressionConfig.TotalFightsInRun : 0;
 
+    /// <summary>Builds level options (or boss config), sets enhancement pool, shows enhancement choice or level selection, and saves run.</summary>
     private void Start()
     {
         if (!RogueliteRunState.IsRunActive)
@@ -97,6 +105,7 @@ public class RogueliteMapController : MonoBehaviour
     /// <summary>
     /// Called when the player selects a level (0, 1, or 2). Sets the fight config and loads the fight scene.
     /// </summary>
+    /// <param name="index">Level option index (0, 1, or 2 for normal map; 0 for boss).</param>
     public void SelectLevel(int index)
     {
         if (index < 0 || index >= _levelOptions.Length)
@@ -126,12 +135,15 @@ public class RogueliteMapController : MonoBehaviour
         StartCoroutine(FadeThenLoadFightScene());
     }
 
+    /// <summary>Context menu: selects level 0 (for testing in editor).</summary>
     [ContextMenu("Select Level 0")]
     private void SelectLevel0FromInspector()
     {
         SelectLevel(0);
     }
 
+    /// <summary>Runs the black fader then loads the fight scene.</summary>
+    /// <returns>Enumerator for the coroutine.</returns>
     private IEnumerator FadeThenLoadFightScene()
     {
         if (blackFader != null)

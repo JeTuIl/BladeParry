@@ -7,25 +7,40 @@ using TMPro;
 /// </summary>
 public class PerfectParryComboDisplay : MonoBehaviour
 {
+    /// <summary>Text that displays the perfect parry count.</summary>
     [SerializeField] private TMP_Text text;
 
     [Header("Gradient")]
+    /// <summary>Max count at which gradient and tremble are at full. Same value used for both.</summary>
     [Tooltip("Max count at which gradient and tremble are at full. Same value used for both.")]
     [SerializeField] private int maxComboForGradient = 5;
+
+    /// <summary>Color at 0 = count 0, 1 = count maxComboForGradient.</summary>
     [Tooltip("Color at 0 = count 0, 1 = count maxComboForGradient.")]
     [SerializeField] private Gradient colorGradient;
 
     [Header("Tremble")]
+    /// <summary>Position offset magnitude in pixels when count = max.</summary>
     [Tooltip("Position offset magnitude in pixels when count = max.")]
     [SerializeField] private float trembleStrengthAtMax = 4f;
+
+    /// <summary>Tremble speed (rad/s) when count = max.</summary>
     [Tooltip("Tremble speed (rad/s) when count = max.")]
     [SerializeField] private float trembleSpeedAtMax = 30f;
 
+    /// <summary>Current perfect parry count displayed.</summary>
     private int _count;
+
+    /// <summary>Cached RectTransform of the text for tremble offset.</summary>
     private RectTransform _rect;
+
+    /// <summary>Base anchored position when enabled (tremble applied on top).</summary>
     private Vector2 _baseAnchoredPosition;
+
+    /// <summary>Current tremble phase in radians.</summary>
     private float _tremblePhase;
 
+    /// <summary>Caches text RectTransform and ensures default gradient if null.</summary>
     private void Awake()
     {
         if (text != null)
@@ -39,6 +54,7 @@ public class PerfectParryComboDisplay : MonoBehaviour
         }
     }
 
+    /// <summary>Stores base anchored position and resets tremble phase.</summary>
     private void OnEnable()
     {
         if (_rect != null)
@@ -49,6 +65,7 @@ public class PerfectParryComboDisplay : MonoBehaviour
     /// <summary>
     /// Sets the current perfect parry count and updates the displayed number. Gradient and tremble use this with maxComboForGradient.
     /// </summary>
+    /// <param name="count">Perfect parries in a row (0 or greater).</param>
     public void SetPerfectParryCount(int count)
     {
         _count = Mathf.Max(0, count);
@@ -56,6 +73,7 @@ public class PerfectParryComboDisplay : MonoBehaviour
             text.text = _count.ToString();
     }
 
+    /// <summary>Updates text color from gradient and applies tremble offset to position.</summary>
     private void Update()
     {
         if (text == null || _rect == null)

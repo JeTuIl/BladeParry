@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 /// </summary>
 public class GameplayPostProcessDriver : MonoBehaviour
 {
+    /// <summary>URP Volume that contains Vignette and ChromaticAberration overrides.</summary>
     [SerializeField] private Volume volume;
     [Tooltip("Vignette intensity when player life ratio is below threshold.")]
     [SerializeField] private float vignetteIntensityOnLowLife = 0.4f;
@@ -27,7 +28,10 @@ public class GameplayPostProcessDriver : MonoBehaviour
     /// <summary>Optional: source of player current/max life for low-life vignette. If null, only miss pulse is used.</summary>
     [SerializeField] private LifebarManager playerLifebarManager;
 
+    /// <summary>Current vignette intensity (lerped toward target).</summary>
     private float _currentVignetteIntensity;
+
+    /// <summary>Remaining time for the miss pulse (seconds).</summary>
     private float _pulseRemaining;
 
     /// <summary>
@@ -39,6 +43,7 @@ public class GameplayPostProcessDriver : MonoBehaviour
         _currentVignetteIntensity = Mathf.Max(_currentVignetteIntensity, vignettePulseOnMiss);
     }
 
+    /// <summary>Updates vignette and chromatic aberration from life ratio and pulse; or disables effects if options are off.</summary>
     private void Update()
     {
         if (volume == null || volume.profile == null)
@@ -88,6 +93,7 @@ public class GameplayPostProcessDriver : MonoBehaviour
         }
     }
 
+    /// <summary>Disables vignette, chromatic aberration, and lens distortion when screen effects are off in options.</summary>
     private void ApplyScreenEffectsDisabled()
     {
         if (volume.profile.TryGet<Vignette>(out Vignette vignette))

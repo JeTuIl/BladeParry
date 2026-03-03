@@ -118,7 +118,10 @@ public class GameplayLoopController : MonoBehaviour
     [SerializeField] private Vector3 countdownScaleEnd = Vector3.one;
 
     [Header("Hit stop")]
+    /// <summary>Time scale applied during hit stop (e.g. 0.92 for slight slow).</summary>
     [SerializeField] private float hitStopTimeScale = 0.92f;
+
+    /// <summary>Duration in seconds of the hit stop effect.</summary>
     [SerializeField] private float hitStopDuration = 0.05f;
 
     /// <summary>Squash and stretch for the player (parry success / hit).</summary>
@@ -238,12 +241,14 @@ public class GameplayLoopController : MonoBehaviour
     public event System.Action<GameEndResult> GameEnded;
 
     /// <summary>Sets test mode (pause auto-combos; editor tool triggers combos via StartTestCombo).</summary>
+    /// <param name="value">True to enable test mode (no auto-combos).</param>
     public void SetTestMode(bool value) { _testMode = value; }
 
     /// <summary>True when test mode is active.</summary>
     public bool IsTestMode() => _testMode;
 
     /// <summary>Enqueues outcomes to apply when each parry window opens (for test flows). Call before StartTestCombo.</summary>
+    /// <param name="outcomes">Sequence of outcomes (e.g. Miss, NormalParry, PerfectParry) in order of attacks.</param>
     public void EnqueueTestOutcomes(IEnumerable<ParryOutcome> outcomes)
     {
         if (outcomes == null) return;
@@ -255,6 +260,7 @@ public class GameplayLoopController : MonoBehaviour
     public void ClearTestOutcomes() => _testOutcomeQueue.Clear();
 
     /// <summary>Requests one combo with the given attack count. Main loop (in test mode) will run it. Enqueue TestOutcomes first.</summary>
+    /// <param name="attackCount">Number of attacks in the combo (minimum 1).</param>
     public void StartTestCombo(int attackCount)
     {
         if (attackCount < 1) return;

@@ -16,6 +16,7 @@ using ReGolithSystems.UI;
 public class RogueliteEnhancementChoiceController : MonoBehaviour
 {
     [Header("Config")]
+    /// <summary>Progression config for enhancement pool.</summary>
     [SerializeField] private RogueliteProgressionConfig progressionConfig;
     [Tooltip("Panel root (Canvas or panel GameObject). Shown when enhancement choice is required, hidden after transition.")]
     [SerializeField] private GameObject panelRoot;
@@ -27,9 +28,16 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
     [SerializeField] private UiFader levelSelectionFader;
 
     [Header("Choice slots (3)")]
+    /// <summary>Images for the three enhancement choice slots.</summary>
     [SerializeField] private Image[] slotImages = new Image[3];
+
+    /// <summary>Name labels for the three slots.</summary>
     [SerializeField] private TMP_Text[] slotNameTexts = new TMP_Text[3];
+
+    /// <summary>Description labels for the three slots.</summary>
     [SerializeField] private TMP_Text[] slotDescTexts = new TMP_Text[3];
+
+    /// <summary>Buttons for the three slots.</summary>
     [SerializeField] private Button[] slotButtons = new Button[3];
 
     [Header("Level selection after choice")]
@@ -40,10 +48,14 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
     [Tooltip("Invoked when the player has chosen an enhancement. Wire to map controller to show level selection, or assign mapControllerForLevelSelection above.")]
     [SerializeField] private UnityEvent onChoiceComplete;
 
+    /// <summary>Number of enhancement choices offered (3).</summary>
     private const int ChoiceCount = 3;
+
+    /// <summary>Current three choices (definition and level to set when selected).</summary>
     private readonly (RogueliteEnhancementDefinition definition, int levelToSet)[] _currentChoices = new (RogueliteEnhancementDefinition, int)[ChoiceCount];
 
     /// <summary>Returns true if the enhancement choice panel should be shown (fightsCompleted >= 1 and pool has definitions).</summary>
+    /// <returns>True when at least one fight has been won in the current run.</returns>
     public static bool ShouldShowEnhancementChoice()
     {
         if (RogueliteRunState.Instance == null) return false;
@@ -110,6 +122,11 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
         }
     }
 
+    /// <summary>Loads localized name and description for a slot and updates the UI when ready.</summary>
+    /// <param name="slotIndex">Slot index (0, 1, or 2).</param>
+    /// <param name="def">Enhancement definition for name/description keys.</param>
+    /// <param name="level">Level to display.</param>
+    /// <returns>Enumerator for the coroutine.</returns>
     private System.Collections.IEnumerator SetLocalizedTextsWhenReady(int slotIndex, RogueliteEnhancementDefinition def, int level)
     {
         var table = new LocalizedString(RogueliteEnhancementDefinition.LocalizationTableName, def.NameKey);
@@ -129,6 +146,10 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
             slotDescTexts[slotIndex].text = descOp.Result;
     }
 
+    /// <summary>Picks three random enhancements from the pool (excluding already max-level). Seed derived from run seed and fights completed.</summary>
+    /// <param name="pool">Enhancement definition pool.</param>
+    /// <param name="runSeed">Run seed for reproducibility.</param>
+    /// <param name="fightsCompleted">Fights completed (used in seed).</param>
     private void PickThreeChoices(IReadOnlyList<RogueliteEnhancementDefinition> pool, int runSeed, int fightsCompleted)
     {
         UnityEngine.Random.InitState(runSeed + fightsCompleted * 31 + 17);
@@ -154,6 +175,8 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
         }
     }
 
+    /// <summary>Handler when the player selects one of the three enhancement slots. Applies enhancement, saves run, and transitions to level selection.</summary>
+    /// <param name="index">Slot index (0, 1, or 2).</param>
     private void OnSlotSelected(int index)
     {
         if (index < 0 || index >= ChoiceCount) return;
@@ -186,6 +209,8 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
         StartCoroutine(TransitionToLevelSelection());
     }
 
+    /// <summary>Fades out the enhancement panel, then invokes onChoiceComplete and optionally mapControllerForLevelSelection.</summary>
+    /// <returns>Enumerator for the coroutine.</returns>
     private IEnumerator TransitionToLevelSelection()
     {
         if (enhancementPanelFader != null)

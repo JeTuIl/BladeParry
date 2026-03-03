@@ -17,7 +17,7 @@ public class RandomAudio : MonoBehaviour
     /// <summary>
     /// If _playOnStart is true, plays a random clip once.
     /// </summary>
-    void Start()
+    private void Start()
     {
         if (_playOnStart)
             PlayRandom();

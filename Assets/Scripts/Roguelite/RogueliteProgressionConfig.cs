@@ -8,15 +8,19 @@ using UnityEngine;
 [Serializable]
 public class RogueliteFloatRange
 {
+    /// <summary>Value at difficulty 0 (easy).</summary>
     [Tooltip("Value at difficulty 0 (easy).")]
     public float valueMin;
 
+    /// <summary>Value at difficulty 1 (hard).</summary>
     [Tooltip("Value at difficulty 1 (hard).")]
     public float valueMax;
 
+    /// <summary>Min random added to adjusted difficulty for lerp progress.</summary>
     [Tooltip("Min random added to adjusted difficulty for lerp progress.")]
     public float adjustmentMin = -0.1f;
 
+    /// <summary>Max random added to adjusted difficulty for lerp progress.</summary>
     [Tooltip("Max random added to adjusted difficulty for lerp progress.")]
     public float adjustmentMax = 0.1f;
 }
@@ -27,15 +31,19 @@ public class RogueliteFloatRange
 [Serializable]
 public class RogueliteIntRange
 {
+    /// <summary>Value at difficulty 0 (easy).</summary>
     [Tooltip("Value at difficulty 0 (easy).")]
     public int valueMin;
 
+    /// <summary>Value at difficulty 1 (hard).</summary>
     [Tooltip("Value at difficulty 1 (hard).")]
     public int valueMax;
 
+    /// <summary>Min random added to adjusted difficulty for lerp progress.</summary>
     [Tooltip("Min random added to adjusted difficulty for lerp progress.")]
     public float adjustmentMin = -0.1f;
 
+    /// <summary>Max random added to adjusted difficulty for lerp progress.</summary>
     [Tooltip("Max random added to adjusted difficulty for lerp progress.")]
     public float adjustmentMax = 0.1f;
 }
@@ -73,33 +81,42 @@ public class RogueliteGameplayRanges
 public class RogueliteProgressionConfig : ScriptableObject
 {
     [Header("Run")]
+    /// <summary>Number of fights in a full run.</summary>
     [Tooltip("Number of fights in a full run.")]
     [SerializeField] private int totalFightsInRun = 10;
 
+    /// <summary>Per-level difficulty variation: added to base difficulty, then clamped to [0,1]. E.g. 0.15 gives ±0.15.</summary>
     [Tooltip("Per-level difficulty variation: added to base difficulty, then clamped to [0,1]. E.g. 0.15 gives ±0.15.")]
     [SerializeField] [Range(0f, 0.5f)] private float difficultyVariationRange = 0.15f;
 
     [Header("Template & Ranges")]
+    /// <summary>Base config to clone for runtime; numeric fields are overwritten by lerped ranges.</summary>
     [Tooltip("Base config to clone for runtime; numeric fields are overwritten by lerped ranges below.")]
     [SerializeField] private GameplayConfig templateGameplayConfig;
 
+    /// <summary>Numeric ranges for difficulty-based randomization of gameplay config.</summary>
     [SerializeField] private RogueliteGameplayRanges gameplayRanges = new RogueliteGameplayRanges();
 
     [Header("Pools (artistic)")]
+    /// <summary>Enemy definitions to pick from at random per level option.</summary>
     [Tooltip("Enemy definitions to pick from at random per level option.")]
     [SerializeField] private List<EnemyDefinition> enemyPool = new List<EnemyDefinition>();
 
+    /// <summary>Music configs to pick from at random per level option.</summary>
     [Tooltip("Music configs to pick from at random per level option.")]
     [SerializeField] private List<MusicConfig> musicPool = new List<MusicConfig>();
 
+    /// <summary>Environment configs to pick from at random per level option.</summary>
     [Tooltip("Environment configs to pick from at random per level option.")]
     [SerializeField] private List<EnvironmentConfig> environmentPool = new List<EnvironmentConfig>();
 
     [Header("Boss")]
+    /// <summary>Optional. When set, after completing all normal fights the player gets one more level with this config. Winning ends the run.</summary>
     [Tooltip("Optional. When set, after completing all normal fights the player returns to the map once more with a single level using this config (no randomization). Winning it ends the run.")]
     [SerializeField] private FightConfig bossFightConfig;
 
     [Header("Enhancements")]
+    /// <summary>Pool of enhancement definitions to offer after each win (choose 3, pick 1).</summary>
     [Tooltip("Pool of enhancement definitions to offer after each win (choose 3, pick 1).")]
     [SerializeField] private List<RogueliteEnhancementDefinition> enhancementPool = new List<RogueliteEnhancementDefinition>();
 

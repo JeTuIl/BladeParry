@@ -25,7 +25,7 @@ public class FxManager : MonoBehaviour
     /// <summary>
     /// Registers this instance as the singleton; destroys duplicate instances.
     /// </summary>
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

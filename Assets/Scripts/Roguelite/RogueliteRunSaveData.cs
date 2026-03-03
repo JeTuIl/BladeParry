@@ -6,7 +6,10 @@ using System;
 [Serializable]
 public class RogueliteRunEnhancementEntry
 {
+    /// <summary>Enhancement definition ID (e.g. Gambeson).</summary>
     public string id;
+
+    /// <summary>Owned level (1..definition.MaxLevel).</summary>
     public int level;
 }
 
@@ -16,6 +19,7 @@ public class RogueliteRunEnhancementEntry
 [Serializable]
 public class RogueliteRunExtensions
 {
+    /// <summary>Owned enhancements for this run (id and level per entry).</summary>
     public RogueliteRunEnhancementEntry[] enhancements = Array.Empty<RogueliteRunEnhancementEntry>();
     /// <summary>Max life bonus from MaxHealthBonus enhancements (applied when selected/leveled up). Restored on continue.</summary>
     public float maxLifeBonus;

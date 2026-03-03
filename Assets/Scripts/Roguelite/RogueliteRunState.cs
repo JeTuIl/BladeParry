@@ -6,12 +6,19 @@ using UnityEngine;
 /// </summary>
 public class RogueliteRunState : MonoBehaviour
 {
+    /// <summary>Singleton instance.</summary>
     private static RogueliteRunState _instance;
 
+    /// <summary>When true, this object persists across scene loads.</summary>
     [SerializeField] private bool dontDestroyOnLoad = true;
 
+    /// <summary>True when a run is in progress (started and not yet ended).</summary>
     private bool _runActive;
+
+    /// <summary>Number of fights completed in the current run.</summary>
     private int _fightsCompleted;
+
+    /// <summary>Random seed for the current run (reproducible generation).</summary>
     private int _runSeed;
     /// <summary>Player life at end of last won fight; -1 means not set (e.g. first fight or after run end).</summary>
     private float _playerLifeAfterLastFight = -1f;
@@ -33,6 +40,7 @@ public class RogueliteRunState : MonoBehaviour
     /// <summary>Seed for the current run (for reproducible generation). 0 if not set.</summary>
     public static int RunSeed => _instance != null ? _instance._runSeed : 0;
 
+    /// <summary>Enforces singleton; optionally marks object DontDestroyOnLoad.</summary>
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -45,6 +53,7 @@ public class RogueliteRunState : MonoBehaviour
             DontDestroyOnLoad(gameObject);
     }
 
+    /// <summary>Clears singleton reference when this instance is destroyed.</summary>
     private void OnDestroy()
     {
         if (_instance == this)
@@ -52,6 +61,7 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Starts a new run: sets run active, fights completed to 0, and clears enhancements. Optional seed for reproducible generation (0 = random).</summary>
+    /// <param name="seed">Random seed for the run; 0 to generate a random seed.</param>
     public void StartRun(int seed = 0)
     {
         _runActive = true;
@@ -63,12 +73,15 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Records the player's current life at the end of a won fight. Call when the player wins so the next fight can start with this life.</summary>
+    /// <param name="life">Player life value to store for the next fight.</param>
     public void RecordPlayerLifeAfterFight(float life)
     {
         _playerLifeAfterLastFight = life;
     }
 
     /// <summary>Gets the stored player life for the next fight when there was a previous fight in this run. Returns true and the value when FightsCompleted >= 1 and a value was recorded; otherwise false (e.g. first fight uses config full life).</summary>
+    /// <param name="life">Output: the stored life value when the method returns true.</param>
+    /// <returns>True if a stored life value is available; otherwise false.</returns>
     public bool TryGetPlayerLifeForNextFight(out float life)
     {
         life = 0f;
@@ -85,6 +98,10 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Loads run state from a save for resume. Sets run active and restores seed, fights completed, player life, and optionally extensions (enhancements).</summary>
+    /// <param name="seed">Run seed to restore.</param>
+    /// <param name="fightsCompleted">Number of fights completed to restore.</param>
+    /// <param name="playerLifeAfterLastFight">Player life after last fight (-1 if not set).</param>
+    /// <param name="extensionsJson">Optional JSON for extensions (enhancements); null or empty to skip.</param>
     public void LoadState(int seed, int fightsCompleted, float playerLifeAfterLastFight, string extensionsJson = null)
     {
         _runActive = true;
@@ -126,6 +143,8 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Adds a new enhancement or upgrades an existing one (level must be 1..definition.MaxLevel).</summary>
+    /// <param name="enhancementId">Stable ID of the enhancement (e.g. Gambeson).</param>
+    /// <param name="level">Level to set (1 to definition.MaxLevel).</param>
     public void AddOrUpgradeEnhancement(string enhancementId, int level)
     {
         if (string.IsNullOrEmpty(enhancementId) || level < 1) return;
@@ -133,6 +152,8 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Gets the current level for an enhancement (0 if not owned).</summary>
+    /// <param name="enhancementId">Stable ID of the enhancement.</param>
+    /// <returns>Level 1..MaxLevel if owned; 0 otherwise.</returns>
     public int GetEnhancementLevel(string enhancementId)
     {
         if (string.IsNullOrEmpty(enhancementId)) return 0;
@@ -146,6 +167,9 @@ public class RogueliteRunState : MonoBehaviour
     public float GetMaxLifeBonus() => _maxLifeBonus;
 
     /// <summary>Call when the player selects or levels up an enhancement. If it is MaxHealthBonus, adds the delta to the run's max life bonus and to current life so the missing amount stays the same.</summary>
+    /// <param name="def">The enhancement definition (checked for MaxHealthBonus effect type).</param>
+    /// <param name="oldLevel">Previous level (0 if newly added).</param>
+    /// <param name="newLevel">New level after selection/upgrade.</param>
     public void ApplyMaxHealthBonusForEnhancement(RogueliteEnhancementDefinition def, int oldLevel, int newLevel)
     {
         if (def == null || def.EffectType != RogueliteEnhancementEffectType.MaxHealthBonus) return;
@@ -156,6 +180,7 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Builds the extensions JSON for saving (enhancements list).</summary>
+    /// <returns>JSON string containing enhancements and maxLifeBonus.</returns>
     public string BuildExtensionsJson()
     {
         var list = new List<RogueliteRunEnhancementEntry>();
@@ -169,18 +194,23 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Returns the current fights-completed count (instance method for use by builders).</summary>
+    /// <returns>Number of fights completed in the current run.</returns>
     public int GetFightsCompleted() => _fightsCompleted;
 
     /// <summary>Returns the current run seed (for reproducible level generation).</summary>
+    /// <returns>Run seed; 0 if not set.</returns>
     public int GetRunSeed() => _runSeed;
 
     /// <summary>Sets the enhancement definition pool (call from map controller when progression config is available).</summary>
+    /// <param name="pool">List of enhancement definitions; null to clear.</param>
     public void SetEnhancementPool(IReadOnlyList<RogueliteEnhancementDefinition> pool)
     {
         _enhancementPool = pool != null ? new List<RogueliteEnhancementDefinition>(pool) : null;
     }
 
     /// <summary>Gets the definition for an enhancement id, or null if not in pool.</summary>
+    /// <param name="enhancementId">Stable ID of the enhancement.</param>
+    /// <returns>The definition if found in pool; otherwise null.</returns>
     public RogueliteEnhancementDefinition GetEnhancementDefinition(string enhancementId)
     {
         if (string.IsNullOrEmpty(enhancementId) || _enhancementPool == null) return null;
@@ -192,6 +222,8 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>Sum of (definition.BaseValue * level) for all owned enhancements of the given effect type.</summary>
+    /// <param name="effectType">Effect type to sum (e.g. DamageBonus).</param>
+    /// <returns>Total value across all owned enhancements of that type.</returns>
     public float GetTotalValueForEffect(RogueliteEnhancementEffectType effectType)
     {
         if (_enhancementPool == null) return 0f;
@@ -206,6 +238,8 @@ public class RogueliteRunState : MonoBehaviour
     }
 
     /// <summary>True with probability equal to the total value for the given (chance) effect type (0..1).</summary>
+    /// <param name="effectType">Chance-based effect type (e.g. ChanceIgnoreEachHit).</param>
+    /// <returns>True if random roll is below the total chance value.</returns>
     public bool RollChanceForEffect(RogueliteEnhancementEffectType effectType)
     {
         float chance = GetTotalValueForEffect(effectType);

@@ -184,10 +184,16 @@ namespace BladeParry.Editor.Localization
             return string.Join("/", parts);
         }
 
+        /// <summary>One TextMeshProUGUI found in a scene (path and current text).</summary>
         private struct TmpEntry
         {
+            /// <summary>Scene asset path.</summary>
             public string ScenePath;
+
+            /// <summary>GameObject hierarchy path in the scene.</summary>
             public string GameObjectPath;
+
+            /// <summary>Current text on the TMP component.</summary>
             public string CurrentText;
         }
 
@@ -425,11 +431,19 @@ namespace BladeParry.Editor.Localization
             return s.Replace("\\n", "\n").Replace("\\r", "\r").Replace("\\t", "\t").Replace("\"\"", "\"");
         }
 
+        /// <summary>One display string found in a script (file, line, kind, snippet).</summary>
         private struct ScriptStringEntry
         {
+            /// <summary>Script file path.</summary>
             public string File;
+
+            /// <summary>Line number in the file.</summary>
             public int Line;
+
+            /// <summary>Kind of string (e.g. argument, literal).</summary>
             public string Kind;
+
+            /// <summary>Text snippet.</summary>
             public string Snippet;
         }
 

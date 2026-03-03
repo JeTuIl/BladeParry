@@ -9,14 +9,17 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public static class RunSaveService
 {
+    /// <summary>File name for the run save under persistentDataPath.</summary>
     private const string SaveFileName = "roguelite_run_save.json";
 
+    /// <summary>Full path to the run save file.</summary>
     private static string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
 
     /// <summary>
     /// Returns true if the save file exists and deserializes to a valid run (supported version, non-empty target scene, fightsCompleted >= 0).
     /// Use from main menu to show or enable the Resume button.
     /// </summary>
+    /// <returns>True if a valid save exists; otherwise false.</returns>
     public static bool HasValidRunSave()
     {
         if (!File.Exists(SavePath))
@@ -132,6 +135,9 @@ public static class RunSaveService
         }
     }
 
+    /// <summary>Checks save data for valid version, non-empty target scene, and non-negative fights completed.</summary>
+    /// <param name="data">Deserialized save data to validate.</param>
+    /// <returns>True if data is valid for resume; otherwise false.</returns>
     private static bool IsValid(RogueliteRunSaveData data)
     {
         if (data == null)

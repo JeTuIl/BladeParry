@@ -9,14 +9,28 @@ using UnityEditor;
 /// </summary>
 public class RogueliteEnhancementTestWindow : EditorWindow
 {
+    /// <summary>Progression config whose enhancement pool is used for the test.</summary>
     private RogueliteProgressionConfig _progressionConfig;
+
+    /// <summary>Enhancement id to level (only entries with level > 0 are applied).</summary>
     private readonly Dictionary<string, int> _enhancementLevels = new Dictionary<string, int>();
+
+    /// <summary>Scroll position for the enhancement list.</summary>
     private Vector2 _scrollPosition;
+
+    /// <summary>Whether test mode (pause auto-combos) is enabled.</summary>
     private bool _pauseTestMode;
+
+    /// <summary>Number of attacks (N) for "N attacks" test buttons.</summary>
     private int _comboSizeN = 3;
+
+    /// <summary>Minimum combo size for N.</summary>
     private const int ComboSizeMin = 2;
+
+    /// <summary>Maximum combo size for N.</summary>
     private const int ComboSizeMax = 6;
 
+    /// <summary>Opens the Enhancement Test window (BladeParry menu).</summary>
     [MenuItem("BladeParry/Roguelite Enhancement Test")]
     public static void ShowWindow()
     {
@@ -24,6 +38,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
         window.minSize = new Vector2(320, 400);
     }
 
+    /// <summary>Draws the editor GUI: progression config, enhancement list, test mode, life buttons, and trigger buttons.</summary>
     private void OnGUI()
     {
         _progressionConfig = (RogueliteProgressionConfig)EditorGUILayout.ObjectField("Progression Config", _progressionConfig, typeof(RogueliteProgressionConfig), false);
@@ -121,6 +136,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
             TriggerTest(_comboSizeN, ParryOutcome.PerfectParry);
     }
 
+    /// <summary>Syncs the window's pause toggle with GameplayLoopController test mode.</summary>
     private void SyncTestMode()
     {
         if (!Application.isPlaying) return;
@@ -129,6 +145,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
             glc.SetTestMode(_pauseTestMode);
     }
 
+    /// <summary>Applies the selected enhancement levels to RogueliteRunState (creates run state if missing, restarts run with pool).</summary>
     private void ApplyEnhancements()
     {
         var runState = RogueliteRunState.Instance;
@@ -159,6 +176,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
         Debug.Log("RogueliteEnhancementTestWindow: Applied enhancements to run state.");
     }
 
+    /// <summary>Clears run state and restarts run with no enhancements; clears the level dictionary.</summary>
     private void ClearEnhancements()
     {
         var runState = RogueliteRunState.Instance;
@@ -171,6 +189,9 @@ public class RogueliteEnhancementTestWindow : EditorWindow
         Debug.Log("RogueliteEnhancementTestWindow: Cleared enhancements.");
     }
 
+    /// <summary>Enables test mode, enqueues the given outcome for each attack, and starts one combo with the given attack count.</summary>
+    /// <param name="attackCount">Number of attacks in the combo.</param>
+    /// <param name="outcome">Outcome to apply for each attack (Miss, NormalParry, or PerfectParry).</param>
     private void TriggerTest(int attackCount, ParryOutcome outcome)
     {
         if (!Application.isPlaying) return;
