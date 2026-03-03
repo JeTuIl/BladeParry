@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GracePeriodRing
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: GracePeriodRing
-  sprite: {fileID: 0}
+  sprite: {fileID: -8950968636761277981, guid: f769a9cafaf7d7540a0ba20bde56bed3, type: 3}
   nameKey: GracePeriodRing
   descriptionKey: GracePeriodRingDescription
   baseValue: 0.1

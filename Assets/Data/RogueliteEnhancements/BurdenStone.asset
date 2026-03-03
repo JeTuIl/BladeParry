@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BurdenStone
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: BurdenStone
-  sprite: {fileID: 0}
+  sprite: {fileID: -2102875166604566684, guid: aa5ed34fad9c1ad43a92a473716f09a7, type: 3}
   nameKey: BurdenStone
   descriptionKey: BurdenStoneDescription
   baseValue: 0.05

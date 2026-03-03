@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExecutionersMark
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: ExecutionersMark
-  sprite: {fileID: 0}
+  sprite: {fileID: 3066431185142905987, guid: 26828a53b037ef243b5cfa96a8e888d5, type: 3}
   nameKey: ExecutionersMark
   descriptionKey: ExecutionersMarkDescription
   baseValue: 0.15

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HeartOfTheBull
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: HeartOfTheBull
-  sprite: {fileID: 0}
+  sprite: {fileID: 6558488203502936306, guid: df664d25b399222449bf3fbd151922b7, type: 3}
   nameKey: HeartOfTheBull
   descriptionKey: HeartOfTheBullDescription
   baseValue: 1

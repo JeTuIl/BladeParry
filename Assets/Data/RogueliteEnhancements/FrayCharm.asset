@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrayCharm
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: FrayCharm
-  sprite: {fileID: 0}
+  sprite: {fileID: 7577233934022554221, guid: 8d2b13a55bd0b00488fc5ccd5e114062, type: 3}
   nameKey: FrayCharm
   descriptionKey: FrayCharmDescription
   baseValue: 0.2

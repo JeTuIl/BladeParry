@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SerpentsCoil
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: SerpentsCoil
-  sprite: {fileID: 0}
+  sprite: {fileID: 4188950525123266189, guid: 2ccf629e4ecd0be42a3b241712ee644d, type: 3}
   nameKey: SerpentsCoil
   descriptionKey: SerpentsCoilDescription
   baseValue: 0.1

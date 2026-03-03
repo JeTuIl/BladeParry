@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WatchersEye
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: WatchersEye
-  sprite: {fileID: 0}
+  sprite: {fileID: -6238248679629167566, guid: 562717ed78b077a4eb6faae7b2a8897a, type: 3}
   nameKey: WatchersEye
   descriptionKey: WatchersEyeDescription
   baseValue: 0.1

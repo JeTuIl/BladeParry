@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VitalEssence
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: VitalEssence
-  sprite: {fileID: 0}
+  sprite: {fileID: -764958704782664149, guid: 2d23dc7f45ab13547ad0e496b673a950, type: 3}
   nameKey: VitalEssence
   descriptionKey: VitalEssenceDescription
   baseValue: 1

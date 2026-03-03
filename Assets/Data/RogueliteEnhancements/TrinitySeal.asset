@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TrinitySeal
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: TrinitySeal
-  sprite: {fileID: 0}
+  sprite: {fileID: -935938935398455541, guid: a65c313f199cc6541b34fad66afaf592, type: 3}
   nameKey: TrinitySeal
   descriptionKey: TrinitySealDescription
   baseValue: 0.1

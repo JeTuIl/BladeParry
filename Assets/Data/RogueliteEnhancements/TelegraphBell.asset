@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TelegraphBell
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: TelegraphBell
-  sprite: {fileID: 0}
+  sprite: {fileID: -4503237984915568923, guid: 1d11fc92864d49044ab5e359046a6b2e, type: 3}
   nameKey: TelegraphBell
   descriptionKey: TelegraphBellDescription
   baseValue: 0.1

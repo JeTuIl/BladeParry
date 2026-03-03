@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RespiteCharm
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: RespiteCharm
-  sprite: {fileID: 0}
+  sprite: {fileID: -670296166550723250, guid: 59b3afe3e1125504d880ff15f463673e, type: 3}
   nameKey: RespiteCharm
   descriptionKey: RespiteCharmDescription
   baseValue: 0.5

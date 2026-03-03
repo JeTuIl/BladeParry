@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoulAnchor
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: SoulAnchor
-  sprite: {fileID: 0}
+  sprite: {fileID: 9109745368268642810, guid: 6fde7a9f3e817134fbb19ecefaa0be26, type: 3}
   nameKey: SoulAnchor
   descriptionKey: SoulAnchorDescription
   baseValue: 1

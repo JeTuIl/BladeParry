@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StaggeringCloak
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: StaggeringCloak
-  sprite: {fileID: 0}
+  sprite: {fileID: -1884123652056672542, guid: feed3eac3d82ec94f98157f0e4932cac, type: 3}
   nameKey: StaggeringCloak
   descriptionKey: StaggeringCloakDescription
   baseValue: 0.15

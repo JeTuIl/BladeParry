@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SwordGuard
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: SwordGuard
-  sprite: {fileID: 0}
+  sprite: {fileID: 813240939811796817, guid: 5b721608cdeb7f240a6a1923768e1fb2, type: 3}
   nameKey: SwordGuard
   descriptionKey: SwordGuardDescription
   baseValue: 25

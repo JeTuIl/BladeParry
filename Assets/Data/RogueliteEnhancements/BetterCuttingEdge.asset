@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BetterCuttingEdge
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: BetterCuttingEdge
-  sprite: {fileID: 0}
+  sprite: {fileID: 8774024608408047080, guid: f82548faad50b8b4da9e4db7ee5dbd7d, type: 3}
   nameKey: BetterCuttingEdge
   descriptionKey: BetterCuttingEdgeDescription
   baseValue: 0.1

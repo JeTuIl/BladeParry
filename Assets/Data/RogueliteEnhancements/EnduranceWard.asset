@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnduranceWard
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: EnduranceWard
-  sprite: {fileID: 0}
+  sprite: {fileID: -6014072005792120320, guid: 126549e069b068e47962184a43f3a49e, type: 3}
   nameKey: EnduranceWard
   descriptionKey: EnduranceWardDescription
   baseValue: 10

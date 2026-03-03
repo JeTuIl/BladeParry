@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CadenceStone
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: CadenceStone
-  sprite: {fileID: 0}
+  sprite: {fileID: -5777553103297348131, guid: f93b17c45edd2624b818dd2247b7b57f, type: 3}
   nameKey: CadenceStone
   descriptionKey: CadenceStoneDescription
   baseValue: 0.1

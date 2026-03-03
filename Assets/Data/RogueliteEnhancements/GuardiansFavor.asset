@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GuardiansFavor
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: GuardiansFavor
-  sprite: {fileID: 0}
+  sprite: {fileID: -7330449075015299338, guid: 889ab8ae4faf31149835a3d8e9d68319, type: 3}
   nameKey: GuardiansFavor
   descriptionKey: GuardiansFavorDescription
   baseValue: 0.1

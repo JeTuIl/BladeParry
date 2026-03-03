@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SeveranceToken
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: SeveranceToken
-  sprite: {fileID: 0}
+  sprite: {fileID: -789670741367838873, guid: a0a9dfebc8e16ec4785909b45144e48f, type: 3}
   nameKey: SeveranceToken
   descriptionKey: SeveranceTokenDescription
   baseValue: 0.15

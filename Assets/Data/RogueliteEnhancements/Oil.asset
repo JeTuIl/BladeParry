@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Oil
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: Oil
-  sprite: {fileID: 0}
+  sprite: {fileID: -6748384255609890082, guid: c47a86effae58c64ba2429468cb9311f, type: 3}
   nameKey: Oil
   descriptionKey: OilDescription
   baseValue: 0.15

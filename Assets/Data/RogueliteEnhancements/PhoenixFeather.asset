@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PhoenixFeather
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: PhoenixFeather
-  sprite: {fileID: 0}
+  sprite: {fileID: 8281223063696212920, guid: 84a355a0d0cb70f49bb3a9bb7bdc0c37, type: 3}
   nameKey: PhoenixFeather
   descriptionKey: PhoenixFeatherDescription
-  baseValue: 0.2
+  baseValue: 0.3
   maxLevel: 3
   effectType: 8

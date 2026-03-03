@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BetterGuard
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: BetterGuard
-  sprite: {fileID: 0}
+  sprite: {fileID: -6106856752937874526, guid: e0c2203ad4327d645a5793166f591728, type: 3}
   nameKey: BetterGuard
   descriptionKey: BetterGuardDescription
   baseValue: 0.1

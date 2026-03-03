@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Whetstone
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: Whetstone
-  sprite: {fileID: 0}
+  sprite: {fileID: -5394096455326460710, guid: ccbf29fb6f159404a90f136802b51851, type: 3}
   nameKey: Whetstone
   descriptionKey: WhetstoneDescription
   baseValue: 0.1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VeteransCarapace
   m_EditorClassIdentifier: Assembly-CSharp::RogueliteEnhancementDefinition
   id: VeteransCarapace
-  sprite: {fileID: 0}
+  sprite: {fileID: 7637859748306820479, guid: 316297489204c104ab8de4e8e269d8fd, type: 3}
   nameKey: VeteransCarapace
   descriptionKey: VeteransCarapaceDescription
   baseValue: 0.1
