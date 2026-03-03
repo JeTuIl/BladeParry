@@ -506,6 +506,7 @@ public class GameplayLoopController : MonoBehaviour
         {
             float damageTaken = 1f * GetDamageReceivedDecreasesWithComboMultiplier(_perfectParriesInARow) * GetReceiveMoreDealMoreMultiplier();
             _playerCurrentLife -= damageTaken;
+            Debug.Log($"[Damage] Player took {damageTaken} damage. Current life: {_playerCurrentLife}");
             if (GameplayEvents.Instance != null)
             {
                 GameplayEvents.Instance.InvokeMissParry();
@@ -610,6 +611,7 @@ public class GameplayLoopController : MonoBehaviour
         parryDamage *= GetDamageInverseToRemainingHealthMultiplier();
         parryDamage *= GetReceiveMoreDealMoreMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - parryDamage);
+        Debug.Log($"[Damage] Enemy took {parryDamage} damage (parry). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
         UpdateMusicPitch();
         if (enemySpriteWinker != null)
@@ -722,6 +724,7 @@ public class GameplayLoopController : MonoBehaviour
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - bonusDamage);
+        Debug.Log($"[Damage] Enemy took {bonusDamage} damage (Cadence Stone bonus). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
         UpdateMusicPitch();
         if (_enemyCurrentLife <= 0 && characterComboSequence != null)
@@ -744,6 +747,7 @@ public class GameplayLoopController : MonoBehaviour
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - bonusDamage);
+        Debug.Log($"[Damage] Enemy took {bonusDamage} damage (Trinity Seal bonus). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
         UpdateMusicPitch();
         if (_enemyCurrentLife <= 0 && characterComboSequence != null)
@@ -1105,6 +1109,7 @@ public class GameplayLoopController : MonoBehaviour
             {
                 float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_parriedInCombo.Count) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier();
                 _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - comboParryDamage);
+                Debug.Log($"[Damage] Enemy took {comboParryDamage} damage (full combo parry). Current life: {_enemyCurrentLife}");
                 if (GameplayEvents.Instance != null)
                     GameplayEvents.Instance.InvokeEnemyLoseHealth();
                 if (enemyLifebarManager != null)

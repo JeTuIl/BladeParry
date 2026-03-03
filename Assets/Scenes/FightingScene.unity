@@ -1022,8 +1022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bcafaf36817d949a1f02c66ee85065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameplayLoopController
-  config: {fileID: 11400000, guid: 357c32a064b1837478c4c9f389813297, type: 2}
-  fightConfig: {fileID: 11400000, guid: db18d420ad1297c499250c5da968a1e7, type: 2}
+  config: {fileID: 11400000, guid: 45a3d147811122d4aa717092b6d0b3c0, type: 2}
+  fightConfig: {fileID: 11400000, guid: dd12a86eb89e11048a9bacfa9fba4036, type: 2}
   characterComboSequence: {fileID: 1516926050}
   characterAttaqueSequence: {fileID: 1516926049}
   slideDetection: {fileID: 1013647271}
@@ -3133,7 +3133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7896879507418422366, guid: bfb6794a8ac45df4cb06c40bdcde637a, type: 3}
+  m_Sprite: {fileID: -6401503363514780387, guid: 6d422a7b62f7cb746b61435e8122083c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
