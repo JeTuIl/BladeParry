@@ -550,33 +550,33 @@ public class GameplayLoopController : MonoBehaviour
             return;
 
         bool ignoreDamage = false;
-        if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null)
+
+        if (!_ignoredFirstDamageThisCombo)
         {
-            if (!_ignoredFirstDamageThisCombo)
+            float ignoreFirstChance = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo);
+            if (ignoreFirstChance > 0f && UnityEngine.Random.value < Mathf.Clamp01(ignoreFirstChance))
             {
-                float ignoreFirstChance = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo);
-                if (ignoreFirstChance > 0f && UnityEngine.Random.value < Mathf.Clamp01(ignoreFirstChance))
-                {
-                    _ignoredFirstDamageThisCombo = true;
-                    ignoreDamage = true;
-                }
-            }
-            else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
-            {
+                _ignoredFirstDamageThisCombo = true;
                 ignoreDamage = true;
             }
-            else
+        }
+        else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
+        {
+            ignoreDamage = true;
+        }
+        if(!ignoreDamage)
+        {
+            float shieldThreshold = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ShieldWhenComboExceedsN);
+            shieldThreshold = 45.0f - shieldThreshold;
+            Debug.Log($"EnduranceWard Shield threshold: {shieldThreshold}, perfect parries in a row: {_perfectParriesInARow} +> "+(_perfectParriesInARow > shieldThreshold));
+            if (shieldThreshold > 0f && _perfectParriesInARow > shieldThreshold)
             {
-                float shieldThreshold = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ShieldWhenComboExceedsN);
-                shieldThreshold = 45.0f - shieldThreshold;
-                if (shieldThreshold > 0f && _perfectParriesInARow > shieldThreshold)
-                {
-                    ignoreDamage = true;
-                    _perfectParriesInARow = 0;
-                    UpdatePerfectParryComboDisplay();
-                }
+                ignoreDamage = true;
+                _perfectParriesInARow = 0;
+                UpdatePerfectParryComboDisplay();
             }
         }
+        
 
         if (!ignoreDamage)
         {
@@ -889,8 +889,8 @@ public class GameplayLoopController : MonoBehaviour
     }
 
     /// <summary>
-    /// Executioner's Mark (DamageInverseToRemainingHealth): multiplier for enemy damage = 1 + (currentPlayerLife/maxPlayerLife) * enhancement value.
-    /// More remaining player life = more damage to enemy. No run or no enhancement returns 1f.
+    /// Executioner's Mark (DamageInverseToRemainingHealth): multiplier for enemy damage = 1 + (1 - currentPlayerLife/maxPlayerLife) * enhancement value.
+    /// Less remaining player life = more damage to enemy (inverse). No run or no enhancement returns 1f.
     /// </summary>
     private float GetDamageInverseToRemainingHealthMultiplier()
     {
@@ -902,8 +902,9 @@ public class GameplayLoopController : MonoBehaviour
         float maxLife = _effectiveConfig.PlayerStartLife;
         if (maxLife <= 0f)
             return 1f;
-        float ratio = _playerCurrentLife / maxLife;
-        return 1f + (ratio / 1f) * value;
+        float remainingRatio = _playerCurrentLife / maxLife;
+        float inverseRatio = 1f - remainingRatio; // Low remaining health -> high multiplier
+        return 1f + inverseRatio * value;
     }
 
     /// <summary>

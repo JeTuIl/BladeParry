@@ -29,7 +29,7 @@ public class RogueliteEnhancementTestWindow : EditorWindow
     private const int ComboSizeMin = 2;
 
     /// <summary>Maximum combo size for N.</summary>
-    private const int ComboSizeMax = 6;
+    private const int ComboSizeMax = 100;
 
     /// <summary>Fight simulation: probability (0–1) that each attack is a miss.</summary>
     private float _simulationMissRate = 0.2f;

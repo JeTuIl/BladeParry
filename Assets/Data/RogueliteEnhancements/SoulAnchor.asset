@@ -16,6 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 9109745368268642810, guid: 6fde7a9f3e817134fbb19ecefaa0be26, type: 3}
   nameKey: SoulAnchor
   descriptionKey: SoulAnchorDescription
-  baseValue: 1
-  maxLevel: 2
+  baseValue: 1.5
+  maxLevel: 3
   effectType: 13
