@@ -293,6 +293,10 @@ MonoBehaviour:
       ennemi.\nGagner des niveaux augmentera les d\xE9g\xE2ts inflig\xE9s."
     m_Metadata:
       m_Items: []
+  - m_Id: 1090990238797824
+    m_Localized: Selectionner
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

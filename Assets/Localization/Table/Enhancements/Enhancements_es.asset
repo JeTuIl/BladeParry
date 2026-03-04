@@ -285,6 +285,10 @@ MonoBehaviour:
       de nivel aumentar\xE1 el da\xF1o infligido."
     m_Metadata:
       m_Items: []
+  - m_Id: 1090990238797824
+    m_Localized: Seleccionar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

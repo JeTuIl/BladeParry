@@ -99,7 +99,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 69996745265152
-    m_Localized: "\"Staggering Cloak\t\""
+    m_Localized: Staggering Cloak
     m_Metadata:
       m_Items: []
   - m_Id: 70064458108928
@@ -290,8 +290,7 @@ MonoBehaviour:
     m_Localized: 'When you do a perfect parry, there is an additional chance that
       the next attack comes from the top.
 
-      Leveling up will increase this
-      chance.'
+      Leveling up will increase this chance.'
     m_Metadata:
       m_Items: []
   - m_Id: 76103433785344
@@ -334,6 +333,10 @@ MonoBehaviour:
 
       Leveling
       up will increase the amount of damage inflicted.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1090990238797824
+    m_Localized: Select
     m_Metadata:
       m_Items: []
   references:

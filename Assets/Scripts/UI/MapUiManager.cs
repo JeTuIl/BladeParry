@@ -60,6 +60,27 @@ public class MapUiManager : MonoBehaviour
 
     [SerializeField] private FightConfigQualityScores[] _lastQualityScores;
 
+    private void Start()
+    {
+        UpdateRunProgressLifebar();
+    }
+
+    /// <summary>
+    /// Updates the run progress lifebar with fights completed and total fights in the run.
+    /// </summary>
+    private void UpdateRunProgressLifebar()
+    {
+        if (runProgressLifebar == null)
+            return;
+        int completed = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetFightsCompleted() : 0;
+        int total = mapController != null ? mapController.TotalFightsInRun : 0;
+        if (total > 0)
+        {
+            runProgressLifebar.MaxLifeValue = total;
+            runProgressLifebar.CurrentLifeValue = completed;
+        }
+    }
+
     /// <summary>
     /// Last computed quality scores for the current level options (one per option). Valid after BuildLevelButtons.
     /// </summary>
@@ -170,22 +191,15 @@ public class MapUiManager : MonoBehaviour
             Debug.LogWarning("MapUiManager: randomSpriteList is empty; button images will not be set.", this);
         }
 
-        if (runProgressLifebar != null)
-        {
-            int completed = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetFightsCompleted() : 0;
-            int total = mapController.TotalFightsInRun;
-            if (total > 0)
-            {
-                runProgressLifebar.MaxLifeValue = total;
-                runProgressLifebar.CurrentLifeValue = completed;
-            }
-        }
+        UpdateRunProgressLifebar();
 
         ClearSpawnedButtons();
 
         _lastQualityScores = EvaluateQualityScores(levelOptions);
         if (levelOptions.Length == 1)
             _lastQualityScores[0] = new FightConfigQualityScores { Durability = 3, Strength = 3, Speed = 3 };
+
+        int[] overallRanks = ComputeOverallQualityRanks(_lastQualityScores);
 
         List<int> availableSpriteIndices = new List<int>();
         if (randomSpriteList != null)
@@ -232,7 +246,33 @@ public class MapUiManager : MonoBehaviour
                 FightConfig capturedConfig = config;
                 button.onClick.AddListener(() => OnLevelButtonPressed(capturedConfig));
             }
+
+            StarScoreManager starScoreManager = instance.GetComponentInChildren<StarScoreManager>();
+            if (starScoreManager != null && i < overallRanks.Length)
+                starScoreManager.SetScore(overallRanks[i] - 1);
         }
+    }
+
+    /// <summary>
+    /// Computes overall quality rank (1 = easiest, n = hardest) per option from Durability + Strength + Speed.
+    /// Higher combined score is harder; ties are broken by option index.
+    /// </summary>
+    private static int[] ComputeOverallQualityRanks(FightConfigQualityScores[] scores)
+    {
+        if (scores == null || scores.Length == 0)
+            return Array.Empty<int>();
+        int n = scores.Length;
+        var entries = new List<(int index, int sum)>();
+        for (int i = 0; i < n; i++)
+        {
+            int sum = scores[i].Durability + scores[i].Strength + scores[i].Speed;
+            entries.Add((i, sum));
+        }
+        var ordered = entries.OrderByDescending(e => e.sum).ThenBy(e => e.index).ToList();
+        var ranks = new int[n];
+        for (int r = 0; r < ordered.Count; r++)
+            ranks[ordered[r].index] = n - r;
+        return ranks;
     }
 
     /// <summary>
