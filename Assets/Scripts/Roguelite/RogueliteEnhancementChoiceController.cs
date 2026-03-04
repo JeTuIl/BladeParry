@@ -54,12 +54,18 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
     /// <summary>Current three choices (definition and level to set when selected).</summary>
     private readonly (RogueliteEnhancementDefinition definition, int levelToSet)[] _currentChoices = new (RogueliteEnhancementDefinition, int)[ChoiceCount];
 
-    /// <summary>Returns true if the enhancement choice panel should be shown (fightsCompleted >= 1 and pool has definitions).</summary>
-    /// <returns>True when at least one fight has been won in the current run.</returns>
+    /// <summary>Returns true if the enhancement choice panel should be shown (fightsCompleted >= 1, pool has definitions, and player has not already chosen for this fight—e.g. after resuming a run).</summary>
+    /// <returns>True when at least one fight has been won and the number of enhancement picks is less than fights completed.</returns>
     public static bool ShouldShowEnhancementChoice()
     {
         if (RogueliteRunState.Instance == null) return false;
-        if (RogueliteRunState.Instance.GetFightsCompleted() < 1) return false;
+        int fightsCompleted = RogueliteRunState.Instance.GetFightsCompleted();
+        if (fightsCompleted < 1) return false;
+        // After resuming a run: if player already has as many enhancement picks as fights won, don't show again
+        int enhancementPicksCount = 0;
+        foreach (var kv in RogueliteRunState.Instance.GetOwnedEnhancements())
+            enhancementPicksCount += kv.Value;
+        if (enhancementPicksCount >= fightsCompleted) return false;
         return true;
     }
 

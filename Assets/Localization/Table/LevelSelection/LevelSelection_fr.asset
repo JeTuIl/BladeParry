@@ -42,6 +42,18 @@ MonoBehaviour:
     m_Localized: Retour
     m_Metadata:
       m_Items: []
+  - m_Id: 1396661765214208
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1397730230603776
+    m_Localized: Reprendre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1397910854111232
+    m_Localized: Quitter
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

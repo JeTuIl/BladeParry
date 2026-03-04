@@ -42,6 +42,18 @@ MonoBehaviour:
     m_Localized: Atras
     m_Metadata:
       m_Items: []
+  - m_Id: 1396661765214208
+    m_Localized: Pausa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1397730230603776
+    m_Localized: Reanudar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1397910854111232
+    m_Localized: Dejar
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
