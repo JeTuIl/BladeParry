@@ -254,8 +254,8 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Fight stats for simulation log: start time (realtime) or -1 if not started.</summary>
     private float _fightStartTime = -1f;
 
-    /// <summary>Fight stats: total attacks, combos, parries, perfect parries this fight.</summary>
-    private int _totalAttacks, _totalCombos, _totalParries, _totalPerfectParries;
+    /// <summary>Fight stats: total attacks, combos, parries, perfect parries, combos with all attacks parried.</summary>
+    private int _totalAttacks, _totalCombos, _totalParries, _totalPerfectParries, _totalCombosAllParried;
 
     /// <summary>Raised when the game ends, with the result (player or enemy wins).</summary>
     public event System.Action<GameEndResult> GameEnded;
@@ -1079,6 +1079,7 @@ public class GameplayLoopController : MonoBehaviour
                 _totalCombos = 0;
                 _totalParries = 0;
                 _totalPerfectParries = 0;
+                _totalCombosAllParried = 0;
             }
 
             int numberOfAttaques;
@@ -1227,6 +1228,8 @@ public class GameplayLoopController : MonoBehaviour
 
             _totalCombos++;
             _totalAttacks += numberOfAttaques;
+            if (allParried)
+                _totalCombosAllParried++;
             for (int i = 0; i < _parriedInCombo.Count; i++)
             {
                 if (_parriedInCombo[i]) _totalParries++;
@@ -1307,7 +1310,7 @@ public class GameplayLoopController : MonoBehaviour
         sb.AppendLine("=== Fight simulation stats ===");
         sb.AppendLine("Result: " + (result == GameEndResult.PlayerWins ? "Player wins" : "Enemy wins"));
         sb.AppendLine("Duration: " + durationSimulationSec.ToString("F2") + " s (simulation @ " + _simulationTimeScale.ToString("F1") + "x) | " + durationRealtimeSec.ToString("F2") + " s realtime");
-        sb.AppendLine("Combos: " + _totalCombos);
+        sb.AppendLine("Combos: " + _totalCombos + " (" + _totalCombosAllParried + " with all attacks parried)");
         sb.AppendLine("Attacks: " + _totalAttacks + " (avg " + avgAttacksPerCombo.ToString("F1") + " per combo)");
         sb.AppendLine("Parries: " + _totalParries + " (" + parryRatePct.ToString("F1") + "% of attacks)");
         sb.AppendLine("Perfect parries: " + _totalPerfectParries + " (" + perfectRateAmongParriesPct.ToString("F1") + "% of parries)");
