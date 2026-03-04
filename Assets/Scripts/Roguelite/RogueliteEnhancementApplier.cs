@@ -31,10 +31,7 @@ public static class RogueliteEnhancementApplier
             if (life > 0f) config.SetPlayerStartLife(life);
         }
 
-        float damageBonus = state.GetTotalValueForEffect(RogueliteEnhancementEffectType.DamageBonus);
-        float parryMultiplier = 1f + damageBonus;
-        if (parryMultiplier != 1f)
-            config.SetDamageOnParry(config.DamageOnParry * parryMultiplier);
-
+        // DamageBonus (Whetstone) is applied at deal-time in GameplayLoopController via GetDamageBonusMultiplier()
+        // so that every damage type (parry, combo parry, Cadence Stone, Trinity Seal) is multiplied by 1 + value.
     }
 }

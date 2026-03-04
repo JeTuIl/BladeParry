@@ -16,6 +16,6 @@ MonoBehaviour:
   sprite: {fileID: -1884123652056672542, guid: feed3eac3d82ec94f98157f0e4932cac, type: 3}
   nameKey: StaggeringCloak
   descriptionKey: StaggeringCloakDescription
-  baseValue: 0.15
+  baseValue: 0.25
   maxLevel: 3
   effectType: 5

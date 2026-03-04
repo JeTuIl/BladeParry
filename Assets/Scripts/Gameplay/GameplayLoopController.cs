@@ -552,10 +552,14 @@ public class GameplayLoopController : MonoBehaviour
         bool ignoreDamage = false;
         if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null)
         {
-            if (!_ignoredFirstDamageThisCombo && RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo) > 0f)
+            if (!_ignoredFirstDamageThisCombo)
             {
-                _ignoredFirstDamageThisCombo = true;
-                ignoreDamage = true;
+                float ignoreFirstChance = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo);
+                if (ignoreFirstChance > 0f && UnityEngine.Random.value < Mathf.Clamp01(ignoreFirstChance))
+                {
+                    _ignoredFirstDamageThisCombo = true;
+                    ignoreDamage = true;
+                }
             }
             else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
             {
@@ -616,6 +620,10 @@ public class GameplayLoopController : MonoBehaviour
                 else
                     characterComboSequence.StopComboAndNotifyComplete();
             }
+        }
+        else
+        {
+            Debug.Log($"[Damage] Player ignored damage. Current life: {_playerCurrentLife}");
         }
 
         if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null && characterComboSequence != null
@@ -682,6 +690,7 @@ public class GameplayLoopController : MonoBehaviour
         parryDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
         parryDamage *= GetDamageInverseToRemainingHealthMultiplier();
         parryDamage *= GetReceiveMoreDealMoreMultiplier();
+        parryDamage *= GetDamageBonusMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - parryDamage);
         Debug.Log($"[Damage] Enemy took {parryDamage} damage (parry). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
@@ -795,6 +804,7 @@ public class GameplayLoopController : MonoBehaviour
         bonusDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
+        bonusDamage *= GetDamageBonusMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - bonusDamage);
         Debug.Log($"[Damage] Enemy took {bonusDamage} damage (Cadence Stone bonus). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
@@ -818,6 +828,7 @@ public class GameplayLoopController : MonoBehaviour
         bonusDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
+        bonusDamage *= GetDamageBonusMultiplier();
         _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - bonusDamage);
         Debug.Log($"[Damage] Enemy took {bonusDamage} damage (Trinity Seal bonus). Current life: {_enemyCurrentLife}");
         UpdateLifebars();
@@ -939,6 +950,18 @@ public class GameplayLoopController : MonoBehaviour
         if (!RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
             return 1f;
         float value = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.DamageBonusBasicParry);
+        return value <= 0f ? 1f : 1f + value;
+    }
+
+    /// <summary>
+    /// Whetstone (DamageBonus): global multiplier for all damage dealt to the enemy = 1 + enhancement value.
+    /// Applied to parry, combo parry, Cadence Stone, and Trinity Seal damage.
+    /// </summary>
+    private float GetDamageBonusMultiplier()
+    {
+        if (!RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
+            return 1f;
+        float value = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.DamageBonus);
         return value <= 0f ? 1f : 1f + value;
     }
 
@@ -1194,7 +1217,7 @@ public class GameplayLoopController : MonoBehaviour
 
             if (allParried)
             {
-                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_parriedInCombo.Count) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier();
+                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_parriedInCombo.Count) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier() * GetDamageBonusMultiplier();
                 _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - comboParryDamage);
                 Debug.Log($"[Damage] Enemy took {comboParryDamage} damage (full combo parry). Current life: {_enemyCurrentLife}");
                 if (GameplayEvents.Instance != null)
@@ -1227,7 +1250,7 @@ public class GameplayLoopController : MonoBehaviour
             }
 
             _totalCombos++;
-            _totalAttacks += numberOfAttaques;
+            _totalAttacks += _parriedInCombo.Count;
             if (allParried)
                 _totalCombosAllParried++;
             for (int i = 0; i < _parriedInCombo.Count; i++)
