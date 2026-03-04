@@ -1294,7 +1294,8 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>Logs fight statistics after a simulation ends (duration, attacks, combos, parries, damage, rates).</summary>
     private void LogSimulationStats(GameEndResult result)
     {
-        float durationSec = Time.realtimeSinceStartup - _fightStartTime;
+        float durationRealtimeSec = Time.realtimeSinceStartup - _fightStartTime;
+        float durationSimulationSec = durationRealtimeSec * _simulationTimeScale;
         int misses = _totalAttacks - _totalParries;
         float playerDamageTaken = _effectiveConfig.PlayerStartLife - _playerCurrentLife;
         float enemyDamageDealt = _effectiveConfig.EnemyStartLife - Mathf.Max(0f, _enemyCurrentLife);
@@ -1305,7 +1306,7 @@ public class GameplayLoopController : MonoBehaviour
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         sb.AppendLine("=== Fight simulation stats ===");
         sb.AppendLine("Result: " + (result == GameEndResult.PlayerWins ? "Player wins" : "Enemy wins"));
-        sb.AppendLine("Duration: " + durationSec.ToString("F2") + " s (realtime)");
+        sb.AppendLine("Duration: " + durationSimulationSec.ToString("F2") + " s (simulation @ " + _simulationTimeScale.ToString("F1") + "x) | " + durationRealtimeSec.ToString("F2") + " s realtime");
         sb.AppendLine("Combos: " + _totalCombos);
         sb.AppendLine("Attacks: " + _totalAttacks + " (avg " + avgAttacksPerCombo.ToString("F1") + " per combo)");
         sb.AppendLine("Parries: " + _totalParries + " (" + parryRatePct.ToString("F1") + "% of attacks)");
