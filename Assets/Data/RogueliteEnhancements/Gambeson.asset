@@ -16,6 +16,6 @@ MonoBehaviour:
   sprite: {fileID: 4580531119954663125, guid: 67cf913c5b8e64c4c81ba542d68200df, type: 3}
   nameKey: Gambeson
   descriptionKey: GambesonDescription
-  baseValue: 1
+  baseValue: 0.005
   maxLevel: 3
   effectType: 1

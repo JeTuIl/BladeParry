@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8b1634ccbdd9242b7456c7ca388712, type: 3}
   m_Name: FightConfig_Test
   m_EditorClassIdentifier: Assembly-CSharp::FightConfig
-  gameplayConfig: {fileID: 11400000, guid: 054a4fa682611534a9e258723f26631f, type: 2}
-  optionalEnemyDefinition: {fileID: 11400000, guid: 4abf7dc282dbfb941abf7d695d757da6, type: 2}
+  gameplayConfig: {fileID: 11400000, guid: 02cab0725c04d8e4baa9c8384472ad20, type: 2}
+  optionalEnemyDefinition: {fileID: 11400000, guid: 042d95e2e883e2f4aa71ced215edb63e, type: 2}
   musicConfig: {fileID: 11400000, guid: 563016f3701ebff479dae325c30d4e6e, type: 2}
-  environmentConfig: {fileID: 11400000, guid: 6936c14160dd27b4a814ccdbcad65e4d, type: 2}
+  environmentConfig: {fileID: 11400000, guid: 8ccd6c76d2af51443add48ace8fa0fe9, type: 2}

@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameplayLoopController
   config: {fileID: 11400000, guid: 45a3d147811122d4aa717092b6d0b3c0, type: 2}
-  fightConfig: {fileID: 11400000, guid: dd12a86eb89e11048a9bacfa9fba4036, type: 2}
+  fightConfig: {fileID: 11400000, guid: 49e0b481436b8f543bb42843575e1b9e, type: 2}
   characterComboSequence: {fileID: 1516926050}
   characterAttaqueSequence: {fileID: 1516926049}
   slideDetection: {fileID: 1013647271}
