@@ -87,7 +87,7 @@ public class SlideDetection : MonoBehaviour
     {
         if (Touchscreen.current != null)
             ProcessTouch();
-        else if (Mouse.current != null)
+        if (Mouse.current != null)
             ProcessMouse();
     }
 
@@ -178,6 +178,7 @@ public class SlideDetection : MonoBehaviour
                 };
                 directionLabel.text = !string.IsNullOrEmpty(label) ? label : direction.ToString();
             }
+            Debug.Log("Swipe detected: " + direction);
             onSwipeDetected?.Invoke(direction);
         }
     }

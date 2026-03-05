@@ -61,7 +61,11 @@ public class RogueliteMapController : MonoBehaviour
         if (isBossMap)
         {
             Debug.Log("Building boss level. Fights completed: " + fightsCompleted);
-            _levelOptions = new FightConfig[1] { progressionConfig.BossFightConfig };
+            FightConfig bossConfig = progressionConfig.BossFightConfig;
+            _levelOptions = new FightConfig[1] { bossConfig };
+            int bossGold = progressionConfig.BossGoldReward > 0 ? progressionConfig.BossGoldReward : progressionConfig.GoldRewardMax;
+            if (bossConfig != null)
+                bossConfig.SetGoldReward(bossGold);
         }
         else
         {

@@ -8,6 +8,7 @@ namespace ReGolithSystems.UI
     /// A comprehensive UI fading system that provides smooth fade in/out animations for UI elements.
     /// Uses CanvasGroup for alpha transitions with customizable duration, easing curves, and automatic interactability management.
     /// Supports instant state changes, fade interruption, and debug logging for development.
+    /// Use FadeIn/FadeOut/FadeTo for scaled time; use FadeInUnscaled/FadeOutUnscaled/FadeToUnscaled when Time.timeScale is 0 (e.g. pause menu).
     /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
     [AddComponentMenu("ReGolithSystems/UI/UiFader")]
@@ -250,6 +251,60 @@ namespace ReGolithSystems.UI
             
             currentFadeCoroutine = StartCoroutine(FadeCoroutine(targetAlpha));
         }
+
+        /// <summary>
+        /// Smoothly fades the UI element in to full opacity (alpha = 1) using unscaled time.
+        /// Works when <see cref="Time.timeScale"/> is 0 (e.g. game paused). Same behaviour as <see cref="FadeIn"/> but driven by <see cref="Time.unscaledDeltaTime"/>.
+        /// </summary>
+        public void FadeInUnscaled()
+        {
+            if (canvasGroup == null)
+            {
+                if (showDebugLogs)
+                    Debug.LogError($"UiFader on {gameObject.name}: CanvasGroup component is missing! Cannot fade in (unscaled).", this);
+                return;
+            }
+            if (showDebugLogs)
+                Debug.Log($"FadeInUnscaled called on {gameObject.name}", this);
+            OnFadeInStarted?.Invoke();
+            FadeToUnscaled(1f);
+        }
+
+        /// <summary>
+        /// Smoothly fades the UI element out to complete transparency (alpha = 0) using unscaled time.
+        /// Works when <see cref="Time.timeScale"/> is 0 (e.g. game paused). Same behaviour as <see cref="FadeOut"/> but driven by <see cref="Time.unscaledDeltaTime"/>.
+        /// </summary>
+        public void FadeOutUnscaled()
+        {
+            if (canvasGroup == null)
+            {
+                if (showDebugLogs)
+                    Debug.LogError($"UiFader on {gameObject.name}: CanvasGroup component is missing! Cannot fade out (unscaled).", this);
+                return;
+            }
+            if (showDebugLogs)
+                Debug.Log($"FadeOutUnscaled called on {gameObject.name}", this);
+            OnFadeOutStarted?.Invoke();
+            FadeToUnscaled(0f);
+        }
+
+        /// <summary>
+        /// Smoothly fades the UI element to a specific alpha value using unscaled time.
+        /// Works when <see cref="Time.timeScale"/> is 0 (e.g. game paused). Same behaviour as <see cref="FadeTo"/> but driven by <see cref="Time.unscaledDeltaTime"/>.
+        /// </summary>
+        /// <param name="targetAlpha">The target alpha value between 0 (transparent) and 1 (opaque). Values outside this range will be clamped.</param>
+        public void FadeToUnscaled(float targetAlpha)
+        {
+            if (canvasGroup == null)
+            {
+                if (showDebugLogs)
+                    Debug.LogError($"UiFader on {gameObject.name}: CanvasGroup component is missing! Cannot fade to {targetAlpha} (unscaled).", this);
+                return;
+            }
+            if (currentFadeCoroutine != null)
+                StopCoroutine(currentFadeCoroutine);
+            currentFadeCoroutine = StartCoroutine(FadeCoroutineUnscaled(targetAlpha));
+        }
         
         /// <summary>
         /// Instantly sets the alpha value and interactable state without any animation.
@@ -361,7 +416,48 @@ namespace ReGolithSystems.UI
             if (showDebugLogs)
                 Debug.Log($"Fade completed: alpha={targetAlpha}, interactable={canvasGroup.interactable} on {gameObject.name}", this);
         }
-        
+
+        /// <summary>
+        /// Coroutine that fades to a target alpha using unscaled time (<see cref="Time.unscaledDeltaTime"/>).
+        /// Use when <see cref="Time.timeScale"/> is 0 (e.g. pause menu) so the animation still runs.
+        /// </summary>
+        private IEnumerator FadeCoroutineUnscaled(float targetAlpha)
+        {
+            float startAlpha = canvasGroup.alpha;
+            float elapsedTime = 0f;
+
+            if (targetAlpha > startAlpha && manageInteractableAndRaycasts)
+            {
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
+            }
+
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.unscaledDeltaTime;
+                float normalizedTime = elapsedTime / fadeDuration;
+                float curveValue = fadeCurve.Evaluate(normalizedTime);
+
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, curveValue);
+
+                yield return null;
+            }
+
+            canvasGroup.alpha = targetAlpha;
+
+            if (setInteractableOnComplete && manageInteractableAndRaycasts)
+            {
+                bool shouldBeInteractable = targetAlpha > 0.5f;
+                canvasGroup.interactable = shouldBeInteractable;
+                canvasGroup.blocksRaycasts = shouldBeInteractable;
+            }
+
+            currentFadeCoroutine = null;
+
+            if (showDebugLogs)
+                Debug.Log($"Fade (unscaled) completed: alpha={targetAlpha}, interactable={canvasGroup.interactable} on {gameObject.name}", this);
+        }
+
         #endregion
         
         #region Public Properties

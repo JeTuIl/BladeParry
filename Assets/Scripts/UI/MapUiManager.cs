@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using ReGolithSystems.UI;
 
 /// <summary>
@@ -46,6 +47,8 @@ public class MapUiManager : MonoBehaviour
     [SerializeField] private Toggle[] strengthToggles;
     [Tooltip("Toggles for Speed score (1–3). Index 0 = score 1, index 1 = score 2, index 2 = score 3.")]
     [SerializeField] private Toggle[] speedToggles;
+    [Tooltip("Optional. Displays the selected level's gold reward when a level button is pressed.")]
+    [SerializeField] private TextMeshProUGUI goldRewardText;
 
     [Header("Audio")]
     [Tooltip("Optional. Fades out map music when starting the selected level.")]
@@ -257,7 +260,7 @@ public class MapUiManager : MonoBehaviour
     /// Computes overall quality rank (1 = easiest, n = hardest) per option from Durability + Strength + Speed.
     /// Higher combined score is harder; ties are broken by option index.
     /// </summary>
-    private static int[] ComputeOverallQualityRanks(FightConfigQualityScores[] scores)
+    public static int[] ComputeOverallQualityRanks(FightConfigQualityScores[] scores)
     {
         if (scores == null || scores.Length == 0)
             return Array.Empty<int>();
@@ -303,6 +306,9 @@ public class MapUiManager : MonoBehaviour
             SetTogglesFromScore(strengthToggles, scores.Strength);
             SetTogglesFromScore(speedToggles, scores.Speed);
         }
+
+        if (goldRewardText != null && fightConfig != null)
+            goldRewardText.text = fightConfig.GoldReward.ToString();
     }
 
     /// <summary>

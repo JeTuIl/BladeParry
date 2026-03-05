@@ -551,29 +551,32 @@ public class GameplayLoopController : MonoBehaviour
 
         bool ignoreDamage = false;
 
-        if (!_ignoredFirstDamageThisCombo)
+        if(RogueliteRunState.Instance != null)
         {
-            float ignoreFirstChance = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo);
-            if (ignoreFirstChance > 0f && UnityEngine.Random.value < Mathf.Clamp01(ignoreFirstChance))
+            if (!_ignoredFirstDamageThisCombo)
             {
-                _ignoredFirstDamageThisCombo = true;
+                float ignoreFirstChance = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.IgnoreFirstDamagePerCombo);
+                if (ignoreFirstChance > 0f && UnityEngine.Random.value < Mathf.Clamp01(ignoreFirstChance))
+                {
+                    _ignoredFirstDamageThisCombo = true;
+                    ignoreDamage = true;
+                }
+            }
+            else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
+            {
                 ignoreDamage = true;
             }
-        }
-        else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
-        {
-            ignoreDamage = true;
-        }
-        if(!ignoreDamage)
-        {
-            float shieldThreshold = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ShieldWhenComboExceedsN);
-            shieldThreshold = 45.0f - shieldThreshold;
-            Debug.Log($"EnduranceWard Shield threshold: {shieldThreshold}, perfect parries in a row: {_perfectParriesInARow} +> "+(_perfectParriesInARow > shieldThreshold));
-            if (shieldThreshold > 0f && _perfectParriesInARow > shieldThreshold)
+            if(!ignoreDamage)
             {
-                ignoreDamage = true;
-                _perfectParriesInARow = 0;
-                UpdatePerfectParryComboDisplay();
+                float shieldThreshold = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ShieldWhenComboExceedsN);
+                shieldThreshold = 45.0f - shieldThreshold;
+                Debug.Log($"EnduranceWard Shield threshold: {shieldThreshold}, perfect parries in a row: {_perfectParriesInARow} +> "+(_perfectParriesInARow > shieldThreshold));
+                if (shieldThreshold > 0f && _perfectParriesInARow > shieldThreshold)
+                {
+                    ignoreDamage = true;
+                    _perfectParriesInARow = 0;
+                    UpdatePerfectParryComboDisplay();
+                }
             }
         }
         

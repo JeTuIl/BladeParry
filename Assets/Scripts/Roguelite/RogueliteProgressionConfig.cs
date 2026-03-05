@@ -110,6 +110,19 @@ public class RogueliteProgressionConfig : ScriptableObject
     [Tooltip("Environment configs to pick from at random per level option.")]
     [SerializeField] private List<EnvironmentConfig> environmentPool = new List<EnvironmentConfig>();
 
+    [Header("Gold")]
+    /// <summary>Gold reward at first fight (easiest).</summary>
+    [Tooltip("Gold reward at first fight (easiest).")]
+    [SerializeField] private int goldRewardMin = 5;
+
+    /// <summary>Gold reward at last normal fight (hardest).</summary>
+    [Tooltip("Gold reward at last normal fight (hardest).")]
+    [SerializeField] private int goldRewardMax = 30;
+
+    /// <summary>Optional. If &gt; 0, gold reward for winning the boss fight; otherwise uses goldRewardMax.</summary>
+    [Tooltip("Optional. If > 0, gold reward for winning the boss fight; otherwise uses goldRewardMax.")]
+    [SerializeField] private int bossGoldReward;
+
     [Header("Boss")]
     /// <summary>Optional. When set, after completing all normal fights the player gets one more level with this config. Winning ends the run.</summary>
     [Tooltip("Optional. When set, after completing all normal fights the player returns to the map once more with a single level using this config (no randomization). Winning it ends the run.")]
@@ -121,6 +134,9 @@ public class RogueliteProgressionConfig : ScriptableObject
     [SerializeField] private List<RogueliteEnhancementDefinition> enhancementPool = new List<RogueliteEnhancementDefinition>();
 
     public int TotalFightsInRun => totalFightsInRun;
+    public int GoldRewardMin => goldRewardMin;
+    public int GoldRewardMax => goldRewardMax;
+    public int BossGoldReward => bossGoldReward;
     public FightConfig BossFightConfig => bossFightConfig;
     public float DifficultyVariationRange => difficultyVariationRange;
     public GameplayConfig TemplateGameplayConfig => templateGameplayConfig;

@@ -22,6 +22,9 @@ public class FightConfig : ScriptableObject
     [Tooltip("Optional: environment (background) for this fight.")]
     [SerializeField] private EnvironmentConfig environmentConfig;
 
+    /// <summary>Gold reward for winning this fight (set at runtime for roguelite; used for display and payout).</summary>
+    [SerializeField] private int goldReward;
+
     /// <summary>Gameplay tuning (life, combo timings, pause). Required.</summary>
     public GameplayConfig GetGameplayConfig() => gameplayConfig;
 
@@ -33,6 +36,9 @@ public class FightConfig : ScriptableObject
 
     /// <summary>Optional environment config (background).</summary>
     public EnvironmentConfig GetEnvironmentConfig() => environmentConfig;
+
+    /// <summary>Gold reward for winning this fight (0 if not set).</summary>
+    public int GoldReward => goldReward;
 
     /// <summary>Sets the gameplay config (for runtime-created FightConfig).</summary>
     /// <param name="value">The gameplay config to use.</param>
@@ -49,4 +55,8 @@ public class FightConfig : ScriptableObject
     /// <summary>Sets the optional environment config (for runtime-created FightConfig).</summary>
     /// <param name="value">The environment config to use; can be null.</param>
     public void SetEnvironmentConfig(EnvironmentConfig value) => environmentConfig = value;
+
+    /// <summary>Sets the gold reward for this fight (for runtime-created FightConfig or boss).</summary>
+    /// <param name="value">Gold amount awarded on win.</param>
+    public void SetGoldReward(int value) => goldReward = Mathf.Max(0, value);
 }

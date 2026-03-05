@@ -91,6 +91,10 @@ public class GameEndUIController : MonoBehaviour
         {
             if (winLogo != null) winLogo.SetActive(true);
             if (lossLogo != null) lossLogo.SetActive(false);
+            FightConfig cfg = FightConfigProvider.CurrentFightConfig;
+            int reward = cfg != null ? cfg.GoldReward : 0;
+            if (reward > 0)
+                PlayerCurrencyService.AddGold(reward);
         }
         else
         {
