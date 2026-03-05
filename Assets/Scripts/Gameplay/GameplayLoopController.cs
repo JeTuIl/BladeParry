@@ -699,7 +699,7 @@ public class GameplayLoopController : MonoBehaviour
         }
         else
             parryDamage *= GetDamageBonusBasicParryMultiplier();
-        parryDamage *= GetDamageBonusPerfectParryComboMultiplier();
+        parryDamage *= GetDamageBonusPerfectParryComboMultiplier(isPerfectParry ? _perfectParriesInARow + 1 : 0);
         parryDamage *= GetDamageScalesWithComboMultiplier(isPerfectParry ? _perfectParriesInARow + 1 : 1);
         parryDamage *= GetDamageInverseToRemainingHealthMultiplier();
         parryDamage *= GetReceiveMoreDealMoreMultiplier();
@@ -761,7 +761,7 @@ public class GameplayLoopController : MonoBehaviour
             if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null
                 && RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChancePerfectParryNextAttackFromGivenDirection)
                 && characterComboSequence != null)
-                characterComboSequence.SetNextAttackDirectionOverride(Direction.Up);
+                characterComboSequence.SetNextAttackDirectionOverride(Direction.Down); // Down = strike from above = attack from top
         }
         else
         {
@@ -813,7 +813,7 @@ public class GameplayLoopController : MonoBehaviour
         int interval = Mathf.Max(1, Mathf.RoundToInt(1f / value));
         if (_perfectParriesInARow % interval != 0)
             return;
-        float bonusDamage = _effectiveConfig.DamageOnParry * _effectiveConfig.DamagePerfectRatio * GetPerfectParryRatioBonusMultiplier() * GetDamageBonusPerfectParryComboMultiplier();
+        float bonusDamage = _effectiveConfig.DamageOnParry * _effectiveConfig.DamagePerfectRatio * GetPerfectParryRatioBonusMultiplier() * GetDamageBonusPerfectParryComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageScalesWithComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
@@ -837,7 +837,7 @@ public class GameplayLoopController : MonoBehaviour
         float bonusDamage = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.AfterThreePerfectParriesNextFullParryBonusDamage);
         if (bonusDamage <= 0f)
             return;
-        bonusDamage *= GetDamageBonusPerfectParryComboMultiplier();
+        bonusDamage *= GetDamageBonusPerfectParryComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageScalesWithComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
@@ -933,14 +933,16 @@ public class GameplayLoopController : MonoBehaviour
     }
 
     /// <summary>
-    /// Surgeon's Edge (DamageBonusPerfectParryCombo): when the player has done a perfect parry this combo, all enemy damage until combo end is multiplied by 1 + enhancement value.
+    /// Surgeon's Edge (DamageBonusPerfectParryCombo): damage is multiplied by (1 + perfectParryComboCount * enhancement value).
+    /// Uses the same combo count as PerfectParryComboDisplay. Pass 0 when the hit is not part of a perfect parry streak (no bonus).
     /// </summary>
-    private float GetDamageBonusPerfectParryComboMultiplier()
+    /// <param name="perfectParryComboCount">Number of perfect parries in a row for this hit (1-based: first = 1, second = 2, etc.). Use 0 for no bonus.</param>
+    private float GetDamageBonusPerfectParryComboMultiplier(int perfectParryComboCount)
     {
-        if (!_hasPerfectParryThisCombo || !RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
+        if (perfectParryComboCount <= 0 || !RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
             return 1f;
         float value = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.DamageBonusPerfectParryCombo);
-        return value <= 0f ? 1f : 1f + value;
+        return value <= 0f ? 1f : 1f + perfectParryComboCount * value;
     }
 
     /// <summary>
@@ -1241,7 +1243,7 @@ public class GameplayLoopController : MonoBehaviour
 
             if (allParried)
             {
-                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_perfectParriesInARow) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier() * GetDamageBonusMultiplier();
+                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier(_perfectParriesInARow) * GetDamageScalesWithComboMultiplier(_perfectParriesInARow) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier() * GetDamageBonusMultiplier();
                 _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - comboParryDamage);
                 Debug.Log($"[Damage] Enemy took {comboParryDamage} damage (full combo parry). Current life: {_enemyCurrentLife}");
                 if (GameplayEvents.Instance != null)

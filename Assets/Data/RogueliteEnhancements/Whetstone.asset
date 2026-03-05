@@ -16,6 +16,6 @@ MonoBehaviour:
   sprite: {fileID: -5394096455326460710, guid: ccbf29fb6f159404a90f136802b51851, type: 3}
   nameKey: Whetstone
   descriptionKey: WhetstoneDescription
-  baseValue: 0.1
+  baseValue: 0.01
   maxLevel: 3
   effectType: 3

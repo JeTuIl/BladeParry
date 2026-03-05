@@ -44,6 +44,16 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
     [Tooltip("Optional. When set, ShowLevelSelectionAfterEnhancement is called when the player picks an enhancement, so level buttons are built even if onChoiceComplete is not wired. Assign the same RogueliteMapController that owns onLevelOptionsReady.")]
     [SerializeField] private RogueliteMapController mapControllerForLevelSelection;
 
+    [Header("Choice selection (variety-based steps)")]
+    [Tooltip("Number of the 3 choices that are upgrades of already-owned enhancements when the player has 0 or 1 distinct enhancements. Higher variety uses the fields below.")]
+    [SerializeField] [Range(0, 3)] private int upgradeSlotsWhenVariety0To1 = 0;
+    [Tooltip("Number of upgrade choices when the player has 2 or 3 distinct enhancements.")]
+    [SerializeField] [Range(0, 3)] private int upgradeSlotsWhenVariety2To3 = 1;
+    [Tooltip("Number of upgrade choices when the player has 4 or 5 distinct enhancements (target 4–6 enhancements).")]
+    [SerializeField] [Range(0, 3)] private int upgradeSlotsWhenVariety4To5 = 2;
+    [Tooltip("Number of upgrade choices when the player has 6 or more distinct enhancements; favors leveling up over adding new types.")]
+    [SerializeField] [Range(0, 3)] private int upgradeSlotsWhenVariety6Plus = 3;
+
     [Header("Events")]
     [Tooltip("Invoked when the player has chosen an enhancement. Wire to map controller to show level selection, or assign mapControllerForLevelSelection above.")]
     [SerializeField] private UnityEvent onChoiceComplete;
@@ -152,14 +162,18 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
             slotDescTexts[slotIndex].text = descOp.Result;
     }
 
-    /// <summary>Picks three random enhancements from the pool (excluding already max-level). Seed derived from run seed and fights completed.</summary>
+    /// <summary>Picks three enhancements: a configurable number are upgrades of owned (not max-level), the rest are new. Seed derived from run seed and fights completed.</summary>
     /// <param name="pool">Enhancement definition pool.</param>
     /// <param name="runSeed">Run seed for reproducibility.</param>
     /// <param name="fightsCompleted">Fights completed (used in seed).</param>
     private void PickThreeChoices(IReadOnlyList<RogueliteEnhancementDefinition> pool, int runSeed, int fightsCompleted)
     {
         UnityEngine.Random.InitState(runSeed + fightsCompleted * 31 + 17);
-        var candidates = new List<(RogueliteEnhancementDefinition def, int level)>();
+
+        var upgradeCandidates = new List<(RogueliteEnhancementDefinition def, int levelToSet)>();
+        var newCandidates = new List<(RogueliteEnhancementDefinition def, int levelToSet)>();
+
+        int variety = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetOwnedEnhancements().Count : 0;
 
         for (int i = 0; i < pool.Count; i++)
         {
@@ -167,18 +181,48 @@ public class RogueliteEnhancementChoiceController : MonoBehaviour
             if (def == null) continue;
             int currentLevel = RogueliteRunState.Instance != null ? RogueliteRunState.Instance.GetEnhancementLevel(def.Id) : 0;
             if (currentLevel >= def.MaxLevel) continue;
+
             int levelToSet = currentLevel > 0 ? currentLevel + 1 : 1;
-            candidates.Add((def, levelToSet));
+            if (currentLevel > 0)
+                upgradeCandidates.Add((def, levelToSet));
+            else
+                newCandidates.Add((def, levelToSet));
+        }
+
+        int numUpgradeSlots = GetUpgradeSlotsForVariety(variety);
+        numUpgradeSlots = Mathf.Min(numUpgradeSlots, upgradeCandidates.Count);
+        int numNewSlots = ChoiceCount - numUpgradeSlots;
+        if (numNewSlots > newCandidates.Count)
+        {
+            numNewSlots = newCandidates.Count;
+            numUpgradeSlots = Mathf.Min(ChoiceCount - numNewSlots, upgradeCandidates.Count);
         }
 
         for (int i = 0; i < ChoiceCount; i++)
-        {
             _currentChoices[i] = (null, 0);
-            if (candidates.Count == 0) continue;
-            int idx = UnityEngine.Random.Range(0, candidates.Count);
-            _currentChoices[i] = candidates[idx];
-            candidates.RemoveAt(idx);
+
+        for (int i = 0; i < numUpgradeSlots; i++)
+        {
+            int idx = UnityEngine.Random.Range(0, upgradeCandidates.Count);
+            _currentChoices[i] = upgradeCandidates[idx];
+            upgradeCandidates.RemoveAt(idx);
         }
+
+        for (int i = 0; i < numNewSlots; i++)
+        {
+            int idx = UnityEngine.Random.Range(0, newCandidates.Count);
+            _currentChoices[numUpgradeSlots + i] = newCandidates[idx];
+            newCandidates.RemoveAt(idx);
+        }
+    }
+
+    /// <summary>Returns the configured number of upgrade slots (0–3) for the given variety (distinct enhancements owned).</summary>
+    private int GetUpgradeSlotsForVariety(int variety)
+    {
+        if (variety <= 1) return upgradeSlotsWhenVariety0To1;
+        if (variety <= 3) return upgradeSlotsWhenVariety2To3;
+        if (variety <= 5) return upgradeSlotsWhenVariety4To5;
+        return upgradeSlotsWhenVariety6Plus;
     }
 
     /// <summary>Handler when the player selects one of the three enhancement slots. Applies enhancement, saves run, and transitions to level selection.</summary>

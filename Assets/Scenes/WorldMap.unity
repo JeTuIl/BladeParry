@@ -504,6 +504,10 @@ MonoBehaviour:
   - {fileID: 2072092806}
   - {fileID: 2139260772}
   mapControllerForLevelSelection: {fileID: 91429840}
+  upgradeSlotsWhenVariety0To1: 0
+  upgradeSlotsWhenVariety2To3: 1
+  upgradeSlotsWhenVariety4To5: 2
+  upgradeSlotsWhenVariety6Plus: 3
   onChoiceComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -2518,6 +2522,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -6840120989720397941, guid: c51455d1a8d8d44458cdc7cc67bb7a86, type: 3}
+    - target: {fileID: 4457989418464074737, guid: c8d025655c2ebd9439c5c018bc73d542, type: 3}
+      propertyPath: barSpriteMaxWidth
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 4457989418464074737, guid: c8d025655c2ebd9439c5c018bc73d542, type: 3}
       propertyPath: healthGradient.key0.b
       value: 0.14901961
