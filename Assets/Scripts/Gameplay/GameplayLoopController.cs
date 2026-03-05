@@ -378,6 +378,13 @@ public class GameplayLoopController : MonoBehaviour
         _playerCurrentLife = _effectiveConfig.PlayerStartLife;
         if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null && RogueliteRunState.Instance.TryGetPlayerLifeForNextFight(out float savedLife))
             _playerCurrentLife = Mathf.Clamp(savedLife, 0f, _effectiveConfig.PlayerStartLife);
+        // Apply Heal enhancement (e.g. Vital Essence) at start of every fight: add to current life, cap at max.
+        if (RogueliteRunState.IsRunActive && RogueliteRunState.Instance != null)
+        {
+            float healValue = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.Heal);
+            if (healValue > 0f)
+                _playerCurrentLife = Mathf.Min(_effectiveConfig.PlayerStartLife, _playerCurrentLife + healValue);
+        }
         _enemyCurrentLife = _effectiveConfig.EnemyStartLife;
         UpdateLifebars();
 
@@ -562,10 +569,8 @@ public class GameplayLoopController : MonoBehaviour
                     ignoreDamage = true;
                 }
             }
-            else if (RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
-            {
+            if (!ignoreDamage && RogueliteRunState.Instance.RollChanceForEffect(RogueliteEnhancementEffectType.ChanceIgnoreEachHit))
                 ignoreDamage = true;
-            }
             if(!ignoreDamage)
             {
                 float shieldThreshold = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ShieldWhenComboExceedsN);
@@ -579,7 +584,6 @@ public class GameplayLoopController : MonoBehaviour
                 }
             }
         }
-        
 
         if (!ignoreDamage)
         {

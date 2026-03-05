@@ -58,10 +58,10 @@ public class LifebarManager : MonoBehaviour
     private string _cachedLifebarFormat;
 
     /// <summary>Maximum life (used as denominator for fill).</summary>
-    public float MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); } }
+    public float MaxLifeValue { get => maxLifeValue; set { maxLifeValue = value; RefreshNumeric(); SyncBarWidthsToValues(); } }
 
     /// <summary>Current life (used for fill; red bar lerps toward this).</summary>
-    public float CurrentLifeValue { get => currentLifeValue; set { currentLifeValue = value; RefreshNumeric(); } }
+    public float CurrentLifeValue { get => currentLifeValue; set { currentLifeValue = value; RefreshNumeric(); SyncBarWidthsToValues(); } }
 
     /// <summary>Current width of the fill bar (smoothed when eased motion is on).</summary>
     private float _currentFillWidth;
@@ -188,6 +188,20 @@ public class LifebarManager : MonoBehaviour
                 new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) }
             );
         }
+    }
+
+    /// <summary>Syncs _currentFillWidth and _currentRedBarWidth to the current/max ratio so the bar reflects values set from code (e.g. roguelite max life).</summary>
+    private void SyncBarWidthsToValues()
+    {
+        if (maxLifeValue <= 0f) return;
+        float clampedLife = Mathf.Clamp(currentLifeValue, 0f, maxLifeValue);
+        float targetWidth = (clampedLife / maxLifeValue) * barSpriteMaxWidth;
+        _currentFillWidth = targetWidth;
+        _currentRedBarWidth = targetWidth;
+        if (lifeBarImage != null)
+            SetBarWidth(lifeBarImage.rectTransform, targetWidth);
+        if (redBarImage != null)
+            SetBarWidth(redBarImage.rectTransform, targetWidth);
     }
 
     /// <summary>Updates the numeric text with current/max life using cached format or numericFormat.</summary>

@@ -60,11 +60,12 @@ public class RogueliteEnhancementDefinition : ScriptableObject
     /// <summary>Effect type for gameplay linking.</summary>
     public RogueliteEnhancementEffectType EffectType => effectType;
 
-    /// <summary>Effective value at a given level (baseValue * level).</summary>
-    /// <param name="level">Enhancement level (clamped to 1..MaxLevel).</param>
-    /// <returns>baseValue * clamped level.</returns>
+    /// <summary>Effective value at a given level (baseValue * level). Level 0 means not owned; returns 0.</summary>
+    /// <param name="level">Enhancement level (0 = not owned, 1..MaxLevel = owned).</param>
+    /// <returns>baseValue * level, or 0 when level &lt; 1.</returns>
     public float GetValueAtLevel(int level)
     {
+        if (level < 1) return 0f;
         int clamped = Mathf.Clamp(level, 1, maxLevel);
         return baseValue * clamped;
     }

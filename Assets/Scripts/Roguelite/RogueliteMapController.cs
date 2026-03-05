@@ -99,10 +99,18 @@ public class RogueliteMapController : MonoBehaviour
 
     /// <summary>
     /// Call this when the enhancement choice is complete (wire from RogueliteEnhancementChoiceController.onChoiceComplete).
-    /// Invokes onLevelOptionsReady so level selection UI is built and shown.
+    /// Rebuilds level options so configs include newly chosen enhancements (e.g. max life bonus), then invokes onLevelOptionsReady.
     /// </summary>
     public void ShowLevelSelectionAfterEnhancement()
     {
+        // Rebuild level options so PlayerStartLife (and other stats) reflect enhancements just chosen (e.g. Heart of the Bull).
+        if (progressionConfig != null && RogueliteRunState.Instance != null)
+        {
+            int fightsCompleted = RogueliteRunState.Instance.GetFightsCompleted();
+            bool isBossMap = progressionConfig.BossFightConfig != null && fightsCompleted == progressionConfig.TotalFightsInRun;
+            if (!isBossMap)
+                _levelOptions = FightSetupBuilder.BuildLevelOptions(progressionConfig, fightsCompleted);
+        }
         onLevelOptionsReady?.Invoke();
     }
 

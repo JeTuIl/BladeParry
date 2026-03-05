@@ -7,9 +7,10 @@ using UnityEngine;
 public static class RogueliteEnhancementApplier
 {
     /// <summary>
-    /// Applies current run enhancements to the config (max health, heal, damage bonuses, etc.).
+    /// Applies current run enhancements to the config (max health, damage bonuses, etc.).
     /// No-op if RunState is null or not in a run.
-    /// Order: max life bonus and heal (player life), then damage bonus multiplier (parry damage).
+    /// Heal (e.g. Vital Essence) is not applied here; it is applied at fight start in GameplayLoopController
+    /// so that current life gets +heal each fight (capped by max life).
     /// </summary>
     /// <param name="config">Gameplay config to modify (from FightSetupBuilder after FillGameplayConfig).</param>
     public static void ApplyToConfig(GameplayConfig config)
@@ -22,12 +23,10 @@ public static class RogueliteEnhancementApplier
         float maxLifeBonus = state.GetMaxLifeBonus();
         if (maxLifeBonus == 0f)
             maxLifeBonus = state.GetTotalValueForEffect(RogueliteEnhancementEffectType.MaxHealthBonus);
-        float heal = state.GetTotalValueForEffect(RogueliteEnhancementEffectType.Heal);
-        if (maxLifeBonus > 0f || heal > 0f)
+        if (maxLifeBonus > 0f)
         {
             float life = config.PlayerStartLife;
             life += maxLifeBonus;
-            life += heal;
             if (life > 0f) config.SetPlayerStartLife(life);
         }
 
