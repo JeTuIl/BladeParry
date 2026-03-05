@@ -195,11 +195,14 @@ public class GameplayLoopController : MonoBehaviour
     /// <summary>When true, player would have died but we defer until combo end and revive with X life (once per fight).</summary>
     private bool _pendingReviveAtComboEnd;
 
+    /// <summary>When true, next pause between combos is forced to 5s (Soul Anchor revive); cleared after use.</summary>
+    private bool _soulAnchorPauseNextCombo;
+
     /// <summary>Extra seconds to add to the next pause between combos (Respite Charm: each perfect parry adds value; consumed after use).</summary>
     private float _extraPauseBeforeNextCombo;
 
-    /// <summary>Extra seconds to add to the next combo's wind-up duration (Watcher's Eye: each perfect parry adds value; consumed when next combo starts).</summary>
-    private float _extraWindUpNextCombo;
+    /// <summary>Extra seconds to add to the next attack's wind-up within the current combo (Watcher's Eye: each perfect parry adds value; consumed when that attack starts).</summary>
+    private float _extraWindUpNextAttack;
 
     /// <summary>Cached handler for combo complete; used to subscribe/unsubscribe.</summary>
     private UnityAction _onComboCompleteHandler;
@@ -623,7 +626,10 @@ public class GameplayLoopController : MonoBehaviour
                     && !_reviveUsedThisFight
                     && RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.ReviveAtEndOfComboWithXLives) > 0f;
                 if (canRevive)
+                {
                     _pendingReviveAtComboEnd = true;
+                    characterComboSequence.StopComboAndNotifyComplete();
+                }
                 else
                     characterComboSequence.StopComboAndNotifyComplete();
             }
@@ -688,13 +694,13 @@ public class GameplayLoopController : MonoBehaviour
                     _extraPauseBeforeNextCombo += pauseBonus;
                 float windUpBonus = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.PerfectParryIncreasesNextWindUp);
                 if (windUpBonus > 0f)
-                    _extraWindUpNextCombo += windUpBonus;
+                    _extraWindUpNextAttack += windUpBonus;
             }
         }
         else
             parryDamage *= GetDamageBonusBasicParryMultiplier();
         parryDamage *= GetDamageBonusPerfectParryComboMultiplier();
-        parryDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
+        parryDamage *= GetDamageScalesWithComboMultiplier(isPerfectParry ? _perfectParriesInARow + 1 : 1);
         parryDamage *= GetDamageInverseToRemainingHealthMultiplier();
         parryDamage *= GetReceiveMoreDealMoreMultiplier();
         parryDamage *= GetDamageBonusMultiplier();
@@ -808,7 +814,7 @@ public class GameplayLoopController : MonoBehaviour
         if (_perfectParriesInARow % interval != 0)
             return;
         float bonusDamage = _effectiveConfig.DamageOnParry * _effectiveConfig.DamagePerfectRatio * GetPerfectParryRatioBonusMultiplier() * GetDamageBonusPerfectParryComboMultiplier();
-        bonusDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
+        bonusDamage *= GetDamageScalesWithComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
         bonusDamage *= GetDamageBonusMultiplier();
@@ -832,7 +838,7 @@ public class GameplayLoopController : MonoBehaviour
         if (bonusDamage <= 0f)
             return;
         bonusDamage *= GetDamageBonusPerfectParryComboMultiplier();
-        bonusDamage *= GetDamageScalesWithComboMultiplier(_parriedInCombo.Count);
+        bonusDamage *= GetDamageScalesWithComboMultiplier(_perfectParriesInARow);
         bonusDamage *= GetDamageInverseToRemainingHealthMultiplier();
         bonusDamage *= GetReceiveMoreDealMoreMultiplier();
         bonusDamage *= GetDamageBonusMultiplier();
@@ -857,6 +863,18 @@ public class GameplayLoopController : MonoBehaviour
         if (value <= 0f)
             return 1f;
         return Mathf.Max(0f, 1f - value * perfectParriesInARow);
+    }
+
+    /// <summary>
+    /// Used as per-attack timings callback: applies Watcher's Eye bonus to the next attack only (adds _extraWindUpNextAttack to wind-up, then clears it).
+    /// Also applies Burden Stone (EnemySlowsWithCombo) using current _perfectParriesInARow so the enemy slows as soon as the combo count changes, even within the current combo.
+    /// </summary>
+    private (float, float) GetAttackTimingsForNextAttack(float baseWindUp, float baseWindDown)
+    {
+        float wu = baseWindUp + _extraWindUpNextAttack;
+        _extraWindUpNextAttack = 0f;
+        float burdenMult = GetEnemySlowsWithComboWindUpMultiplier();
+        return (wu * burdenMult, baseWindDown * burdenMult);
     }
 
     /// <summary>
@@ -987,17 +1005,17 @@ public class GameplayLoopController : MonoBehaviour
 
     /// <summary>
     /// Returns the Crescendo Blade (DamageScalesWithCombo) multiplier for enemy damage.
-    /// First hit in combo = 1x, second = 1+value, third = 1+2*value, etc. No run or no enhancement returns 1f.
+    /// Scales with perfect parries in a row (same count as PerfectParryComboDisplay). First = 1x, second = 1+value, third = 1+2*value, etc. No run or no enhancement returns 1f.
     /// </summary>
-    /// <param name="comboHitIndex1Based">1-based index of the hit in the current combo (e.g. first parry = 1).</param>
-    private float GetDamageScalesWithComboMultiplier(int comboHitIndex1Based)
+    /// <param name="perfectParryComboIndex1Based">1-based index in the perfect-parry streak (e.g. first perfect parry = 1, second = 2). Use 1 for non-perfect parry.</param>
+    private float GetDamageScalesWithComboMultiplier(int perfectParryComboIndex1Based)
     {
-        if (comboHitIndex1Based < 1 || !RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
+        if (perfectParryComboIndex1Based < 1 || !RogueliteRunState.IsRunActive || RogueliteRunState.Instance == null)
             return 1f;
         float value = RogueliteRunState.Instance.GetTotalValueForEffect(RogueliteEnhancementEffectType.DamageScalesWithCombo);
         if (value <= 0f)
             return 1f;
-        return 1f + value * (comboHitIndex1Based - 1);
+        return 1f + value * (perfectParryComboIndex1Based - 1);
     }
 
     /// <summary>
@@ -1133,9 +1151,6 @@ public class GameplayLoopController : MonoBehaviour
                 durationBetweenAttaque = Mathf.Lerp(_effectiveConfig.EmptyLifeDurationBetweenAttaque, _effectiveConfig.FullLifeDurationBetweenAttaque, lifeRatio);
                 windUpDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindUpDuration, _effectiveConfig.FullLifeWindUpDuration, lifeRatio);
                 windDownDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindDownDuration, _effectiveConfig.FullLifeWindDownDuration, lifeRatio);
-                windUpDuration += _extraWindUpNextCombo;
-                _extraWindUpNextCombo = 0f;
-                windUpDuration *= GetEnemySlowsWithComboWindUpMultiplier();
                 windUpDuration *= GetLongerWindUpMultiplier();
                 windDownDuration *= GetLongerWindDownMultiplier();
             }
@@ -1148,13 +1163,11 @@ public class GameplayLoopController : MonoBehaviour
                 durationBetweenAttaque = Mathf.Lerp(_effectiveConfig.EmptyLifeDurationBetweenAttaque, _effectiveConfig.FullLifeDurationBetweenAttaque, lifeRatio);
                 windUpDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindUpDuration, _effectiveConfig.FullLifeWindUpDuration, lifeRatio);
                 windDownDuration = Mathf.Lerp(_effectiveConfig.EmptyLifeWindDownDuration, _effectiveConfig.FullLifeWindDownDuration, lifeRatio);
-                windUpDuration += _extraWindUpNextCombo;
-                _extraWindUpNextCombo = 0f;
-                windUpDuration *= GetEnemySlowsWithComboWindUpMultiplier();
                 windUpDuration *= GetLongerWindUpMultiplier();
                 windDownDuration *= GetLongerWindDownMultiplier();
             }
 
+            _extraWindUpNextAttack = 0f;
             _parriedInCombo.Clear();
             _perfectParryInCombo.Clear();
             _parryWindowActive = false;
@@ -1169,7 +1182,7 @@ public class GameplayLoopController : MonoBehaviour
                 enemySpriteDirection.isHurt = false;
 
             SubscribeToComboAndInput();
-            characterComboSequence.TriggerComboWithParameters(numberOfAttaques, durationBetweenAttaque, windUpDuration, windDownDuration);
+            characterComboSequence.TriggerComboWithParameters(numberOfAttaques, durationBetweenAttaque, windUpDuration, windDownDuration, GetAttackTimingsForNextAttack);
 
             while (!_comboComplete)
                 yield return null;
@@ -1184,7 +1197,10 @@ public class GameplayLoopController : MonoBehaviour
                     _playerCurrentLife = reviveLife;
                     _reviveUsedThisFight = true;
                     _pendingReviveAtComboEnd = false;
+                    _soulAnchorPauseNextCombo = true;
                     UpdateLifebars();
+                    if (FxManager.Instance != null)
+                        FxManager.Instance.SpawnAtPosition(8, new Vector3(-2.53f, -2.01f, 0f), Quaternion.identity, Vector3.one);//spawn soul hanchor effect
                 }
             }
 
@@ -1225,7 +1241,7 @@ public class GameplayLoopController : MonoBehaviour
 
             if (allParried)
             {
-                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_parriedInCombo.Count) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier() * GetDamageBonusMultiplier();
+                float comboParryDamage = _effectiveConfig.DamageOnComboParry * GetDamageBonusFullComboParryMultiplier() * GetDamageBonusPerfectParryComboMultiplier() * GetDamageScalesWithComboMultiplier(_perfectParriesInARow) * GetDamageInverseToRemainingHealthMultiplier() * GetReceiveMoreDealMoreMultiplier() * GetDamageBonusMultiplier();
                 _enemyCurrentLife = Mathf.Max(0f, _enemyCurrentLife - comboParryDamage);
                 Debug.Log($"[Damage] Enemy took {comboParryDamage} damage (full combo parry). Current life: {_enemyCurrentLife}");
                 if (GameplayEvents.Instance != null)
@@ -1267,7 +1283,10 @@ public class GameplayLoopController : MonoBehaviour
                 if (i < _perfectParryInCombo.Count && _perfectParryInCombo[i]) _totalPerfectParries++;
             }
 
-            float pauseDuration = _effectiveConfig.PauseBetweenComboDuration + _extraPauseBeforeNextCombo;
+            float pauseDuration = _soulAnchorPauseNextCombo
+                ? 5f
+                : _effectiveConfig.PauseBetweenComboDuration + _extraPauseBeforeNextCombo;
+            _soulAnchorPauseNextCombo = false;
             _extraPauseBeforeNextCombo = 0f;
             if (!_testMode && _playerCurrentLife > 0 && _enemyCurrentLife > 0 && pauseDuration > 0f)
                 yield return new WaitForSeconds(pauseDuration);

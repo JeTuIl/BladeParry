@@ -60,9 +60,10 @@ public class CharacterComboSequence : MonoBehaviour
     /// </summary>
     /// <param name="numberOfAttaques">Number of attacks in the combo.</param>
     /// <param name="durationBetweenAttaque">Seconds between the end of one attack and the start of the next.</param>
-    /// <param name="windUpDuration">Wind-up duration per attack in seconds.</param>
+    /// <param name="windUpDuration">Wind-up duration per attack in seconds (base; may be overridden per attack by getAttackTimings).</param>
     /// <param name="windDownDuration">Wind-down duration per attack in seconds.</param>
-    public void TriggerComboWithParameters(int numberOfAttaques, float durationBetweenAttaque, float windUpDuration, float windDownDuration)
+    /// <param name="getAttackTimings">If set, called before each attack to get (windUp, windDown) for that attack (e.g. for Watcher's Eye: next attack only gets bonus).</param>
+    public void TriggerComboWithParameters(int numberOfAttaques, float durationBetweenAttaque, float windUpDuration, float windDownDuration, System.Func<float, float, (float, float)> getAttackTimings = null)
     {
         if (characterAttaqueSequence == null)
         {
@@ -73,7 +74,7 @@ public class CharacterComboSequence : MonoBehaviour
         if (_comboCoroutine != null)
             StopCoroutine(_comboCoroutine);
 
-        _comboCoroutine = StartCoroutine(ComboSequenceCoroutineWithParameters(numberOfAttaques, durationBetweenAttaque, windUpDuration, windDownDuration));
+        _comboCoroutine = StartCoroutine(ComboSequenceCoroutineWithParameters(numberOfAttaques, durationBetweenAttaque, windUpDuration, windDownDuration, getAttackTimings));
     }
 
     /// <summary>
@@ -147,10 +148,11 @@ public class CharacterComboSequence : MonoBehaviour
     /// </summary>
     /// <param name="numberOfAttaques">Number of attacks.</param>
     /// <param name="durationBetweenAttaque">Seconds between attacks.</param>
-    /// <param name="windUpDuration">Wind-up duration per attack.</param>
+    /// <param name="windUpDuration">Wind-up duration per attack (base).</param>
     /// <param name="windDownDuration">Wind-down duration per attack.</param>
+    /// <param name="getAttackTimings">Optional; if set, used to get (windUp, windDown) for each attack.</param>
     /// <returns>Enumerator for the coroutine.</returns>
-    private IEnumerator ComboSequenceCoroutineWithParameters(int numberOfAttaques, float durationBetweenAttaque, float windUpDuration, float windDownDuration)
+    private IEnumerator ComboSequenceCoroutineWithParameters(int numberOfAttaques, float durationBetweenAttaque, float windUpDuration, float windDownDuration, System.Func<float, float, (float, float)> getAttackTimings = null)
     {
         if (numberOfAttaques <= 0)
         {
@@ -163,6 +165,14 @@ public class CharacterComboSequence : MonoBehaviour
 
         while (_attacksRemaining > 0)
         {
+            float wu = windUpDuration;
+            float wd = windDownDuration;
+            if (getAttackTimings != null)
+            {
+                var t = getAttackTimings(windUpDuration, windDownDuration);
+                wu = t.Item1;
+                wd = t.Item2;
+            }
             Direction attackDirection;
             if (_nextAttackDirectionOverride.HasValue)
             {
@@ -173,8 +183,8 @@ public class CharacterComboSequence : MonoBehaviour
             {
                 attackDirection = AttackDirections[Random.Range(0, AttackDirections.Length)];
             }
-            characterAttaqueSequence.StartAttaque(attackDirection, windUpDuration, windDownDuration);
-            yield return new WaitForSeconds(windUpDuration + windDownDuration + durationBetweenAttaque);
+            characterAttaqueSequence.StartAttaque(attackDirection, wu, wd);
+            yield return new WaitForSeconds(wu + wd + durationBetweenAttaque);
             _attacksRemaining--;
         }
 
