@@ -123,6 +123,13 @@ public class RogueliteProgressionConfig : ScriptableObject
     [Tooltip("Optional. If > 0, gold reward for winning the boss fight; otherwise uses goldRewardMax.")]
     [SerializeField] private int bossGoldReward;
 
+    [Tooltip("Gold multiplier for easiest option (rank 1).")]
+    [SerializeField] [Range(0.5f, 2f)] private float goldRank1Multiplier = 0.8f;
+    [Tooltip("Gold multiplier for middle option (rank 2).")]
+    [SerializeField] [Range(0.5f, 2f)] private float goldRank2Multiplier = 1f;
+    [Tooltip("Gold multiplier for hardest option (rank 3).")]
+    [SerializeField] [Range(0.5f, 2f)] private float goldRank3Multiplier = 1.2f;
+
     [Header("Boss")]
     /// <summary>Optional. When set, after completing all normal fights the player gets one more level with this config. Winning ends the run.</summary>
     [Tooltip("Optional. When set, after completing all normal fights the player returns to the map once more with a single level using this config (no randomization). Winning it ends the run.")]
@@ -137,6 +144,9 @@ public class RogueliteProgressionConfig : ScriptableObject
     public int GoldRewardMin => goldRewardMin;
     public int GoldRewardMax => goldRewardMax;
     public int BossGoldReward => bossGoldReward;
+    public float GoldRank1Multiplier => goldRank1Multiplier;
+    public float GoldRank2Multiplier => goldRank2Multiplier;
+    public float GoldRank3Multiplier => goldRank3Multiplier;
     public FightConfig BossFightConfig => bossFightConfig;
     public float DifficultyVariationRange => difficultyVariationRange;
     public GameplayConfig TemplateGameplayConfig => templateGameplayConfig;

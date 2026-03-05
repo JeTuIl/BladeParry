@@ -10,10 +10,6 @@ public static class FightSetupBuilder
     /// </summary>
     public const int LevelOptionsCount = 3;
 
-    private const float Rank1Multiplier = 0.8f;
-    private const float Rank2Multiplier = 1f;
-    private const float Rank3Multiplier = 1.2f;
-
     /// <summary>
     /// Generates three fight setups (FightConfigs) for the current run progress.
     /// Each option has its own adjusted difficulty, random pool picks, and generated GameplayConfig.
@@ -67,8 +63,8 @@ public static class FightSetupBuilder
         for (int i = 0; i < LevelOptionsCount; i++)
         {
             float multiplier = ranks != null && i < ranks.Length
-                ? (ranks[i] == 1 ? Rank1Multiplier : ranks[i] == 2 ? Rank2Multiplier : Rank3Multiplier)
-                : Rank2Multiplier;
+                ? (ranks[i] == 1 ? progressionConfig.GoldRank1Multiplier : ranks[i] == 2 ? progressionConfig.GoldRank2Multiplier : progressionConfig.GoldRank3Multiplier)
+                : progressionConfig.GoldRank2Multiplier;
             int gold = Mathf.RoundToInt(baseGold * multiplier);
             result[i].SetGoldReward(Mathf.Max(0, gold));
         }
