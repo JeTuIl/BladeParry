@@ -63,6 +63,50 @@ MonoBehaviour:
       It''s the fastest way to win!'
     m_Metadata:
       m_Items: []
+  - m_Id: 2144678768218112
+    m_Localized: Fighting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2144989914271744
+    m_Localized: Roguelite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2146616364699648
+    m_Localized: 'Between each fight, you''ll return to the level selection screen.
+      This is where you can manage your progress.
+
+      The bar at the top of the
+      screen shows you the number of fights you''ve won compared to your total.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148256404672512
+    m_Localized: 'After each battle, you can choose one of three upgrades.
+
+      These
+      upgrades will make you stronger and easier in future battles. Read the descriptions
+      carefully and choose the one you want.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148961781747712
+    m_Localized: You can view the improvements you have selected in the pause menu
+      by pressing the button in the top right corner of the screen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2150081400868864
+    m_Localized: 'Once you''ve chosen an upgrade, you''ll need to select your next
+      battle.
+
+      The three options vary in difficulty. Click on a level for
+      more details.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2151011689107456
+    m_Localized: 'A tougher fight means better rewards.
+
+      Once you''ve made
+      your choice, press the button to start the fight.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

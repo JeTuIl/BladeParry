@@ -50,6 +50,45 @@ MonoBehaviour:
       plus rapide de gagner !"
     m_Metadata:
       m_Items: []
+  - m_Id: 2144678768218112
+    m_Localized: Combat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2144989914271744
+    m_Localized: Roguelite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2146616364699648
+    m_Localized: "Entre chaque combat, vous retournerez sur l'\xE9cran de s\xE9lection
+      de niveau. C'est ici que vous pourrez g\xE9rer votre progression.\r\nLa barre
+      en haut de l'\xE9cran vous indique le nombre de combats que vous avez remport\xE9s
+      par rapport au total."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148256404672512
+    m_Localized: "Apr\xE8s chaque combat, vous pourrez choisir une am\xE9lioration
+      parmi trois.\r\nCes am\xE9liorations vous rendront plus fort et faciliteront
+      vos combats futurs.\r\nLisez bien les descriptions et choisissez celle que
+      vous voulez prendre."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148961781747712
+    m_Localized: "Vous pouvez consulter les am\xE9liorations que vous avez s\xE9lectionn\xE9es
+      dans le menu pause, en appuyant sur le bouton en haut \xE0 droite de l'\xE9cran."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2150081400868864
+    m_Localized: "Une fois que vous avez choisi une am\xE9lioration, il vous faudra
+      choisir le prochain combat que vous souhaitez mener.\r\nLes trois propositions
+      sont plus ou moins difficiles. Cliquez sur l'un des niveaux pour avoir plus
+      de d\xE9tails."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2151011689107456
+    m_Localized: "Un combat plus difficile signifie de meilleures r\xE9compenses.\r\nUne
+      fois que vous avez choisi, appuyez sur le bouton pour commencer le combat."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

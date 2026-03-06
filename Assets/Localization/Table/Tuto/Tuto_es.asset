@@ -48,6 +48,43 @@ MonoBehaviour:
       \xA1Es la forma m\xE1s r\xE1pida de ganar!"
     m_Metadata:
       m_Items: []
+  - m_Id: 2144678768218112
+    m_Localized: Combatir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2144989914271744
+    m_Localized: Roguelite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2146616364699648
+    m_Localized: "Entre cada combate, volver\xE1s a la pantalla de selecci\xF3n de
+      nivel. Aqu\xED podr\xE1s gestionar tu progreso.\r\nLa barra en la parte superior
+      de la pantalla muestra el n\xFAmero de combates ganados en comparaci\xF3n con
+      tu total."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148256404672512
+    m_Localized: "Despu\xE9s de cada batalla, puedes elegir una de tres mejoras.\r\nEstas
+      mejoras te har\xE1n m\xE1s fuerte y te ayudar\xE1n en futuras batallas. Lee
+      atentamente las descripciones y elige la que prefieras."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148961781747712
+    m_Localized: "Puedes ver las mejoras que has seleccionado en el men\xFA de pausa
+      presionando el bot\xF3n en la esquina superior derecha de la pantalla."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2150081400868864
+    m_Localized: "Una vez que hayas elegido una mejora, tendr\xE1s que seleccionar
+      tu pr\xF3xima batalla.\r\nLas tres opciones var\xEDan en dificultad. Haz clic
+      en un nivel para obtener m\xE1s detalles."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2151011689107456
+    m_Localized: "Una pelea m\xE1s dura significa mejores recompensas. Una vez que
+      hayas elegido, pulsa el bot\xF3n para comenzar la pelea."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

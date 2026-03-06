@@ -58,8 +58,16 @@ public class PageUiManager : MonoBehaviour
     [SerializeField] private Button previousPageButton;
 
     [Header("Pages")]
-    /// <summary>List of pages (sprite + localization key per page).</summary>
+    /// <summary>Categories, each with its own list of pages. When non-empty, the selected category's pages are shown.</summary>
+    [Tooltip("Categories, each with its own list of pages. When non-empty, the selected category's pages are shown. Leave empty to use the legacy single 'pages' list.")]
+    [SerializeField] private List<PageCategoryData> categories = new List<PageCategoryData>();
+
+    /// <summary>Legacy: single list of pages when categories is null or empty (backward compatibility).</summary>
+    [Tooltip("Used when categories is empty. Ignored when categories has at least one entry.")]
     [SerializeField] private List<PageData> pages = new List<PageData>();
+
+    /// <summary>Current category index (0-based). Used when categories is non-empty.</summary>
+    private int _currentCategoryIndex;
 
     /// <summary>Current page index (0-based).</summary>
     private int _currentPageIndex;
@@ -67,22 +75,41 @@ public class PageUiManager : MonoBehaviour
     /// <summary>Active coroutine loading localized text; null when idle.</summary>
     private Coroutine _refreshTextCoroutine;
 
+    /// <summary>Active pages for the current category, or legacy pages when no categories. Never null.</summary>
+    private IReadOnlyList<PageData> ActivePages
+    {
+        get
+        {
+            if (categories != null && categories.Count > 0)
+            {
+                int idx = Mathf.Clamp(_currentCategoryIndex, 0, categories.Count - 1);
+                var list = categories[idx].Pages;
+                return list != null ? list : (IReadOnlyList<PageData>)new List<PageData>();
+            }
+            return pages != null ? pages : (IReadOnlyList<PageData>)new List<PageData>();
+        }
+    }
+
     /// <summary>Current page index (0-based).</summary>
     public int CurrentPageIndex => _currentPageIndex;
 
-    /// <summary>Total number of pages.</summary>
-    public int PageCount => pages != null ? pages.Count : 0;
+    /// <summary>Total number of pages in the current category (or legacy list).</summary>
+    public int PageCount => ActivePages.Count;
 
     /// <summary>True if there is a next page.</summary>
-    public bool HasNext => pages != null && pages.Count > 0 && _currentPageIndex < pages.Count - 1;
+    public bool HasNext => ActivePages.Count > 0 && _currentPageIndex < ActivePages.Count - 1;
 
     /// <summary>True if there is a previous page.</summary>
-    public bool HasPrevious => pages != null && _currentPageIndex > 0;
+    public bool HasPrevious => _currentPageIndex > 0;
 
-    /// <summary>Initializes to the first page and refreshes display.</summary>
+    /// <summary>Number of categories (0 when using legacy single pages list).</summary>
+    public int CategoryCount => categories != null ? categories.Count : 0;
+
+    /// <summary>Initializes to the first page of the current category (or legacy list) and refreshes display.</summary>
     private void Start()
     {
-        if (pages != null && pages.Count > 0)
+        var active = ActivePages;
+        if (active.Count > 0)
         {
             _currentPageIndex = 0;
             RefreshCurrentPage();
@@ -119,11 +146,12 @@ public class PageUiManager : MonoBehaviour
     /// <remarks>Starts an async coroutine to load localized text; next/previous buttons and page counter are updated.</remarks>
     public void RefreshCurrentPage()
     {
-        if (pages == null || pages.Count == 0)
+        var active = ActivePages;
+        if (active.Count == 0)
             return;
 
-        int index = Mathf.Clamp(_currentPageIndex, 0, pages.Count - 1);
-        PageData page = pages[index];
+        int index = Mathf.Clamp(_currentPageIndex, 0, active.Count - 1);
+        PageData page = active[index];
 
         if (pageImage != null)
         {
@@ -207,9 +235,27 @@ public class PageUiManager : MonoBehaviour
     /// <param name="index">0-based page index; clamped to [0, PageCount - 1].</param>
     public void ShowPage(int index)
     {
-        if (pages == null || pages.Count == 0)
+        var active = ActivePages;
+        if (active.Count == 0)
             return;
-        _currentPageIndex = Mathf.Clamp(index, 0, pages.Count - 1);
+        _currentPageIndex = Mathf.Clamp(index, 0, active.Count - 1);
+        RefreshCurrentPage();
+    }
+
+    /// <summary>
+    /// Sets the active category by index. When categories is used, this switches which pages are shown.
+    /// </summary>
+    /// <param name="categoryIndex">0-based category index; clamped to valid range.</param>
+    /// <param name="resetPageIndex">If true, resets to the first page of the category.</param>
+    public void SetCategory(int categoryIndex, bool resetPageIndex = true)
+    {
+        if (categories == null || categories.Count == 0)
+            return;
+        _currentCategoryIndex = Mathf.Clamp(categoryIndex, 0, categories.Count - 1);
+        if (resetPageIndex)
+            _currentPageIndex = 0;
+        else
+            _currentPageIndex = Mathf.Clamp(_currentPageIndex, 0, Mathf.Max(0, ActivePages.Count - 1));
         RefreshCurrentPage();
     }
 

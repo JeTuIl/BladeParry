@@ -35,6 +35,34 @@ MonoBehaviour:
     m_Key: Tuto_Fight5
     m_Metadata:
       m_Items: []
+  - m_Id: 2144678768218112
+    m_Key: CategoryFight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2144989914271744
+    m_Key: RogueCategory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2146616364699648
+    m_Key: Tuto_Rogue1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148256404672512
+    m_Key: Tuto_Rogue2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2148961781747712
+    m_Key: Tuto_Rogue3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2150081400868864
+    m_Key: Tuto_Rogue4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2151011689107456
+    m_Key: Tuto_Rogue5
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
